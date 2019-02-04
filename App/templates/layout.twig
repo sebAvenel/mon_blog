@@ -25,7 +25,7 @@
             <div class="container">
 
                 <a class="navbar-brand" href="#">
-                    <img src="../public/img/sa.jpg" width="25" height="25" class="d-inline-block align-top" alt="">
+                    <img src="../public/img/sa.jpg" id="navbar-logo" class="d-inline-block align-top" alt="">
                     SAvenel
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,12 +69,12 @@
             </div>
         </nav>
 
-        <div class="container-fluid">
-            {% block content %}{% endblock %}
-        </div>
+
+        {% block content %}{% endblock %}
+
 
         <!-- Footer -->
-        <footer class="text-center fixed-bottom">
+        <footer class="text-center">
             <div class="footer-above">
                 <div class="container">
                     <div class="row">

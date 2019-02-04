@@ -35,6 +35,10 @@ h6 {
     background-color: #233140;
 }
 
+#navbar-logo{
+    width: 25px;
+}
+
 a {
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
