@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Navbar</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block head %}{% endblock %}
+
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+
+        <!-- Theme CSS -->
+        <link href="../public/css/layout.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand" href="#">
+                    <img src="../public/img/sa.jpg" width="25" height="25" class="d-inline-block align-top" alt="">
+                    SAvenel
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <ul class="navbar-nav mr-auto justify-content-center">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Blog</a>
+                                    </li>
+                                    <!--
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Dropdown
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+                                    </li>
+                                    -->
+                                </ul>
+                            </div>
+                            <div class="col-lg-4">
+                                <ul class="navbar-nav mr-auto justify-content-end">
+                                    <li><a class="nav-link" href="#">Se connecter</a></li>
+                                    <li><a class="nav-link" style="color: white">/</a></li>
+                                    <li><a class="nav-link" href="#">S'inscrire</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center fixed-bottom">
+            <div class="footer-above">
+                <div class="container">
+                    <div class="row">
+                        <div class="footer-col col-md-4">
+                            <h3>Lieu</h3>
+                            <p>99 rue des dunes
+                                <br>14000 CAEN</p>
+                        </div>
+                        <div class="footer-col col-md-4">
+                            <h3>Réseaux sociaux</h3>
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="https://www.linkedin.com/in/s%C3%A9bastien-avenel-62723414b/" target="_blank" class="btn-social btn-outline"><i class="fab fa-linkedin-in"></i></a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://github.com/sebAvenel" target="_blank" class="btn-social btn-outline"><i class="fab fa-github"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="footer-col col-md-4">
+                            <h3>Mon curriculum vitae</h3>
+                            <p><a href="../public/doc/PDF/MonCV.pdf">Cliquer ici pour le télécharger</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-below">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            Copyright &copy; sebastien.avenel.fr
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
