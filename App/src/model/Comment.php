@@ -2,14 +2,15 @@
 
 namespace App\src\model;
 
-class BlogPost
+
+class Comment
 {
     private $id;
-    private $title;
-    private $chapo;
     private $content;
     private $created_at;
     private $updated_at;
+    private $is_valid;
+    private $id_blog_post;
     private $id_user;
 
     /**
@@ -26,38 +27,6 @@ class BlogPost
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @param mixed $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getChapo()
-    {
-        return $this->chapo;
-    }
-
-    /**
-     * @param mixed $chapo
-     */
-    public function setChapo($chapo)
-    {
-        $this->chapo = $chapo;
     }
 
     /**
@@ -111,6 +80,38 @@ class BlogPost
     /**
      * @return mixed
      */
+    public function getisValid()
+    {
+        return $this->is_valid;
+    }
+
+    /**
+     * @param mixed $is_valid
+     */
+    public function setIsValid($is_valid)
+    {
+        $this->is_valid = $is_valid;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdBlogPost()
+    {
+        return $this->id_blog_post;
+    }
+
+    /**
+     * @param mixed $id_blog_post
+     */
+    public function setIdBlogPost($id_blog_post)
+    {
+        $this->id_blog_post = $id_blog_post;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getIdUser()
     {
         return $this->id_user;
@@ -124,5 +125,5 @@ class BlogPost
         $this->id_user = $id_user;
     }
 
-
+    
 }
