@@ -34,6 +34,11 @@ class Router
             case 'forgotPassword':
                 echo $twig->render('forgotPassword.twig');
                 break;
+            case 'blogPostsList':
+                echo $twig->render('blogPostsList.twig', [
+                    'blogPostsList' => $this->frontController->listOfBlogPosts()
+                ]);
+                break;
             default:
                 header('HTTP/1.0 404 Not Found');
                 echo $twig->render('404.twig');
