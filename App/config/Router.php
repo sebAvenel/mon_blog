@@ -2,8 +2,17 @@
 
 namespace App\config;
 
+use src\controller\FrontController;
+
 class Router
 {
+
+    private $frontController;
+
+    public function __construct()
+    {
+        $this->frontController = new FrontController();
+    }
 
     public function run($twig){
 
