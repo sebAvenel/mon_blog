@@ -20,6 +20,9 @@ switch ($page){
     case 'home':
         echo $twig->render('home.twig');
         break;
+    case 'signin':
+        echo $twig->render('signIn.twig');
+        break;
     default:
         header('HTTP/1.0 404 Not Found');
         echo $twig->render('404.twig');
