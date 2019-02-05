@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="644b21fc-3874-4e05-af0b-e2106b641d64" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/App/src/model/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/model/BlogPost.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/model/BlogPost.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/src/model/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/src/model/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/model/Comment.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +30,7 @@
           <entry key="home" value="1" />
           <entry key="js" value="1" />
           <entry key="json" value="2" />
-          <entry key="php" value="11" />
+          <entry key="php" value="12" />
           <entry key="twig" value="5" />
         </counts>
       </usages-collector>
@@ -39,7 +39,7 @@
           <entry key="CSS" value="5" />
           <entry key="JSON" value="2" />
           <entry key="JavaScript" value="1" />
-          <entry key="PHP" value="11" />
+          <entry key="PHP" value="12" />
           <entry key="Twig" value="6" />
         </counts>
       </usages-collector>
@@ -47,20 +47,20 @@
         <counts>
           <entry key="css" value="148" />
           <entry key="home" value="141" />
-          <entry key="php" value="929" />
+          <entry key="php" value="994" />
           <entry key="twig" value="566" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="148" />
-          <entry key="PHP" value="929" />
+          <entry key="PHP" value="994" />
           <entry key="Twig" value="707" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
         <counts>
-          <entry key="PHP Class.type" value="5" />
+          <entry key="PHP Class.type" value="6" />
         </counts>
       </usages-collector>
     </session>
@@ -117,11 +117,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/src/model/Comment.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2159">
-              <caret line="127" column="4" lean-forward="true" selection-start-line="127" selection-start-column="4" selection-end-line="127" selection-end-column="4" />
+            <state relative-caret-position="153">
+              <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/App/src/model/User.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="765">
+              <caret line="93" column="4" lean-forward="true" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -157,6 +166,7 @@
         <option value="$PROJECT_DIR$/App/config/dev.php" />
         <option value="$PROJECT_DIR$/App/src/model/BlogPost.php" />
         <option value="$PROJECT_DIR$/App/src/model/Comment.php" />
+        <option value="$PROJECT_DIR$/App/src/model/User.php" />
       </list>
     </option>
   </component>
@@ -286,12 +296,12 @@
       <option name="presentableId" value="Default" />
       <updated>1549294706851</updated>
       <workItem from="1549294716024" duration="80000" />
-      <workItem from="1549295034821" duration="20987000" />
+      <workItem from="1549295034821" duration="21341000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21067000" />
+    <option name="totallyTimeSpent" value="21421000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -468,8 +478,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/App/src/model/Comment.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2159">
-          <caret line="127" column="4" lean-forward="true" selection-start-line="127" selection-start-column="4" selection-end-line="127" selection-end-column="4" />
+        <state relative-caret-position="153">
+          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/src/model/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="765">
+          <caret line="93" column="4" lean-forward="true" selection-start-line="93" selection-start-column="4" selection-end-line="93" selection-end-column="4" />
         </state>
       </provider>
     </entry>
