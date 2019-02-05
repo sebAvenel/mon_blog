@@ -8,8 +8,8 @@ class Router
     public function run($twig){
 
         $page = 'home';
-        if (isset($_GET['p'])){
-            $page = $_GET['p'];
+        if (isset($_GET['route'])){
+            $page = $_GET['route'];
         }
 
         switch ($page){
