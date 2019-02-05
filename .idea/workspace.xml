@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="644b21fc-3874-4e05-af0b-e2106b641d64" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/App/config/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/config/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/templates/blogPostsList.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/blogPostsList.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +47,7 @@
           <entry key="css" value="148" />
           <entry key="home" value="141" />
           <entry key="php" value="1700" />
-          <entry key="twig" value="658" />
+          <entry key="twig" value="722" />
           <entry key="txt" value="18" />
         </counts>
       </usages-collector>
@@ -56,7 +56,7 @@
           <entry key="CSS" value="148" />
           <entry key="PHP" value="1700" />
           <entry key="PLAIN_TEXT" value="18" />
-          <entry key="Twig" value="799" />
+          <entry key="Twig" value="863" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
@@ -68,7 +68,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/App/config/Router.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="646">
@@ -86,11 +86,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/App/templates/blogPostsList.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+            <state relative-caret-position="153">
+              <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -128,8 +128,8 @@
         <option value="$PROJECT_DIR$/App/templates/layout.twig" />
         <option value="$PROJECT_DIR$/App/templates/register.twig" />
         <option value="$PROJECT_DIR$/App/templates/signIn.twig" />
-        <option value="$PROJECT_DIR$/App/templates/blogPostsList.twig" />
         <option value="$PROJECT_DIR$/App/config/Router.php" />
+        <option value="$PROJECT_DIR$/App/templates/blogPostsList.twig" />
       </list>
     </option>
   </component>
@@ -269,7 +269,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26707000" />
+    <option name="totallyTimeSpent" value="27204000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -449,13 +449,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/templates/blogPostsList.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="14" lean-forward="true" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/App/src/controller/FrontController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -467,6 +460,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="38" column="80" selection-start-line="38" selection-start-column="80" selection-end-line="38" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/templates/blogPostsList.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
         </state>
       </provider>
     </entry>
