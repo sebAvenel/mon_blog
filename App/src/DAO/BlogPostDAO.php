@@ -15,6 +15,7 @@ class BlogPostDAO extends DAO
             $blogPostId = $row['id'];
             $blogPosts[$blogPostId] = $this->buildObjectBlogPost($row);
         }
+        return $blogPosts;
     }
 
     private function buildObjectBlogPost(array $row)
