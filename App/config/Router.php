@@ -2,7 +2,7 @@
 
 namespace App\config;
 
-use src\controller\FrontController;
+use \App\src\controller\FrontController;
 
 class Router
 {

@@ -2,7 +2,7 @@
 
 namespace App\src\DAO;
 
-use src\model\BlogPost;
+use App\src\model\BlogPost;
 
 
 class BlogPostDAO extends DAO
