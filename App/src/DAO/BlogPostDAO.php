@@ -18,6 +18,15 @@ class BlogPostDAO extends DAO
         return $blogPosts;
     }
 
+    public function getBlogPost($idBlogPost){
+        $sql = 'SELECT id, title, chapo, content, created_at, updated_at, id_user FROM blog_post WHERE  id = ?';
+        $result = $this->sql($sql, [$idBlogPost]);
+        $row = $result->fetch();
+        if($row){
+            return $this->buildObjectBlogPost($row);
+        }
+    }
+
     private function buildObjectBlogPost(array $row)
     {
         $article = new BlogPost();

@@ -18,4 +18,10 @@ class FrontController
         $blogPosts = $this->blogPostDAO->getBlogPosts();
         return $blogPosts;
     }
+
+    public function getBlogPost($idBlogPost)
+    {
+        $blogPost = $this->blogPostDAO->getBlogPost($idBlogPost);
+        return $blogPost;
+    }
 }

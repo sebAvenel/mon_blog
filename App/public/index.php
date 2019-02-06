@@ -13,8 +13,8 @@ $twig = new Twig_Environment($loader, [
 
 $router = new \App\config\Router();
 $router->run($twig);
-
-
-
-
+/*
+$frontcontroller = new \App\src\controller\FrontController();
+var_dump($frontcontroller->getBlogPost(2));
+*/
 
