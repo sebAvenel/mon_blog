@@ -39,7 +39,7 @@ class Router
                 echo $twig->render('forgotPassword.twig');
                 break;
             case 'blogPostWithComments':
-                echo $twig->render('blogPostWithComment.twig');
+                echo $twig->render('blogPostWithComments.twig');
                 break;
             case 'blogPostsList':
                 echo $twig->render('blogPostsList.twig', [
