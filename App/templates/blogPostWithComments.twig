@@ -22,7 +22,7 @@
                 <div class="row">
                     {% for comment in comments %}
                         <div class="col-12">
-                            <div class="card w-75">
+                            <div class="card w-50">
                                 <div class="card-body">
                                     <h5 class="card-title">Posté par {{ comment.idUser}}</h5>
                                     <h6>dernière modification le {{ comment.updatedAt }}</h6>
@@ -34,7 +34,20 @@
                 </div>
             </div>
             <div class="container-fluid">
-
+                <div class="card w-75">
+                    <div class="card-header">
+                        ... Voulez-vous ajouter un commentaire?
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="comment">Rédigez votre commentaire:</label>
+                                <textarea class="form-control" id="comment" rows="5" placeholder="500 caractères maximum"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Valider</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
