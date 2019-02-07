@@ -41,7 +41,8 @@ class Router
                 break;
             case 'blogPostWithComments':
                 echo $twig->render('blogPostWithComments.twig', [
-                    'blogPost' => $this->frontController->getBlogPost($idBlogPost)
+                    'blogPost' => $this->frontController->getBlogPost($idBlogPost),
+                    'comments' => $this->frontController->listOfComments($idBlogPost)
                 ]);
                 break;
             case 'blogPostsList':
