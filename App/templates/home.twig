@@ -87,34 +87,45 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
-                    <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                    <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                    <form action="" method="post" name="sentMessage" id="contactForm" novalidate>
+                    <p>{{ response }}</p>
+                    {% if errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for error in errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if success %}
+                        <div class="alert alert-success" role="alert">
+                            {{ success }}
+                        </div>
+                    {% endif %}
+                    <form action="../php/post_contact.php" method="post" name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputname">Nom</label>
-                                <input type="text" class="form-control" name="name" placeholder="Nom" id="inputname" required data-validation-required-message="Vueillez entrer votre nom.">
+                                <input type="text" class="form-control" name="name" placeholder="Nom" id="inputname" value={{ inputs.name }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputemail">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Email" id="inputemail" required data-validation-required-message="Please enter your email address.">
+                                <input type="email" class="form-control" name="email" placeholder="Email" id="inputemail" value={{ inputs.email }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputphone">Téléphone</label>
-                                <input type="tel" class="form-control" name="phone" placeholder="Téléphone" id="inputphone" required data-validation-required-message="Please enter your phone number.">
+                                <input type="tel" class="form-control" name="phone" placeholder="Téléphone" id="inputphone" value={{ inputs.phone }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputmessage">Message</label>
-                                <textarea rows="5" class="form-control" name="message" placeholder="Message" id="inputmessage" required data-validation-required-message="Please enter a message."></textarea>
+                                <textarea rows="5" class="form-control" name="message" placeholder="Message" id="inputmessage">{{ inputs.message }}</textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>

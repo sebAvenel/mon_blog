@@ -33,4 +33,10 @@ class FrontController
         $comments = $this->commentDAO->getCommentsFromBlogPost($idBlogPost);
         return $comments;
     }
+
+    public function listOfCommentsWithUser($idBlogPost)
+    {
+        $comments = $this->commentDAO->getCommentsFromBlogPostWithUser($idBlogPost);
+        return $comments;
+    }
 }

@@ -8,7 +8,7 @@ VALUES
 	('julius09', 'GThy6h8KI', 'ma.dan@gmail.com', 'user');
 	
 INSERT INTO blog_post
-	(title, chapo, content, created_at, updated_at, id_user)
+	(title, chapo, content, createdAt, updatedAt, idUser)
 VALUES
 	('mon premier post', 'mon premier chapo', 'contenu de mon premier post...', NOW(), NOW(), 1),
 	('mon deuxième post', 'mon deuxième chapo', 'contenu de mon deuxième post...', NOW(), NOW(), 1 ),
@@ -17,20 +17,20 @@ VALUES
 	('mon cinquième post', 'mon cinquième chapo', 'contenu de mon cinquième post...', NOW(), NOW(), 1);
 	
 INSERT INTO comment
-	(content, created_at, updated_at, is_valid, id_blog_post, id_user)
+	(content, createdAt, updatedAt, isValid, idBlogPost, idUser)
 VALUES
-	('mon premier commentaire', NOW(), NOW(), 1, 2, 2),
-	('mon deuxième commentaire', NOW(), NOW(), 0, 1, 3),
-	('mon troisième commentaire', NOW(), NOW(), 1, 4, 4),
+	('mon premier commentaire', NOW(), NOW(), 1, 2, 1),
+	('mon deuxième commentaire', NOW(), NOW(), 0, 1, 2),
+	('mon troisième commentaire', NOW(), NOW(), 1, 4, 3),
 	('mon quatrième commentaire', NOW(), NOW(), 0, 3, 5),
 	('mon cinquième commentaire', NOW(), NOW(), 0, 5, 3),
-	('mon sixième commentaire', NOW(), NOW(), 1, 2, 2),
-	('mon septième commentaire', NOW(), NOW(), 0, 1, 3),
-	('mon huitième commentaire', NOW(), NOW(), 1, 4, 4),
-	('mon neuvième commentaire', NOW(), NOW(), 0, 3, 5),
-	('mon dixième commentaire', NOW(), NOW(), 1, 5, 3),
-	('mon onzième commentaire', NOW(), NOW(), 1, 2, 2),
-	('mon douzième commentaire', NOW(), NOW(), 0, 1, 3),
-	('mon treizième commentaire', NOW(), NOW(), 1, 4, 4),
-	('mon quatorzième commentaire', NOW(), NOW(), 0, 3, 5),
-	('mon quinzième commentaire', NOW(), NOW(), 1, 5, 3);
+	('mon sixième commentaire', NOW(), NOW(), 1, 2, 3),
+	('mon septième commentaire', NOW(), NOW(), 0, 1, 4),
+	('mon huitième commentaire', NOW(), NOW(), 1, 4, 1),
+	('mon neuvième commentaire', NOW(), NOW(), 0, 3, 2),
+	('mon dixième commentaire', NOW(), NOW(), 1, 5, 4),
+	('mon onzième commentaire', NOW(), NOW(), 1, 2, 5),
+	('mon douzième commentaire', NOW(), NOW(), 0, 1, 5),
+	('mon treizième commentaire', NOW(), NOW(), 1, 4, 2),
+	('mon quatorzième commentaire', NOW(), NOW(), 0, 3, 1),
+	('mon quinzième commentaire', NOW(), NOW(), 1, 5, 1);
