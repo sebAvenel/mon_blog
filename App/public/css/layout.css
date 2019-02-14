@@ -3,6 +3,7 @@
 body {
     font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-x: hidden;
+    background-color: #233140
 }
 p {
     font-size: 20px;
@@ -48,6 +49,9 @@ a {
 .navbar a{
     color: white;
 }
+.dropdown-menu{
+    background-color: #233140;
+}
 .navbar-toggler{
     background-color: white;
 }
@@ -55,7 +59,7 @@ a {
     color: #233140;
 }
 li a:hover{
-    color: #18BC9C;
+    color: white;
 }
 
 /* Footer */

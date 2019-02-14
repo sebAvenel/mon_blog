@@ -3,8 +3,7 @@
     --input-padding-y: .75rem;
 }
 
-body {
-    background: #18BC9C;
+#registerForm {
     background: linear-gradient(to right, #0AA183, #72EDD5);
 }
 

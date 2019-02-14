@@ -2,6 +2,10 @@
 
 session_start();
 
+if (isset($_SESSION['errorAuthUser']) || isset($_SESSION['infosUser'])){
+    unset($_POST);
+}
+
 const HOST = 'localhost';
 const DB_NAME = 'blog_p5';
 const CHARSET = 'utf8';

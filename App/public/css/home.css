@@ -79,12 +79,20 @@ section.success {
 
 /* portfolio */
 
+#portfolio{
+    background-color: white;
+}
+
 #portfolio .col-sm-4{
     margin-top: 15px;
     margin-bottom: 25px;
 }
 
 /* Formulaire */
+
+#contact{
+    background-color: white;
+}
 
 #contact .row{
     display: inherit;

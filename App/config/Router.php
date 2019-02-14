@@ -3,15 +3,18 @@
 namespace App\config;
 
 use \App\src\controller\FrontController;
+use \App\src\controller\BackController;
 
 class Router
 {
 
     private $frontController;
+    private $BackController;
 
     public function __construct()
     {
         $this->frontController = new FrontController();
+        $this->BackController = new BackController();
     }
 
     public function run($twig){
@@ -44,15 +47,44 @@ class Router
             unset($_SESSION['inputs']);
         }
 
+        $connectUser = [];
+        if (isset($_POST['signInEmail']) && isset($_POST['signInPassword'])){
+            $this->BackController->authUser($_POST['signInEmail'], $_POST['signInPassword']);
+            if (isset($_SESSION['infosUser'])){
+                header('Location: ../public/index.php');
+            }
+        }
+
+        if (isset($_SESSION['errorAuthUser'])){
+            $connectUser = $_SESSION['errorAuthUser'];
+            unset($_SESSION['errorAuthUser']);
+            $page = 'signin';
+        }
+
+        if (isset($_SESSION['infosUser'])){
+            $connectUser = $_SESSION['infosUser'];
+        }
+
+        if (isset($_GET['deconnexion'])){
+            session_destroy();
+            header('Location: ../public/index.php');
+        }
+
         switch ($page){
             case 'home':
-                echo $twig->render('home.twig');
+                echo $twig->render('home.twig', [
+                    'userConnectSuccess' => $connectUser
+                ]);
                 break;
             case 'signin':
-                echo $twig->render('signIn.twig');
+                echo $twig->render('signIn.twig', [
+                    'errorConnectUser' => $connectUser
+                ]);
                 break;
             case 'register':
-                echo $twig->render('register.twig');
+                echo $twig->render('register.twig', [
+                    'userConnectSuccess' => $connectUser
+                ]);
                 break;
             case 'forgotPassword':
                 echo $twig->render('forgotPassword.twig');
@@ -60,7 +92,8 @@ class Router
             case 'blogPostWithComments':
                 echo $twig->render('blogPostWithComments.twig', [
                     'blogPost' => $this->frontController->getBlogPost($idBlogPost),
-                    'comments' => $this->frontController->listOfCommentsWithUser($idBlogPost)
+                    'comments' => $this->frontController->listOfCommentsWithUser($idBlogPost),
+                    'userConnectSuccess' => $connectUser
                 ]);
                 break;
             case 'homeContact':
@@ -72,7 +105,8 @@ class Router
                 break;
             case 'blogPostsList':
                 echo $twig->render('blogPostsList.twig', [
-                    'blogPostsList' => $this->frontController->listOfBlogPosts()
+                    'blogPostsList' => $this->frontController->listOfBlogPosts(),
+                    'userConnectSuccess' => $connectUser
                 ]);
                 break;
             default:
