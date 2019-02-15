@@ -7,8 +7,8 @@ use App\src\model\Comment;
 
 class CommentsDAO extends DAO
 {
-    public function getCommentsFromBlogPost($idBlogPost){
-
+    public function getCommentsFromBlogPost($idBlogPost)
+    {
         $sql = 'SELECT id, content, createdAt, DATE_FORMAT(updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, isValid, idBlogPost, idUser
                 FROM comment 
                 WHERE comment.idBlogPost = ?';
@@ -18,11 +18,13 @@ class CommentsDAO extends DAO
             $commentId = $data['id'];
             $comments[$commentId] = $this->buildObjectComment($data);
         }
+
         return $comments;
 
     }
 
-    public function getCommentsFromBlogPostWithUser($idBlogPost){
+    public function getCommentsFromBlogPostWithUser($idBlogPost)
+    {
         $sql = 'SELECT comment.id, comment.content, comment.createdAt, DATE_FORMAT(comment.updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, comment.isValid, comment.idBlogPost, comment.idUser, user.id AS userId, user.name
                 FROM comment 
                 INNER JOIN user
@@ -34,10 +36,12 @@ class CommentsDAO extends DAO
         foreach ($result as $key => $value){
             $tab[$key] = $value;
         }
+
         return $tab;
     }
 
-    private function buildObjectComment(array $row){
+    private function buildObjectComment(array $row)
+    {
 
         $comment = new Comment();
         $comment->setId($row['id']);
@@ -47,6 +51,7 @@ class CommentsDAO extends DAO
         $comment->setIsValid($row['isValid']);
         $comment->setIdBlogPost($row['idBlogPost']);
         $comment->setIdUser($row['idUser']);
+
         return $comment;
     }
 }

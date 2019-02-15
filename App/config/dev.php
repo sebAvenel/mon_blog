@@ -2,7 +2,8 @@
 
 session_start();
 
-if (isset($_SESSION['errorAuthUser']) || isset($_SESSION['infosUser'])){
+if (isset($_SESSION['errorAuthUser']) || isset($_SESSION['infosUser']))
+{
     unset($_POST);
 }
 

@@ -7,7 +7,8 @@ use App\src\model\BlogPost;
 
 class BlogPostDAO extends DAO
 {
-    public function getBlogPosts(){
+    public function getBlogPosts()
+    {
         $sql = 'SELECT id, title, chapo, content, DATE_FORMAT(createdAt, "%d/%m/%Y") AS createdAt, updatedAt, idUser FROM blog_post ORDER BY id DESC';
         $result = $this->sql($sql);
         $blogPosts = [];
@@ -15,14 +16,17 @@ class BlogPostDAO extends DAO
             $blogPostId = $row['id'];
             $blogPosts[$blogPostId] = $this->buildObjectBlogPost($row);
         }
+
         return $blogPosts;
     }
 
-    public function getBlogPost($idBlogPost){
+    public function getBlogPost($idBlogPost)
+    {
         $sql = 'SELECT id, title, chapo, content, createdAt, updatedAt, idUser FROM blog_post WHERE  id = ?';
         $result = $this->sql($sql, [$idBlogPost]);
         $row = $result->fetch();
         if($row){
+
             return $this->buildObjectBlogPost($row);
         }
     }
@@ -37,6 +41,7 @@ class BlogPostDAO extends DAO
         $article->setCreatedAt($row['createdAt']);
         $article->setUpdatedAt($row['updatedAt']);
         $article->setIdUser($row['idUser']);
+
         return $article;
     }
 }

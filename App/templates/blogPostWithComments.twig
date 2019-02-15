@@ -29,11 +29,35 @@
                                         <h6>dernière modification le {{ comment.updatedAt }}</h6>
                                         <p class="card-text">{{ comment.content }}</p>
                                     </div>
+                                    {% if userConnectSuccess and userConnectSuccess.idUser == comment.userId%}
+                                        <div id="collapseModifComment">
+                                            <hr>
+                                            <p>
+                                                <a data-toggle="collapse" href="#" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Modifier commentaire</a>
+                                                <a data-toggle="collapse" href="#" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Supprimer commentaire</a>
+                                            </p>
+                                            <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                                <form action="" method="post">
+                                                    <textarea name="textareaModifComment" rows="5" class="form-control">{{ comment.content }}</textarea>
+                                                    <button type="submit" class="btn btn-success">Modifier</button>
+                                                </form>
+                                            </div>
+                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <form>
+                                                        <p>Voulez-vous vraiement supprimer ce commentaire ?</p>
+                                                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 </div>
+                {% if userConnectSuccess %}
                 <div class="container-fluid">
                     <div class="card w-75">
                         <div class="card-header">
@@ -50,6 +74,7 @@
                         </div>
                     </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </div>

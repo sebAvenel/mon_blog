@@ -1,21 +1,25 @@
 /* Général */
 
-body {
+body
+{
     font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-x: hidden;
     background-color: #233140
 }
-p {
+p
+{
     font-size: 20px;
 }
-p.small {
+p.small
+{
     font-size: 16px;
 }
 a,
 a:hover,
 a:focus,
 a:active,
-a.active {
+a.active
+{
     color: #18BC9C;
     outline: none;
 }
@@ -24,7 +28,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6
+{
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 700;
@@ -32,56 +37,70 @@ h6 {
 
 /* Navbar */
 
-.navbar{
+.navbar
+{
     background-color: #233140;
 }
 
-#navbar-logo{
+#navbar-logo
+{
     width: 25px;
 }
 
-a {
+a
+{
     font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase;
     font-weight: 600;
 }
 
-.navbar a{
+.navbar a
+{
     color: white;
 }
-.dropdown-menu{
+.dropdown-menu
+{
     background-color: #233140;
 }
-.navbar-toggler{
+.navbar-toggler
+{
     background-color: white;
 }
-.navbar-toggler-icon{
+.navbar-toggler-icon
+{
     color: #233140;
 }
-li a:hover{
+li a:hover
+{
     color: white;
 }
 
 /* Footer */
 
-footer {
+footer
+{
     color: white;
 }
-footer h3 {
+footer h3
+{
     margin-bottom: 30px;
 }
-footer .footer-above {
+footer .footer-above
+{
     padding-top: 50px;
     background-color: #2C3E50;
 }
-footer .footer-col {
+footer .footer-col
+{
     margin-bottom: 50px;
 }
-footer .footer-below {
+footer .footer-below
+{
     padding: 25px 0;
     background-color: #233140;
 }
-.btn-outline {
+.btn-outline
+{
     color: white;
     font-size: 20px;
     border: solid 2px white;
@@ -92,12 +111,14 @@ footer .footer-below {
 .btn-outline:hover,
 .btn-outline:focus,
 .btn-outline:active,
-.btn-outline.active {
+.btn-outline.active
+{
     color: #18BC9C;
     background: white;
     border: solid 2px white;
 }
-.btn-social {
+.btn-social
+{
     display: inline-block;
     height: 50px;
     width: 50px;

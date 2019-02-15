@@ -1,19 +1,23 @@
-#blogPostsGallery{
+#blogPostsGallery
+{
     background-color: white;
     padding-bottom: 30px;
 }
 
-#blogPostsGallery h1{
+#blogPostsGallery h1
+{
     text-align: center;
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
-.card{
+.card
+{
     margin-bottom: 20px;
 }
 
-.card-header{
+.card-header
+{
     background-color: inherit;
     background-color: #72EDD5;
 }

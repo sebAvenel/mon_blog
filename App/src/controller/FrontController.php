@@ -19,24 +19,28 @@ class FrontController
     public function listOfBlogPosts()
     {
         $blogPosts = $this->blogPostDAO->getBlogPosts();
+
         return $blogPosts;
     }
 
     public function getBlogPost($idBlogPost)
     {
         $blogPost = $this->blogPostDAO->getBlogPost($idBlogPost);
+
         return $blogPost;
     }
 
     public function listOfComments($idBlogPost)
     {
         $comments = $this->commentDAO->getCommentsFromBlogPost($idBlogPost);
+
         return $comments;
     }
 
     public function listOfCommentsWithUser($idBlogPost)
     {
         $comments = $this->commentDAO->getCommentsFromBlogPostWithUser($idBlogPost);
+
         return $comments;
     }
 }

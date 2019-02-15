@@ -15,6 +15,7 @@ abstract class DAO
         if($this->connection === null) {
             return $this->getConnection();
         }
+
         return $this->connection;
     }
 
@@ -25,6 +26,7 @@ abstract class DAO
             $this->connection = new PDO(DB_HOST, DB_USER, DB_PASS);
             $this->connection->exec('SET NAMES utf8');
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             return $this->connection;
         }
 
@@ -40,10 +42,12 @@ abstract class DAO
         {
             $result = $this->checkConnection()->prepare($sql);
             $result->execute($parameters);
+
             return $result;
         }
         else{
             $result = $this->checkConnection()->query($sql);
+            
             return $result;
         }
     }

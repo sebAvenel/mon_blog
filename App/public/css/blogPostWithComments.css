@@ -1,25 +1,59 @@
-#blogPostWihComments{
+#blogPostWihComments
+{
     background-color: white;
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
-.card{
+.car{
     margin-top: 40px;
     margin-bottom: 40px;
     padding-bottom: 40px;
 }
 
-.w-50{
+.w-50
+{
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: 50px;
     padding-bottom: 0px;
 }
 
-.w-75{
+.w-75
+{
     margin-left: 25px;
     margin-top: 10px;
     margin-bottom: 0px;
     padding-bottom: 10px;
+}
+
+#collapseModifComment
+{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#collapseModifComment a
+{
+    font-size: 10px;
+    color: gray;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#collapseModifComment a:hover
+{
+    color: #18BC9C;
+    text-decoration: none;
+}
+
+#collapseModifComment form
+{
+    text-align: center;
+}
+
+#collapseModifComment .btn-success
+{
+    margin: 10px;
+
 }

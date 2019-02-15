@@ -17,12 +17,14 @@ class BackController
     public function verifMailUser($emailUser)
     {
         $verifMail = $this->userDAO->verifMailUser($emailUser);
+
         return $verifMail;
     }
 
     public function authUser($emailUser, $pwdUser)
     {
         $authUser = $this->userDAO->authUser($emailUser, $pwdUser);
+
         return $authUser;
     }
 
