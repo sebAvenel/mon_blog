@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="644b21fc-3874-4e05-af0b-e2106b641d64" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/App/public/css/register.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/templates/forgotPassword.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/templates/register.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/public/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/layout.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/layout.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/templates/signIn.twig" beforeDir="false" afterPath="$PROJECT_DIR$/App/templates/signIn.twig" afterDir="false" />
-    </list>
+    <list default="true" id="644b21fc-3874-4e05-af0b-e2106b641d64" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,17 +26,17 @@
           <entry key="css" value="5" />
           <entry key="home" value="1" />
           <entry key="js" value="1" />
-          <entry key="json" value="1" />
-          <entry key="php" value="2" />
+          <entry key="json" value="2" />
+          <entry key="php" value="7" />
           <entry key="twig" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="5" />
-          <entry key="JSON" value="1" />
+          <entry key="JSON" value="2" />
           <entry key="JavaScript" value="1" />
-          <entry key="PHP" value="2" />
+          <entry key="PHP" value="7" />
           <entry key="Twig" value="6" />
         </counts>
       </usages-collector>
@@ -52,100 +44,33 @@
         <counts>
           <entry key="css" value="148" />
           <entry key="home" value="141" />
-          <entry key="php" value="387" />
+          <entry key="php" value="691" />
           <entry key="twig" value="566" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSS" value="148" />
-          <entry key="PHP" value="387" />
+          <entry key="PHP" value="691" />
           <entry key="Twig" value="707" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.php.new.class">
+        <counts>
+          <entry key="PHP Class.type" value="1" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/templates/layout.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="60" column="96" selection-start-line="60" selection-start-column="96" selection-end-line="60" selection-end-column="96" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="e#5324#5330#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/templates/home.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2482">
-              <caret line="146" column="35" selection-start-line="146" selection-start-column="35" selection-end-line="146" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/templates/signIn.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="32" column="30" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/templates/register.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="104" selection-start-line="38" selection-start-column="104" selection-end-line="38" selection-end-column="104" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/App/templates/forgotPassword.twig">
+        <entry file="file://$PROJECT_DIR$/App/config/Router.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+            <state relative-caret-position="561">
+              <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/public/css/register.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/public/css/signIn.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/public/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/App/templates/404.twig">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -172,8 +97,10 @@
         <option value="$PROJECT_DIR$/App/public/css/register.css" />
         <option value="$PROJECT_DIR$/App/templates/register.twig" />
         <option value="$PROJECT_DIR$/App/templates/signIn.twig" />
-        <option value="$PROJECT_DIR$/App/public/index.php" />
         <option value="$PROJECT_DIR$/App/templates/forgotPassword.twig" />
+        <option value="$PROJECT_DIR$/App/config/dev.php" />
+        <option value="$PROJECT_DIR$/App/config/Router.php" />
+        <option value="$PROJECT_DIR$/App/public/index.php" />
       </list>
     </option>
   </component>
@@ -197,6 +124,26 @@
     <option name="width" value="1936" />
     <option name="height" value="1066" />
   </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>PHP</id>
+          </State>
+          <State>
+            <id>UndefinedPHP</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>PhpUndefinedNamespaceInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -209,30 +156,6 @@
             <path>
               <item name="mon_blog" type="b2602c69:ProjectViewProjectNode" />
               <item name="mon_blog" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mon_blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mon_blog" type="462c0819:PsiDirectoryNode" />
-              <item name="App" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mon_blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mon_blog" type="462c0819:PsiDirectoryNode" />
-              <item name="App" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mon_blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mon_blog" type="462c0819:PsiDirectoryNode" />
-              <item name="App" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="mon_blog" type="b2602c69:ProjectViewProjectNode" />
-              <item name="mon_blog" type="462c0819:PsiDirectoryNode" />
-              <item name="App" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -249,6 +172,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\PHP_OCR\mon_blog\App\config" />
       <recent name="C:\wamp64\www\PHP_OCR\mon_blog\App\templates" />
       <recent name="C:\wamp64\www\PHP_OCR\mon_blog\App\public\js\home" />
       <recent name="C:\wamp64\www\PHP_OCR\mon_blog\App\public\img" />
@@ -278,16 +202,15 @@
       <option name="presentableId" value="Default" />
       <updated>1549294706851</updated>
       <workItem from="1549294716024" duration="80000" />
-      <workItem from="1549295034821" duration="11678000" />
+      <workItem from="1549295034821" duration="17475000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11758000" />
+    <option name="totallyTimeSpent" value="17584000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -338,9 +261,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/composer.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/App/public/css/home.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -361,21 +281,24 @@
     <entry file="file://$PROJECT_DIR$/App/templates/404.twig">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/public/css/register.css">
+    <entry file="file://$PROJECT_DIR$/App/public/css/signIn.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+        <state relative-caret-position="255">
+          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/templates/layout.twig">
+    <entry file="file://$PROJECT_DIR$/App/public/css/register.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="60" column="96" selection-start-line="60" selection-start-column="96" selection-end-line="60" selection-end-column="96" />
-          <folding>
-            <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#5324#5330#0#HTML" expanded="true" />
-          </folding>
+        <state relative-caret-position="204">
+          <caret line="12" column="1" lean-forward="true" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/templates/forgotPassword.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
@@ -386,6 +309,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/App/templates/signIn.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="30" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/App/templates/home.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2482">
@@ -393,31 +323,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/App/templates/layout.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="60" column="96" selection-start-line="60" selection-start-column="96" selection-end-line="60" selection-end-column="96" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#li#1;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#5324#5330#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/config/dev.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="17" lean-forward="true" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/App/config/Autoloader.php" />
     <entry file="file://$PROJECT_DIR$/App/public/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="42" selection-start-line="29" selection-start-column="42" selection-end-line="29" selection-end-column="42" />
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/App/public/css/signIn.css">
+    <entry file="file://$PROJECT_DIR$/App/config/Router.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="22" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/templates/signIn.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="32" column="30" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/App/templates/forgotPassword.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="4" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        <state relative-caret-position="561">
+          <caret line="33" column="1" lean-forward="true" selection-start-line="33" selection-start-column="1" selection-end-line="33" selection-end-column="1" />
         </state>
       </provider>
     </entry>
