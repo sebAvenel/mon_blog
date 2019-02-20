@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block head %}{% endblock %}
+
 
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" href="../../vendor/twitter/bootstrap/dist/css/bootstrap.min.css">
@@ -16,8 +16,12 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+        {% block head %}{% endblock %}
     </head>
     <body>
+
+
 
         <!-- Navbar -->
         <div class="container">
@@ -37,14 +41,14 @@
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        {% if userConnectSuccess %}
+                        {% if session.infosUser %}
                             <div class="dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ userConnectSuccess.nameUser }}
+                                    {{ session.infosUser.nameUser }}
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="../public/index.php?deconnexion">Déconnexion</a>
-                                    {% if userConnectSuccess.roleUser ==  'admin'%}
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="../public/index.php?route=disconnection">Déconnexion</a>
+                                    {% if session.infosUser.roleUser ==  'admin'%}
                                         <a class="dropdown-item" href="#">Administration</a>
                                     {% endif %}
                                 </div>
@@ -85,8 +89,7 @@
                             </ul>
                         </div>
                         <div class="footer-col col-md-4">
-                            <h3>Mon curriculum vitae</h3>
-                            <p><a href="../public/doc/PDF/MonCV.pdf">Cliquer ici pour le télécharger</a></p>
+                            <h3><a href="../public/doc/PDF/MonCV.pdf" target="_blank">Mon curriculum vitae</a></h3>
                         </div>
                     </div>
                 </div>
@@ -103,7 +106,7 @@
         </footer>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="../../vendor/twitter/bootstrap/dist/js/bootstrap.min.js"></script>
 
     </body>

@@ -27,24 +27,22 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-            {% if errorConnectUser %}
+            {% if session.errorAuthUser %}
                 <div class="alert alert-danger" role="alert">
-
-                        <p>{{ errorConnectUser }}</p>
-
+                    <p>{{ session.errorAuthUser }}</p>
                 </div>
             {% endif %}
             <div class="card card-signin">
                 <div class="card-body">
                     <h5 class="card-title text-center">S'authentifier</h5>
-                    <form class="form-signin" action="../public/index.php" method="post">
+                    <form class="form-signin" action="../public/index.php?route=signin" method="post">
                         <div class="form-label-group">
-                            <input type="email" id="inputEmail" class="form-control" name="signInEmail" autofocus>
+                            <input type="email" id="inputEmail" class="form-control" name="signInEmail" autofocus value={{ cookies.email }}>
                             <label for="inputEmail">Email</label>
                         </div>
 
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" name="signInPassword">
+                            <input type="password" id="inputPassword" class="form-control" name="signInPassword" value={{ cookies.password }}>
                             <label for="inputPassword">Mot de passe</label>
                         </div>
 

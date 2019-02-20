@@ -9,5 +9,12 @@
             "name": "Sébastien Avenel",
             "email": "sebastien.avenel@outlook.fr"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "vendor\\composer\\": "vendor/composer/",
+            "App\\config\\": "App/config/",
+            "App\\src\\": "App/src/"
+        }
+    }
 }

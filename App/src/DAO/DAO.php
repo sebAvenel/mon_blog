@@ -47,7 +47,7 @@ abstract class DAO
         }
         else{
             $result = $this->checkConnection()->query($sql);
-            
+
             return $result;
         }
     }

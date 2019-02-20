@@ -1,4 +1,4 @@
-{% extends 'layout.twig' %}
+{% extends 'frontOffice/layout.twig' %}
 
 {% block head %}
     <title>Accueil</title>
@@ -36,7 +36,7 @@
                     <img src="../public/img/portfolio/html.jpg" alt="">
                 </div>
                 <div class="col-sm-4">
-                    <img src="../public/img/portfolio/css3.jpg"  alt="">
+                    <img src="../public/img/portfolio/css3.jpg" alt="">
                 </div>
                 <div class="col-sm-4">
                     <img src="../public/img/portfolio/javascript.jpg" alt="">
@@ -88,44 +88,44 @@
             <div class="row">
                 <div class="col-lg-8 offset-lg-2">
                     <p>{{ response }}</p>
-                    {% if errors %}
+                    {% if errorSentMail %}
                         <div class="alert alert-danger" role="alert">
-                            {% for error in errors %}
+                            {% for error in errorSentMail %}
                                 <li>{{ error }}</li>
                             {% endfor %}
                         </div>
                     {% endif %}
-                    {% if success %}
+                    {% if successSentMail %}
                         <div class="alert alert-success" role="alert">
-                            {{ success }}
+                            {{ successSentMail }}
                         </div>
                     {% endif %}
-                    <form action="../php/post_contact.php" method="post" name="sentMessage" id="contactForm" novalidate>
+                    <form action="../public/index.php?route=homeContact#contact" method="post" name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputname">Nom</label>
-                                <input type="text" class="form-control" name="name" placeholder="Nom" id="inputname" value={{ inputs.name }}>
+                                <input type="text" class="form-control" name="sendMailName" placeholder="Nom" id="sendMailName" value={{ inputsSentMail.sendMailName }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputemail">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Email" id="inputemail" value={{ inputs.email }}>
+                                <input type="email" class="form-control" name="sendMailEmail" placeholder="Email" id="sendMailEmail" value={{ inputsSentMail.sendMailEmail }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputphone">Téléphone</label>
-                                <input type="tel" class="form-control" name="phone" placeholder="Téléphone" id="inputphone" value={{ inputs.phone }}>
+                                <input type="tel" class="form-control" name="sendMailPhone" placeholder="Téléphone" id="sendMailPhone" value={{ inputsSentMail.sendMailPhone }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
                                 <label for="inputmessage">Message</label>
-                                <textarea rows="5" class="form-control" name="message" placeholder="Message" id="inputmessage">{{ inputs.message }}</textarea>
+                                <textarea rows="5" class="form-control" name="sendMailMessage" placeholder="Message" id="sendMailMessage">{{ inputsSentMail.sendMailMessage }}</textarea>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
