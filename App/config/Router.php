@@ -21,6 +21,11 @@ class Router
             $page = $_GET['route'];
         }
 
+        $idBlogPost = (int) '';
+        if (isset($_GET['idBlogPost'])){
+            $idBlogPost = $_GET['idBlogPost'];
+        }
+
         switch ($page){
             case 'home':
                 echo $twig->render('home.twig');
@@ -33,6 +38,12 @@ class Router
                 break;
             case 'forgotPassword':
                 echo $twig->render('forgotPassword.twig');
+                break;
+            case 'blogPostWithComments':
+                echo $twig->render('blogPostWithComments.twig', [
+                    'blogPost' => $this->frontController->getBlogPost($idBlogPost),
+                    'comments' => $this->frontController->listOfComments($idBlogPost)
+                ]);
                 break;
             case 'blogPostsList':
                 echo $twig->render('blogPostsList.twig', [

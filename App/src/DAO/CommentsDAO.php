@@ -1,0 +1,35 @@
+<?php
+
+namespace App\src\DAO;
+
+use App\src\model\Comment;
+
+
+class CommentsDAO extends DAO
+{
+    public function getCommentsFromBlogPost($idBlogPost){
+
+        $sql = 'SELECT id, content, createdAt, DATE_FORMAT(updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, isValid, idBlogPost, idUser FROM comment WHERE idBlogPost = ?';
+        $result = $this->sql($sql, [$idBlogPost]);
+        $comments = [];
+        while ($data = $result->fetch()){
+            $commentId = $data['id'];
+            $comments[$commentId] = $this->buildObjectComment($data);
+        }
+        return $comments;
+
+    }
+
+    private function buildObjectComment(array $row){
+
+        $comment = new Comment();
+        $comment->setId($row['id']);
+        $comment->setContent($row['content']);
+        $comment->setCreatedAt($row['createdAt']);
+        $comment->setUpdatedAt($row['updatedAt']);
+        $comment->setIsValid($row['isValid']);
+        $comment->setIdBlogPost($row['idBlogPost']);
+        $comment->setIdUser($row['idUser']);
+        return $comment;
+    }
+}
