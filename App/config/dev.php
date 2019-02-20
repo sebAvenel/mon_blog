@@ -1,7 +1,7 @@
 <?php
 
 const HOST = 'localhost';
-const DB_NAME = 'blog';
+const DB_NAME = 'blog_p5';
 const CHARSET = 'utf8';
 const DB_HOST = 'mysql:host='.HOST.';dbname='.DB_NAME.';charset='.CHARSET;
 const DB_USER = 'root';
