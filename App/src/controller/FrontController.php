@@ -2,7 +2,7 @@
 
 namespace App\src\controller;
 
-use src\DAO\BlogPostDAO;
+use App\src\DAO\BlogPostDAO;
 
 class FrontController
 {

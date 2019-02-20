@@ -2,7 +2,7 @@
 
 namespace App\src\DAO;
 
-use src\model\BlogPost;
+use App\src\model\BlogPost;
 
 
 class BlogPostDAO extends DAO
@@ -15,6 +15,7 @@ class BlogPostDAO extends DAO
             $blogPostId = $row['id'];
             $blogPosts[$blogPostId] = $this->buildObjectBlogPost($row);
         }
+        return $blogPosts;
     }
 
     private function buildObjectBlogPost(array $row)

@@ -2,14 +2,23 @@
 
 namespace App\config;
 
+use \App\src\controller\FrontController;
+
 class Router
 {
+
+    private $frontController;
+
+    public function __construct()
+    {
+        $this->frontController = new FrontController();
+    }
 
     public function run($twig){
 
         $page = 'home';
-        if (isset($_GET['p'])){
-            $page = $_GET['p'];
+        if (isset($_GET['route'])){
+            $page = $_GET['route'];
         }
 
         switch ($page){
@@ -24,6 +33,11 @@ class Router
                 break;
             case 'forgotPassword':
                 echo $twig->render('forgotPassword.twig');
+                break;
+            case 'blogPostsList':
+                echo $twig->render('blogPostsList.twig', [
+                    'blogPostsList' => $this->frontController->listOfBlogPosts()
+                ]);
                 break;
             default:
                 header('HTTP/1.0 404 Not Found');
