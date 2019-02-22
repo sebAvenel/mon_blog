@@ -4,15 +4,24 @@ namespace App\src\DAO;
 
 use PDO;
 
+/**
+ * Class DAO
+ * @package App\src\DAO
+ */
 abstract class DAO
 {
 
     private $connection;
 
 
+    /**
+     * Return the PDO connection
+     *
+     * @return PDO
+     */
     private function checkConnection()
     {
-        if($this->connection === null) {
+        if ($this->connection === null) {
             return $this->getConnection();
         }
 
@@ -20,9 +29,14 @@ abstract class DAO
     }
 
 
+    /**
+     * Check the connection to the DB
+     *
+     * @return PDO
+     */
     public function getConnection()
     {
-        try{
+        try {
             $this->connection = new PDO(DB_HOST, DB_USER, DB_PASS);
             $this->connection->exec('SET NAMES utf8');
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -30,22 +44,26 @@ abstract class DAO
             return $this->connection;
         }
 
-        catch(Exception $errorConnection)
-        {
+        catch(\Exception $errorConnection) {
             die ('Erreur de connection :'.$errorConnection->getMessage());
         }
     }
 
+    /**
+     * Returns the result of a sql query
+     *
+     * @param $sql
+     * @param null $parameters
+     * @return bool|\PDOStatement
+     */
     protected function sql($sql, $parameters = null)
     {
-        if($parameters)
-        {
+        if ($parameters) {
             $result = $this->checkConnection()->prepare($sql);
             $result->execute($parameters);
 
             return $result;
-        }
-        else{
+        } else {
             $result = $this->checkConnection()->query($sql);
 
             return $result;

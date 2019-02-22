@@ -10,25 +10,31 @@
     <section id="blogPostsGallery">
         <h1>Liste des blog posts</h1>
         <div class="container">
-            <div class="row">
-                {% for blogPost in blogPostsList %}
-                    <div class="col-12">
-                        <div class="card text-center">
-                            <div class="card-header">
-                                <h4>{{ blogPost.title }}</h4>
-                                <p>Créé le {{ blogPost.createdAt }}</p>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ blogPost.chapo }}</h5>
-                                <p class="card-text">{{ blogPost.content }}</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="index.php?route=blogPostWithComments&idBlogPost={{ blogPost.id }}">Voir plus</a>
+            {% if blogPostsList %}
+                <div class="row">
+                    {% for blogPost in blogPostsList %}
+                        <div class="col-12">
+                            <div class="card text-center">
+                                <div class="card-header">
+                                    <h4>{{ blogPost.title }}</h4>
+                                    <p>Créé le {{ blogPost.createdAt }}</p>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ blogPost.chapo }}</h5>
+                                    <p class="card-text">{{ blogPost.content }}</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="index.php?route=blogPostWithComments&idBlogPost={{ blogPost.id }}">Voir plus</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-danger" role="alert">
+                    <h3>Aucun blog post !</h3>
+                </div>
+            {% endif %}
         </div>
     </section>
 

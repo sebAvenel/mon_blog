@@ -7,6 +7,10 @@ use App\src\controller\CommentController;
 use App\src\controller\HomeController;
 use App\src\controller\UserController;
 
+/**
+ * Class Router
+ * @package App\config
+ */
 class Router
 {
     private $homeController;
@@ -14,6 +18,9 @@ class Router
     private $userController;
     private $commentController;
 
+    /**
+     * Router constructor.
+     */
     public function __construct()
     {
         $this->homeController = new HomeController();
@@ -22,6 +29,9 @@ class Router
         $this->commentController = new CommentController();
     }
 
+    /**
+     * Routing
+     */
     public function run(){
 
         $page = 'home';
@@ -44,10 +54,7 @@ class Router
             case 'blogPostWithComments':
                 $this->blogPostController->blogPostWithComments($_GET['idBlogPost']);
                 break;
-            case 'signin':
-                if (isset($_SESSION['errorAuthUser'])){
-                    unset($_SESSION['errorAuthUser']);
-                }
+            case 'signIn':
                 if (isset($_POST['signInEmail']) && isset($_POST['signInPassword'])){
                     $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword'], $_POST['signInCheckbox']);
                 }else{
@@ -65,17 +72,9 @@ class Router
                 break;
             case 'addComment':
                 $this->commentController->addComment($_POST['textareaAddComment'], $_GET['idBlogPost'], $_GET['idUser']);
-                break;/*
-            case 'register':
-                echo $twig->render('register.twig', [
-                    'userConnectSuccess' => $connectUser
-                ]);
                 break;
             case 'forgotPassword':
-                echo $twig->render('forgotPassword.twig');
-                break;
-
-            */
+                $this->homeController->forgotPasswordPage();
             default:
                 break;
         }

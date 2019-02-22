@@ -2,6 +2,10 @@
 
 namespace App\src\model;
 
+/**
+ * Class BlogPost
+ * @package App\src\model
+ */
 class BlogPost
 {
     private $id;

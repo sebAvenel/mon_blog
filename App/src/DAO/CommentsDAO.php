@@ -2,9 +2,19 @@
 
 namespace App\src\DAO;
 
+/**
+ * Class CommentsDAO
+ * @package App\src\DAO
+ */
 class CommentsDAO extends DAO
 {
 
+    /**
+     * Return a list of comments from blog post
+     *
+     * @param int $idBlogPost
+     * @return array
+     */
     public function getCommentsFromBlogPost($idBlogPost)
     {
         $sql = 'SELECT comment.id, comment.content, comment.createdAt, DATE_FORMAT(comment.updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, comment.isValid, comment.idBlogPost, comment.idUser, user.id AS userId, user.name
@@ -22,9 +32,15 @@ class CommentsDAO extends DAO
         return $tab;
     }
 
+    /**
+     * Update a comment
+     *
+     * @param int $idComment
+     * @param string $contentComment
+     */
     public function updateComment($idComment, $contentComment)
     {
-        $sql = 'UPDATE comment SET content = :newContent, updatedAt = NOW() where id = :idComment';
+        $sql = 'UPDATE comment SET content = :newContent, updatedAt = NOW(), isValid = 0 where id = :idComment';
         $arrayUpdateComment = [
             'newContent' => $contentComment,
             'idComment' => $idComment
@@ -32,12 +48,24 @@ class CommentsDAO extends DAO
         $this->sql($sql, $arrayUpdateComment);
     }
 
+    /**
+     * Delete a comment
+     *
+     * @param int $idComment
+     */
     public function deleteComment($idComment)
     {
         $sql = 'DELETE FROM comment WHERE id = ' . $idComment;
         $this->sql($sql);
     }
 
+    /**
+     * Add a comment to a blog post
+     *
+     * @param string $content
+     * @param int $idBlogPost
+     * @param int $idUser
+     */
     public function addComment($content, $idBlogPost, $idUser)
     {
         $sql = 'INSERT INTO comment(content, createdAt, updatedAt, isValid, idBlogPost, idUser)
@@ -52,3 +80,4 @@ class CommentsDAO extends DAO
     }
 
 }
+
