@@ -54,8 +54,8 @@ class UserDAO extends DAO
     /**
      * Update a user's password
      *
-     * @param $newPassword
-     * @param $emailUser
+     * @param string $newPassword
+     * @param string $emailUser
      */
     public function updatePasswordUser($newPassword, $emailUser)
     {
@@ -67,6 +67,13 @@ class UserDAO extends DAO
         $this->sql($sql, $arrayUpdatePassword);
     }
 
+    /**
+     * Register a user in DB
+     *
+     * @param string $name
+     * @param string $email
+     * @param string $password
+     */
     public function registerUser($name, $email, $password)
     {
         $sql = 'INSERT INTO user(name, email, password, role)

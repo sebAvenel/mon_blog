@@ -54,4 +54,3 @@ class Controller
         return $randomString;
     }
 }
-

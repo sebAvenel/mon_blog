@@ -52,7 +52,7 @@ abstract class DAO
     /**
      * Returns the result of a sql query
      *
-     * @param $sql
+     * @param string $sql
      * @param null $parameters
      * @return bool|\PDOStatement
      */

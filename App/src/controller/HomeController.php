@@ -17,6 +17,8 @@ class HomeController extends Controller
     }
 
     /**
+     * Diplay the home page
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -28,6 +30,8 @@ class HomeController extends Controller
     }
 
     /**
+     * Display the sign in page
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -39,6 +43,8 @@ class HomeController extends Controller
     }
 
     /**
+     * Display the forgot password page
+     *
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
@@ -50,6 +56,13 @@ class HomeController extends Controller
     }
 
 
+    /**
+     * Display the user registration page
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function registerPage()
     {
         $this->sessionCleaner($this->sessionArray);
@@ -109,4 +122,3 @@ class HomeController extends Controller
         }
     }
 }
-
