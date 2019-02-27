@@ -2,7 +2,10 @@
 
 namespace App\src\model;
 
-
+/**
+ * Class Comment
+ * @package App\src\model
+ */
 class Comment
 {
     private $id;

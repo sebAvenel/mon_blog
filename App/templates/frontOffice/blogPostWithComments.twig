@@ -1,0 +1,111 @@
+{% extends 'frontOffice/layout.twig' %}
+
+{% block head %}
+    <title>Blog post avec commentaires</title>
+    <link rel="stylesheet" href="../public/css/blogPostWithComments.css">
+{% endblock %}
+
+{% block content %}
+    {% if blogPost %}
+        <div class="container-fluid" id="blogPostWihComments">
+            <div class="container" >
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{ blogPost.title }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ blogPost.chapo }}</h5>
+                        <p class="card-text">{{ blogPost.content }}</p>
+                        <hr>
+                        <h5>Commentaires</h5>
+                        {% if session.addCommentSuccess %}
+                            <form id="addCommentSuccess" action="../public/index.php?route=blogPostWithComments&idBlogPost={{ blogPost.id }}" method="post">
+                                <div class="alert alert-success" role="alert">
+                                    <p>{{ session.addCommentSuccess }}</p>
+                                    <button type="submit" class="btn btn-success">Fermer</button>
+                                </div>
+                            </form>
+                        {% elseif session.successUpdateComment %}
+                            <form id="updateCommentSuccess" action="../public/index.php?route=blogPostWithComments&idBlogPost={{ blogPost.id }}" method="post">
+                                <div class="alert alert-success" role="alert">
+                                    <p>{{ session.successUpdateComment }}</p>
+                                    <button type="submit" class="btn btn-success">Fermer</button>
+                                </div>
+                            </form>
+                        {% endif %}
+                    </div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            {% for comment in comments %}
+                                <div class="col-12">
+                                    <div class="card card_comment">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Posté par {{ comment.name }}</h5>
+                                            <h6>dernière modification le {{ comment.updatedAt }}</h6>
+                                            <p class="card-text">{{ comment.content }}</p>
+                                        </div>
+                                        {% if session.infosUser and session.infosUser.idUser == comment.userId%}
+                                            {% if session.errorUpdateComment and session.errorUpdateComment.idComment == comment.id %}
+                                                <div class="alert alert-danger" role="alert">
+                                                    <p>{{ session.errorUpdateComment.content }}</p>
+                                                </div>
+                                             {% endif %}
+                                            <div id="collapseModifComment">
+                                                <hr>
+                                                <p id="collapseItems">
+                                                    <a data-toggle="collapse" href="#" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Modifier commentaire</a>
+                                                    <a data-toggle="collapse" href="#" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Supprimer commentaire</a>
+                                                </p>
+                                                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                                    <form action="../public/index.php?route=updateComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}" method="post">
+                                                        <textarea name="textareaModifComment" rows="5" class="form-control">{{ comment.content }}</textarea>
+                                                        <button type="submit" class="btn btn-success">Modifier</button>
+                                                    </form>
+                                                </div>
+                                                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                                    <div class="alert alert-danger" role="alert">
+                                                        <form action="../public/index.php?route=deleteComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}" method="post">
+                                                            <p>Voulez-vous vraiement supprimer ce commentaire ?</p>
+                                                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if session.infosUser %}
+                    <div class="container-fluid">
+                        <div class="card card_addComment">
+                            <div class="card-header">
+                                ... Voulez-vous ajouter un commentaire?
+                            </div>
+                            <div class="card-body">
+                                <form action="../public/index.php?route=addComment&idBlogPost={{ blogPost.id }}&idUser={{ session.infosUser.idUser }}" method="post">
+                                    <div class="form-group">
+                                        <label for="comment">Rédigez votre commentaire:</label>
+                                        {% if session.errorAddComment %}
+                                            <div class="alert alert-danger" role="alert">
+                                                <p>{{ session.errorAddComment }}</p>
+                                            </div>
+                                        {% endif %}
+                                        <textarea name="textareaAddComment" class="form-control" id="comment" rows="5" placeholder="500 caractères maximum"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success">Valider</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            <h3>Ce blog post n'existe pas !</h3>
+        </div>
+    {% endif %}
+{% endblock %}

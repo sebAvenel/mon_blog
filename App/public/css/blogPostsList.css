@@ -1,14 +1,17 @@
-#blogPostsGallery h1{
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+#blogPostsGallery {
+    background-color: white;
+    padding-bottom: 30px;
 }
-
-.card{
+#blogPostsGallery h1 {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    height: 100%;
+}
+.card {
     margin-bottom: 20px;
 }
-
-.card-header{
+.card-header {
     background-color: inherit;
-    background-color: #72EDD5;
+    background-color: #18BC9C;
 }

@@ -2,27 +2,21 @@
 
 namespace App\src\DAO;
 
-use App\src\model\Comment;
-
-
+/**
+ * Class CommentsDAO
+ * @package App\src\DAO
+ */
 class CommentsDAO extends DAO
 {
-    public function getCommentsFromBlogPost($idBlogPost){
 
-        $sql = 'SELECT id, content, createdAt, DATE_FORMAT(updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, isValid, idBlogPost, idUser
-                FROM comment 
-                WHERE comment.idBlogPost = ?';
-        $result = $this->sql($sql, [$idBlogPost]);
-        $comments = [];
-        while ($data = $result->fetch()){
-            $commentId = $data['id'];
-            $comments[$commentId] = $this->buildObjectComment($data);
-        }
-        return $comments;
-
-    }
-
-    public function getCommentsFromBlogPostWithUser($idBlogPost){
+    /**
+     * Return a list of comments from blog post
+     *
+     * @param int $idBlogPost
+     * @return array
+     */
+    public function getCommentsFromBlogPost($idBlogPost)
+    {
         $sql = 'SELECT comment.id, comment.content, comment.createdAt, DATE_FORMAT(comment.updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, comment.isValid, comment.idBlogPost, comment.idUser, user.id AS userId, user.name
                 FROM comment 
                 INNER JOIN user
@@ -34,19 +28,56 @@ class CommentsDAO extends DAO
         foreach ($result as $key => $value){
             $tab[$key] = $value;
         }
+
         return $tab;
     }
 
-    private function buildObjectComment(array $row){
-
-        $comment = new Comment();
-        $comment->setId($row['id']);
-        $comment->setContent($row['content']);
-        $comment->setCreatedAt($row['createdAt']);
-        $comment->setUpdatedAt($row['updatedAt']);
-        $comment->setIsValid($row['isValid']);
-        $comment->setIdBlogPost($row['idBlogPost']);
-        $comment->setIdUser($row['idUser']);
-        return $comment;
+    /**
+     * Update a comment
+     *
+     * @param int $idComment
+     * @param string $contentComment
+     */
+    public function updateComment($idComment, $contentComment)
+    {
+        $sql = 'UPDATE comment SET content = :newContent, updatedAt = NOW(), isValid = 0 where id = :idComment';
+        $arrayUpdateComment = [
+            'newContent' => $contentComment,
+            'idComment' => $idComment
+        ];
+        $this->sql($sql, $arrayUpdateComment);
     }
+
+    /**
+     * Delete a comment
+     *
+     * @param int $idComment
+     */
+    public function deleteComment($idComment)
+    {
+        $sql = 'DELETE FROM comment WHERE id = ' . $idComment;
+        $this->sql($sql);
+    }
+
+    /**
+     * Add a comment to a blog post
+     *
+     * @param string $content
+     * @param int $idBlogPost
+     * @param int $idUser
+     */
+    public function addComment($content, $idBlogPost, $idUser)
+    {
+        $sql = 'INSERT INTO comment(content, createdAt, updatedAt, isValid, idBlogPost, idUser)
+                VALUES(:content, NOW(), NOW(), :isValid, :idBlogPost, :idUser)';
+        $arrayAddComment = [
+            'content' => $content,
+            'isValid' => 0,
+            'idBlogPost' => $idBlogPost,
+            'idUser' => $idUser
+        ];
+        $this->sql($sql, $arrayAddComment);
+    }
+
 }
+

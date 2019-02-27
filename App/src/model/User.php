@@ -2,7 +2,10 @@
 
 namespace App\src\model;
 
-
+/**
+ * Class User
+ * @package App\src\model
+ */
 class User
 {
     private $id;

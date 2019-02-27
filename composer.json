@@ -2,12 +2,19 @@
     "name": "projet5/mon_blog",
     "description": "Projet 5 de la formation développeur d'applacation PHP/Symfony\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[\u001b[3~i\u001b[F\u001b[B\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C 'Créer votre premier blog en PHP'",
     "require": {
-        "twig/twig": "^2.6"
+        "twig/twig": "^2.6",
+        "twitter/bootstrap": "^4.3"
     },
     "authors": [
         {
             "name": "Sébastien Avenel",
             "email": "sebastien.avenel@outlook.fr"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\config\\": "App/config/",
+            "App\\src\\": "App/src/"
+        }
+    }
 }
