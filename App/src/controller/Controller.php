@@ -36,5 +36,22 @@ class Controller
             }
         }
     }
+
+    /**
+     * Generate a random string
+     *
+     * @param int $length
+     * @return string
+     */
+    public function randomString($length = 10)
+    {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#$@&';
+        $lengthChars = strlen($chars);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++){
+            $randomString .= $chars[rand(0, $lengthChars - 1)];
+        }
+        return $randomString;
+    }
 }
 

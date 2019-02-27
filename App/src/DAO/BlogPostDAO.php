@@ -23,6 +23,9 @@ class BlogPostDAO extends DAO
         if ($result) {
             $blogPosts = [];
             foreach ($result as $row){
+                if (strlen($row['content']) >= 200){
+                    $row['content'] = substr($row['content'], 0, 200) . "...";
+                }
                 $blogPostId = $row['id'];
                 $blogPosts[$blogPostId] = $this->buildObjectBlogPost($row);
             }

@@ -36,7 +36,7 @@ class UserDAO extends DAO
             $sql = 'SELECT id, name, email, password, role FROM user WHERE email = ?';
             $result = $this->sql($sql, [$emailUser]);
             $response = $result->fetch();
-            if($response['password'] === $pwdUser)
+            if (password_verify($pwdUser, $response['password']))
             {
                 $infoUser = [];
                 foreach ($response as $key => $value){
@@ -49,5 +49,34 @@ class UserDAO extends DAO
         }else{
             $_SESSION['errorAuthUser'] = 'Email ou mot de passe incorrect';
         }
+    }
+
+    /**
+     * Update a user's password
+     *
+     * @param $newPassword
+     * @param $emailUser
+     */
+    public function updatePasswordUser($newPassword, $emailUser)
+    {
+        $sql = 'UPDATE user SET password = :password where email = :email';
+        $arrayUpdatePassword = [
+            'password' => $newPassword,
+            'email' => $emailUser
+        ];
+        $this->sql($sql, $arrayUpdatePassword);
+    }
+
+    public function registerUser($name, $email, $password)
+    {
+        $sql = 'INSERT INTO user(name, email, password, role)
+                VALUES(:name, :email, :password, :role)';
+        $arrayAddComment = [
+            'name' => $name,
+            'email' => $email,
+            'password' => $password,
+            'role' => 'user'
+        ];
+        $this->sql($sql, $arrayAddComment);
     }
 }

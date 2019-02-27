@@ -2,20 +2,19 @@
     background-color: white;
     padding-top: 30px;
     padding-bottom: 30px;
+    height: 100%;
 }
 .car {
     margin-top: 40px;
     margin-bottom: 40px;
     padding-bottom: 40px;
 }
-.w-50 {
+.card_comment {
     margin-top: 10px;
     margin-bottom: 10px;
-    margin-left: 50px;
     padding-bottom: 0px;
 }
-.w-75 {
-    margin-left: 25px;
+.card_addComment {
     margin-top: 10px;
     margin-bottom: 30px;
     padding-bottom: 10px;
@@ -55,4 +54,36 @@
     margin-right: 10px;
     margin-left: 10px;
     text-align: center;
+}
+@media (min-width: 576px) {
+    .card_comment{
+        width: 100%;
+        margin-left: 0px;
+    }
+    .card_addComment{
+        width: 100%;
+        margin-left: 0px;
+    }
+}
+@media (min-width: 768px) {
+    .card_comment{
+        width: 75%;
+        margin-left: 15px;
+    }
+    .card_addComment{
+        width: 75%;
+        margin-left: 30px;
+    }
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+    .card_comment{
+        width: 50%;
+        margin-left: 25px;
+    }
+    .card_addComment{
+        width: 75%;
+        margin-left: 50px;
+    }
 }

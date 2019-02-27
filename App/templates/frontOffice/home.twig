@@ -94,8 +94,7 @@
                                 <li>{{ error }}</li>
                             {% endfor %}
                         </div>
-                    {% endif %}
-                    {% if successSentMail %}
+                    {% elseif successSentMail %}
                         <div class="alert alert-success" role="alert">
                             {{ successSentMail }}
                         </div>

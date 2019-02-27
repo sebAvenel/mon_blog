@@ -8,33 +8,56 @@ namespace App\src\controller;
  */
 class HomeController extends Controller
 {
+    private $sessionArray;
+
+    public function __construct()
+    {
+        parent:: __construct();
+        $this->sessionArray = array('errorAuthUser', 'successSendMailForgotPassword', 'errorCheckEmailForgotPassword', 'errorAuthUser', 'errorsRegisterUser', 'inputsRegisterUser', 'successSendmailRegisterUser');
+    }
 
     /**
-     * Displays the home page view
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function homePage()
     {
+        $this->sessionCleaner($this->sessionArray);
         echo $this->getTwig->render('frontOffice/home.twig');
     }
 
     /**
-     * Displays the sign in page view
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function signInPage()
     {
-        if (isset($_SESSION['errorAuthUser'])){
-            unset($_SESSION['errorAuthUser']);
-        }
+        $this->sessionCleaner($this->sessionArray);
         echo $this->getTwig->render('frontOffice/signIn.twig');
     }
 
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function forgotPasswordPage()
     {
+        $this->sessionCleaner($this->sessionArray);
         echo $this->getTwig->render('frontOffice/forgotPassword.twig');
     }
 
+
+    public function registerPage()
+    {
+        $this->sessionCleaner($this->sessionArray);
+        echo $this->getTwig->render('frontOffice/register.twig');
+    }
+
     /**
-     * Send an email
+     * Send an email contact
      *
      * @param string $name
      * @param string $email
@@ -65,23 +88,20 @@ class HomeController extends Controller
             $errors['message'] = "Votre message doit contenir au moins 30 caractères";
         }
         if (!empty($errors)) {
-            $_SESSION['errors'] = $errors;
-            $_SESSION['inputs'] = $_POST;
             echo $this->getTwig->render('frontOffice/home.twig', [
-                'errorSentMail' => $_SESSION['errors'],
-                'inputsSentMail' => $_SESSION['inputs']
+                'errorSentMail' => $errors,
+                'inputsSentMail' => $_POST
             ]);
         } else {
             $to = 'sebastien.avenel@outlook.fr';
             $subject = 'Contacté par ' . $name;
-            $message = $message . 'Téléphone: ' . $phone;
+            $message2 = $message . '\n\nTéléphone: ' . $phone;
             $headers = 'FROM: ' . $email;
 
-            $sent = mail($to, $subject, $message ,$headers);
+            $sent = mail($to, $subject, $message2 ,$headers);
             if ($sent){
-                $_SESSION['success'] = 'Votre email a bien été envoyé';
                 echo $this->getTwig->render('frontOffice/home.twig', [
-                    'successSentMail' => $_SESSION['success']
+                    'successSentMail' => 'Votre email a bien été envoyé'
                 ]);
             } else {
                 echo "erreur lors de l'envoi de l'email!";

@@ -38,7 +38,7 @@
                         <div class="row">
                             {% for comment in comments %}
                                 <div class="col-12">
-                                    <div class="card w-50">
+                                    <div class="card card_comment">
                                         <div class="card-body">
                                             <h5 class="card-title">Posté par {{ comment.name }}</h5>
                                             <h6>dernière modification le {{ comment.updatedAt }}</h6>
@@ -79,7 +79,7 @@
                     </div>
                     {% if session.infosUser %}
                     <div class="container-fluid">
-                        <div class="card w-75">
+                        <div class="card card_addComment">
                             <div class="card-header">
                                 ... Voulez-vous ajouter un commentaire?
                             </div>

@@ -57,7 +57,7 @@ class Router
             case 'signIn':
                 if (isset($_POST['signInEmail']) && isset($_POST['signInPassword'])){
                     $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword'], $_POST['signInCheckbox']);
-                }else{
+                } else {
                     $this->homeController->signInPage();
                 }
                 break;
@@ -74,7 +74,21 @@ class Router
                 $this->commentController->addComment($_POST['textareaAddComment'], $_GET['idBlogPost'], $_GET['idUser']);
                 break;
             case 'forgotPassword':
-                $this->homeController->forgotPasswordPage();
+                if (isset($_POST['inputEmailForgotPassword'])){
+                    $this->userController->forgotPassword($_POST['inputEmailForgotPassword']);
+                } else {
+                    $this->homeController->forgotPasswordPage();
+                }
+                break;
+            case 'registerUser':
+                if (isset($_POST['inputRegisterUserName']) && isset($_POST['inputRegisterUserMail']) && isset($_POST['inputRegisterUserPassword']) && isset($_POST['inputRegisterUserPasswordConfirm'])){
+                    $this->userController->sendmailRegisterUser($_POST['inputRegisterUserName'], $_POST['inputRegisterUserMail'], $_POST['inputRegisterUserPassword'], $_POST['inputRegisterUserPasswordConfirm']);
+                } elseif (isset($_GET['nameActivationUserAccount']) && isset($_GET['emailActivationUserAccount']) && isset($_GET['passwordActivationUserAccount'])){
+                    $this->userController->registerUser($_GET['nameActivationUserAccount'], $_GET['emailActivationUserAccount'], $_GET['passwordActivationUserAccount']);
+                } else {
+                    $this->homeController->registerPage();
+                }
+                break;
             default:
                 break;
         }
