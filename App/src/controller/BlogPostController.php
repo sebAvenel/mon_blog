@@ -52,6 +52,4 @@ class BlogPostController extends Controller
             'comments' => $this->commentsDAO->getCommentsFromBlogPost($idBlogPost)
         ]);
     }
-
 }
-

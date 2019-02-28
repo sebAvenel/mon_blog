@@ -127,6 +127,4 @@ class BlogPost
     {
         $this->id_user = $id_user;
     }
-
-
 }

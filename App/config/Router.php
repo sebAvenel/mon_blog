@@ -33,13 +33,11 @@ class Router
      * Routing
      */
     public function run(){
-
         $page = 'home';
         if (isset($_GET['route']))
         {
             $page = $_GET['route'];
         }
-
         switch ($page)
         {
             case 'home':

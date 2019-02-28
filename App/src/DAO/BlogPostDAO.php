@@ -8,7 +8,6 @@ use App\src\model\BlogPost;
  * Class BlogPostDAO
  * @package App\src\DAO
  */
-
 class BlogPostDAO extends DAO
 {
     /**
@@ -77,5 +76,3 @@ class BlogPostDAO extends DAO
         return $article;
     }
 }
-
-

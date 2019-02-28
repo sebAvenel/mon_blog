@@ -127,6 +127,4 @@ class Comment
     {
         $this->id_user = $id_user;
     }
-
-
 }

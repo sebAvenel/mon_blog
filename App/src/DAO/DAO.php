@@ -10,9 +10,7 @@ use PDO;
  */
 abstract class DAO
 {
-
     private $connection;
-
 
     /**
      * Return the PDO connection
@@ -27,7 +25,6 @@ abstract class DAO
 
         return $this->connection;
     }
-
 
     /**
      * Check the connection to the DB

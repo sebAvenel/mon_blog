@@ -8,7 +8,6 @@ namespace App\src\DAO;
  */
 class CommentsDAO extends DAO
 {
-
     /**
      * Return a list of comments from blog post
      *
@@ -78,6 +77,4 @@ class CommentsDAO extends DAO
         ];
         $this->sql($sql, $arrayAddComment);
     }
-
 }
-

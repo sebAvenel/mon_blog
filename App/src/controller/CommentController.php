@@ -70,5 +70,4 @@ class CommentController
         }
         header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
     }
-
 }

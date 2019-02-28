@@ -10,6 +10,9 @@ class HomeController extends Controller
 {
     private $sessionArray;
 
+    /**
+     * HomeController constructor.
+     */
     public function __construct()
     {
         parent:: __construct();
@@ -54,7 +57,6 @@ class HomeController extends Controller
         $this->sessionCleaner($this->sessionArray);
         echo $this->getTwig->render('user/forgotPassword.twig');
     }
-
 
     /**
      * Display the user registration page

@@ -8,7 +8,6 @@ namespace App\src\DAO;
  */
 class UserDAO extends DAO
 {
-
     /**
      * Check for the presence of a user's email in the DB
      *
