@@ -1,0 +1,40 @@
+#navAdmin{
+    text-align: center;
+    font-size: 1.5rem;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 20px;
+    background-color: #1a242f;
+}
+#logoAdmin{
+    padding-top: 20px;
+    margin-bottom: 20px;
+}
+#logoAdmin img, h1{
+    display: inline;
+    text-decoration: none;
+    color: white;
+    vertical-align: middle;
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+a:hover{
+    color: #18BC9C;
+}
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+    html, body, .row, #admin{
+        height: 100%;
+    }
+    #logoAdmin{
+        margin-bottom: 80px;
+    }
+}
+@media (min-width: 1200px) {
+}
+

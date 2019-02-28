@@ -2,6 +2,7 @@
 
 namespace App\config;
 
+use App\src\controller\AdminController;
 use App\src\controller\BlogPostController;
 use App\src\controller\CommentController;
 use App\src\controller\HomeController;
@@ -17,6 +18,7 @@ class Router
     private $blogPostController;
     private $userController;
     private $commentController;
+    private $adminController;
 
     /**
      * Router constructor.
@@ -27,6 +29,7 @@ class Router
         $this->blogPostController = new BlogPostController();
         $this->userController = new UserController();
         $this->commentController = new CommentController();
+        $this->adminController = new AdminController();
     }
 
     /**
@@ -86,6 +89,15 @@ class Router
                 } else {
                     $this->homeController->registerPage();
                 }
+                break;
+            case 'adminBlogPosts':
+                $this->adminController->blogPostsAdminPage();
+                break;
+            case 'adminComments':
+                $this->adminController->commentsAdminPage();
+                break;
+            case 'adminProfiles':
+                $this->adminController->profilesAdminPage();
                 break;
             default:
                 break;

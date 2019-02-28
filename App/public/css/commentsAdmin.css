@@ -1,0 +1,17 @@
+#blogPostsAdmin{
+    background-color: #18BC9C;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+    #blogPostsAdmin{
+        padding-top: 50px;
+    }
+}
+@media (min-width: 1200px) {
+}
