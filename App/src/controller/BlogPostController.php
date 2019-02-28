@@ -31,7 +31,7 @@ class BlogPostController extends Controller
      */
     public function blogPostsList()
     {
-        echo $this->getTwig->render('frontOffice/blogPostsList.twig', [
+        echo $this->getTwig->render('blogPost/blogPostsList.twig', [
             'blogPostsList' => $this->blogPostDAO->getBlogPosts()
         ]);
     }
@@ -47,7 +47,7 @@ class BlogPostController extends Controller
     public function blogPostWithComments($idBlogPost)
     {
         $this->sessionCleaner($this->sessionArray);
-        echo $this->getTwig->render('frontOffice/blogPostWithComments.twig', [
+        echo $this->getTwig->render('blogPost/blogPostWithComments.twig', [
             'blogPost' => $this->blogPostDAO->getBlogPost($idBlogPost),
             'comments' => $this->commentsDAO->getCommentsFromBlogPost($idBlogPost)
         ]);

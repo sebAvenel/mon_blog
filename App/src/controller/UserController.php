@@ -112,7 +112,7 @@ class UserController extends Controller
         } elseif (!preg_match("#^(?=.*[A-Z])(?=.*[a-z])(?=(.*[0-9]){2,}).{6,15}$#", $password)){
             $errors['password'] = "Votre mot de passe doit comporter entre 6 et 15 caractères dont au moins 1 majuscule et 2 chiffres";
         } elseif ($password != $passwordConfirm){
-            $errors['password'] = "Votre mot de passe et votre mot de passe de confirmation doivent être identique";
+            $errors['password'] = "Votre mot de passe et votre mot de passe de confirmation doivent être identiques";
         }
         if (!empty($errors)) {
             $_SESSION['errorsRegisterUser'] = $errors;
