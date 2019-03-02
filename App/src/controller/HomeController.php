@@ -110,9 +110,9 @@ class HomeController extends Controller
         } else {
             $to = 'sebastien.avenel@outlook.fr';
             $subject = 'Contacté par ' . $name;
-            $message2 = $message . '\n\nTéléphone: ' . $phone;
+            $message2 = $message . "\n\n" . 'Téléphone: ' . $phone;
             $headers = 'FROM: ' . $email;
-
+            echo $to . '  ' . $subject . '  ' . $message2 . '  ' . $headers;
             $sent = mail($to, $subject, $message2 ,$headers);
             if ($sent){
                 echo $this->getTwig->render('home/home.twig', [

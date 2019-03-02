@@ -64,13 +64,13 @@ class UserController extends Controller
         if ($this->userDAO->checkMailUser($emailUser)){
             $randomPassword = $this->randomString();
             $hashedRandomPassword = password_hash($randomPassword, PASSWORD_DEFAULT);
-            $this->userDAO->updatePasswordUser($hashedRandomPassword, $emailUser);
             $to = $emailUser;
             $subject = 'Mot de passe oublié';
             $message = "Madame, monsieur\n\n Vous nous avez fait part de l'oublie de votre mot de passe. Voici votre nouveau mot de passe: " . $randomPassword;
             $headers = 'FROM: Service client SAvenel';
             $sent = mail($to, $subject, $message ,$headers);
             if ($sent){
+                $this->userDAO->updatePasswordUser($hashedRandomPassword, $emailUser);
                 $_SESSION['successSendMailForgotPassword'] = 'Votre email a bien été envoyé';
 
                 return header('Location: ../public/index.php?route=forgotPassword');
