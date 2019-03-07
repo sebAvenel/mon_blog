@@ -159,7 +159,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
     }
 
     /**
-     * Send a user account activation email
+     * Send an user account activation email
      *
      * @param $name
      * @param $email

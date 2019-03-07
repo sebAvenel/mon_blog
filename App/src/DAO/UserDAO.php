@@ -11,6 +11,24 @@ use App\src\model\User;
 class UserDAO extends DAO
 {
     /**
+     * Return a user
+     *
+     * @param $emailUser
+     * @return User|null
+     */
+    public function getUser($emailUser)
+    {
+        $sql = 'SELECT id, name, password, email, role, keyActivate, isActivate FROM users WHERE  email = ?';
+        $result = $this->sql($sql, [$emailUser]);
+        $row = $result->fetch();
+        if ($row){
+            return $this->buildObjectUser($row);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Return a user object
      *
      * @param $activationKey
