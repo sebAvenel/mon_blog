@@ -5,6 +5,7 @@ namespace App\config;
 use App\src\controller\AdminController;
 use App\src\controller\BlogPostController;
 use App\src\controller\CommentController;
+use App\src\controller\Controller;
 use App\src\controller\HomeController;
 use App\src\controller\UserController;
 
@@ -14,6 +15,7 @@ use App\src\controller\UserController;
  */
 class Router
 {
+    private $controller;
     private $homeController;
     private $blogPostController;
     private $userController;
@@ -25,6 +27,7 @@ class Router
      */
     public function __construct()
     {
+        $this->controller = new Controller();
         $this->homeController = new HomeController();
         $this->blogPostController = new BlogPostController();
         $this->userController = new UserController();
@@ -75,8 +78,12 @@ class Router
                 $this->commentController->addComment($_POST['textareaAddComment'], $_GET['idBlogPost'], $_GET['idUser']);
                 break;
             case 'forgotPassword':
-                if (isset($_POST['inputEmailForgotPassword'])){
-                    $this->userController->forgotPassword($_POST['inputEmailForgotPassword']);
+                if (isset($_GET['email']) && isset($_POST['inputUpdatePassword']) && isset($_POST['inputConfirmUpdatePassword'])){
+                    $this->userController->updatePassword($_GET['email'], $_POST['inputUpdatePassword'], $_POST['inputConfirmUpdatePassword']);
+                } elseif (isset($_GET['emailUpdatePassword']) && isset($_GET['keyActivateUpdatePassword'])){
+                    $this->userController->updateForgotPasswordPage($_GET['emailUpdatePassword'], $_GET['keyActivateUpdatePassword']);
+                } elseif (isset($_POST['inputEmailForgotPassword'])){
+                    $this->userController->sendmailForgotPassword($_POST['inputEmailForgotPassword']);
                 } else {
                     $this->homeController->forgotPasswordPage();
                 }
@@ -84,8 +91,8 @@ class Router
             case 'registerUser':
                 if (isset($_POST['inputRegisterUserName']) && isset($_POST['inputRegisterUserMail']) && isset($_POST['inputRegisterUserPassword']) && isset($_POST['inputRegisterUserPasswordConfirm'])){
                     $this->userController->sendmailRegisterUser($_POST['inputRegisterUserName'], $_POST['inputRegisterUserMail'], $_POST['inputRegisterUserPassword'], $_POST['inputRegisterUserPasswordConfirm']);
-                } elseif (isset($_GET['nameActivationUserAccount']) && isset($_GET['emailActivationUserAccount']) && isset($_GET['passwordActivationUserAccount'])){
-                    $this->userController->registerUser($_GET['nameActivationUserAccount'], $_GET['emailActivationUserAccount'], $_GET['passwordActivationUserAccount']);
+                } elseif (isset($_GET['emailActivationUserAccount']) && isset($_GET['keyActivationUserAccount'])){
+                    $this->userController->userActivationAccount($_GET['emailActivationUserAccount'], $_GET['keyActivationUserAccount']);
                 } else {
                     $this->homeController->registerPage();
                 }
@@ -100,6 +107,7 @@ class Router
                 $this->adminController->profilesAdminPage();
                 break;
             default:
+                $this->controller->errorViewDisplay('Erreur 404, page introuvable');
                 break;
         }
     }

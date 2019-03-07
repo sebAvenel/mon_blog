@@ -13,6 +13,8 @@ class User
     private $password;
     private $email;
     private $role;
+    private $keyActivate;
+    private $isActivate;
 
     /**
      * @return mixed
@@ -93,4 +95,38 @@ class User
     {
         $this->role = $role;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getKeyActivate()
+    {
+        return $this->keyActivate;
+    }
+
+    /**
+     * @param mixed $keyActivate
+     */
+    public function setKeyActivate($keyActivate)
+    {
+        $this->keyActivate = $keyActivate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisActivate()
+    {
+        return $this->isActivate;
+    }
+
+    /**
+     * @param mixed $isActivate
+     */
+    public function setIsActivate($isActivate)
+    {
+        $this->isActivate = $isActivate;
+    }
+
+
 }

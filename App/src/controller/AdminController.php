@@ -25,7 +25,7 @@ class AdminController extends Controller
      */
     public function blogPostsAdminPage()
     {
-        echo $this->getTwig->render('admin/blogPostsAdmin.twig');
+        echo $this->Twig->render('admin/blogPostsAdmin.twig');
     }
 
     /**
@@ -37,7 +37,7 @@ class AdminController extends Controller
      */
     public function commentsAdminPage()
     {
-        echo $this->getTwig->render('admin/commentsAdmin.twig');
+        echo $this->Twig->render('admin/commentsAdmin.twig');
     }
 
     /**
@@ -49,7 +49,7 @@ class AdminController extends Controller
      */
     public function profilesAdminPage()
     {
-        echo $this->getTwig->render('admin/profilesAdmin.twig');
+        echo $this->Twig->render('admin/profilesAdmin.twig');
     }
 
 }

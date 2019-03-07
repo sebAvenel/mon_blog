@@ -16,10 +16,10 @@ class CommentsDAO extends DAO
      */
     public function getCommentsFromBlogPost($idBlogPost)
     {
-        $sql = 'SELECT comment.id, comment.content, comment.createdAt, DATE_FORMAT(comment.updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, comment.isValid, comment.idBlogPost, comment.idUser, user.id AS userId, user.name
+        $sql = 'SELECT comment.id, comment.content, comment.createdAt, DATE_FORMAT(comment.updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, comment.isValid, comment.idBlogPost, comment.idUser, users.id AS userId, users.name
                 FROM comment 
-                INNER JOIN user
-                  ON comment.idUser = user.id
+                INNER JOIN users
+                  ON comment.idUser = users.id
                 WHERE comment.idBlogPost = ?
                 AND comment.isValid = 1';
         $result = $this->sql($sql, [$idBlogPost]);

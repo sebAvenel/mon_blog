@@ -5,11 +5,13 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user (
                 id INT AUTO_INCREMENT NOT NULL,
                 name VARCHAR(25) NOT NULL,
-                password VARCHAR(30) NOT NULL,
+                password VARCHAR(100) NOT NULL,
                 email VARCHAR(50) NOT NULL,
                 role VARCHAR(25) NOT NULL,
+                keyActivate VARCHAR(40) NOT NULL,
+                isActivate BOOLEAN NOT NULL,
                 PRIMARY KEY (id),
-                UNIQUE KEY (password)
+                UNIQUE KEY (email)
 );
 
 

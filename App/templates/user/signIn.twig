@@ -23,9 +23,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    {% if session.errorAuthUser %}
+                    {% if errorAuthUser %}
                         <div class="alert alert-danger" role="alert">
-                            <p>{{ session.errorAuthUser }}</p>
+                            <p>{{ errorAuthUser }}</p>
                         </div>
                     {% endif %}
                     <div class="card card-signin">

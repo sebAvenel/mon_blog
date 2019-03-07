@@ -17,7 +17,7 @@ class BlogPostDAO extends DAO
      */
     public function getBlogPosts()
     {
-        $sql = 'SELECT id, title, chapo, content, DATE_FORMAT(createdAt, "%d/%m/%Y") AS createdAt, updatedAt, idUser FROM blog_post ORDER BY id DESC';
+        $sql = 'SELECT id, title, chapo, content, DATE_FORMAT(createdAt, "%d/%m/%Y") AS createdAt, DATE_FORMAT(updatedAt, "%d/%m/%Y") AS updatedAt, idUser FROM blog_post ORDER BY id DESC';
         $result = $this->sql($sql);
         if ($result) {
             $blogPosts = [];
@@ -28,10 +28,8 @@ class BlogPostDAO extends DAO
                 $blogPostId = $row['id'];
                 $blogPosts[$blogPostId] = $this->buildObjectBlogPost($row);
             }
-
             return $blogPosts;
         } else {
-
             return null;
         }
     }
@@ -48,10 +46,8 @@ class BlogPostDAO extends DAO
         $result = $this->sql($sql, [$idBlogPost]);
         $row = $result->fetch();
         if ($row) {
-
             return $this->buildObjectBlogPost($row);
         } else {
-
             return null;
         }
     }

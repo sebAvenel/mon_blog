@@ -29,7 +29,7 @@ class HomeController extends Controller
     public function homePage()
     {
         $this->sessionCleaner($this->sessionArray);
-        echo $this->getTwig->render('home/home.twig');
+        echo $this->Twig->render('home/home.twig');
     }
 
     /**
@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function signInPage()
     {
         $this->sessionCleaner($this->sessionArray);
-        echo $this->getTwig->render('user/signIn.twig');
+        echo $this->Twig->render('user/signIn.twig');
     }
 
     /**
@@ -55,7 +55,7 @@ class HomeController extends Controller
     public function forgotPasswordPage()
     {
         $this->sessionCleaner($this->sessionArray);
-        echo $this->getTwig->render('user/forgotPassword.twig');
+        echo $this->Twig->render('user/forgotPassword.twig');
     }
 
     /**
@@ -68,7 +68,7 @@ class HomeController extends Controller
     public function registerPage()
     {
         $this->sessionCleaner($this->sessionArray);
-        echo $this->getTwig->render('user/register.twig');
+        echo $this->Twig->render('user/register.twig');
     }
 
     /**
@@ -103,19 +103,18 @@ class HomeController extends Controller
             $errors['message'] = "Votre message doit contenir au moins 30 caractères";
         }
         if (!empty($errors)) {
-            echo $this->getTwig->render('home/home.twig', [
+            echo $this->Twig->render('home/home.twig', [
                 'errorSentMail' => $errors,
                 'inputsSentMail' => $_POST
             ]);
         } else {
             $to = 'sebastien.avenel@outlook.fr';
-            $subject = 'Contacté par ' . $name;
+            $subject = 'Contact: ' . $name;
             $message2 = $message . "\n\n" . 'Téléphone: ' . $phone;
             $headers = 'FROM: ' . $email;
-            echo $to . '  ' . $subject . '  ' . $message2 . '  ' . $headers;
             $sent = mail($to, $subject, $message2 ,$headers);
             if ($sent){
-                echo $this->getTwig->render('home/home.twig', [
+                echo $this->Twig->render('home/home.twig', [
                     'successSentMail' => 'Votre email a bien été envoyé'
                 ]);
             } else {
