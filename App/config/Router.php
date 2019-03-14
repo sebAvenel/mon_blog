@@ -39,6 +39,7 @@ class Router
      * Routing
      */
     public function run(){
+
         $page = 'home';
         if (isset($_GET['route']))
         {
