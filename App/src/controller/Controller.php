@@ -21,6 +21,7 @@ class Controller
         ]);
         $this->Twig->addGlobal('session', $_SESSION);
         $this->Twig->addGlobal('cookie', $_COOKIE);
+        $this->Twig->addGlobal('get', $_GET);
     }
 
     /**

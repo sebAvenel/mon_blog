@@ -52,4 +52,42 @@ class BlogPostController extends Controller
             'comments' => $this->commentsDAO->getCommentsFromBlogPost($idBlogPost)
         ]);
     }
+
+    /**
+     * Update a blog post
+     *
+     * @param $title
+     * @param $chapo
+     * @param $content
+     * @param $id
+     */
+    public function updateBlogPost($title, $chapo, $content, $id)
+    {
+        $this->blogPostDAO->updateBlogPost($title, $chapo, $content, $id);
+        header('Location: ../public/index.php?route=adminBlogPosts');
+    }
+
+    /**
+     * Add a blog post
+     *
+     * @param $title
+     * @param $chapo
+     * @param $content
+     */
+    public function addBlogPost($title, $chapo, $content)
+    {
+        $this->blogPostDAO->addBlogPost($title, $chapo, $content);
+        header('Location: ../public/index.php?route=adminBlogPosts');
+    }
+
+    /**
+     * Delete a blog post
+     *
+     * @param $idBlogPost
+     */
+    public function deleteBlogPost($idBlogPost)
+    {
+        $this->blogPostDAO->deleteBlogPost($idBlogPost);
+        header('Location: ../public/index.php?route=adminBlogPosts');
+    }
 }

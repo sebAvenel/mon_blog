@@ -2,6 +2,8 @@
 
 namespace App\src\DAO;
 
+use App\src\model\Comment;
+
 /**
  * Class CommentsDAO
  * @package App\src\DAO
@@ -27,15 +29,41 @@ class CommentsDAO extends DAO
         foreach ($result as $key => $value){
             $tab[$key] = $value;
         }
-
         return $tab;
+    }
+
+    /**
+     * Return a list of invalid log post
+     *
+     * @param $idBlogPost
+     * @return array|null
+     */
+    public function getInvalidComments($idBlogPost)
+    {
+        $sql = 'SELECT comment.id, comment.content, comment.createdAt, DATE_FORMAT(comment.updatedAt, "%d/%m/%Y à %H:%i:%s") AS updatedAt, comment.isValid, comment.idBlogPost, comment.idUser, users.id AS userId, users.name
+                FROM comment 
+                INNER JOIN users
+                  ON comment.idUser = users.id
+                WHERE comment.idBlogPost = ?
+                AND comment.isValid = 0';
+        $result = $this->sql($sql, [$idBlogPost]);
+        if ($result) {
+            $comments = [];
+            foreach ($result as $row){
+                $commentId = $row['id'];
+                $comments[$commentId] = $this->buildObjectComment($row);
+            }
+            return $comments;
+        } else {
+            return null;
+        }
     }
 
     /**
      * Update a comment
      *
-     * @param int $idComment
-     * @param string $contentComment
+     * @param $idComment
+     * @param $contentComment
      */
     public function updateComment($idComment, $contentComment)
     {
@@ -76,5 +104,34 @@ class CommentsDAO extends DAO
             'idUser' => $idUser
         ];
         $this->sql($sql, $arrayAddComment);
+    }
+
+    /**
+     * Valid a comment
+     *
+     * @param $idComment
+     */
+    public function validComment($idComment)
+    {
+        $sql = 'update comment SET isValid = 1 where id = :idComment';
+        $arrayUpdateComment = [
+            'idComment' => $idComment
+        ];
+        $this->sql($sql, $arrayUpdateComment);
+    }
+
+    private function buildObjectComment(array $row)
+    {
+        $comment = new Comment();
+        $comment->setId($row['id']);
+        $comment->setContent($row['content']);
+        $comment->setCreatedAt($row['createdAt']);
+        $comment->setUpdatedAt($row['updatedAt']);
+        $comment->setIsValid($row['isValid']);
+        $comment->setIdBlogPost($row['idBlogPost']);
+        $comment->setIdUser($row['idUser']);
+        $comment->setUserName($row['name']);
+
+        return $comment;
     }
 }

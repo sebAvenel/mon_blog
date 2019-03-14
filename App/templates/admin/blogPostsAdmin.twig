@@ -2,11 +2,88 @@
 
 {% block head %}
     <title>Blog posts admin</title>
+
     <link href="../public/css/blogPostsAdmin.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
     <div id="blogPostsAdmin" class="col-xs-12 col-lg-9">
         <h1>Blog Posts admin</h1>
+        <div class="container">
+            {% if get.title and get.chapo and get.content and get.id%}
+                <form action="../public/index.php?route=adminBlogPosts&updateBlogPost=1" method="post">
+            {% else %}
+                <form action="../public/index.php?route=adminBlogPosts&addBlogPost=1" method="post">
+            {% endif %}
+                <div class="form-group">
+                    <label for="inputTitle">Titre</label>
+                    <input type="text" class="form-control" name="inputAdminBlogPostTitle" id="inputTile" value="{{ get.title }}">
+                </div>
+                <div class="form-group">
+                    <label for="inputChapo">Chapô</label>
+                    <input type="text" class="form-control" name="inputAdminBlogPostChapo" id="inputChapo" value="{{ get.chapo }}">
+                </div>
+                <div class="form-group">
+                    <label for="input">Contenu</label>
+                    <textarea id="inputContent" class="form-control" name="inputAdminBlogPostContent" rows="8">{{ get.content }}</textarea>
+                </div>
+                    <input type="hidden" name="id" value="{{ get.id }}"/>
+                <div id="buttons">
+                    {% if get.title and get.chapo and get.content %}
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                        <input type=button onclick=window.location.href='../public/index.php?route=adminBlogPosts'; value="Annuler" class="btn btn-danger"/>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    {% endif %}
+                </div>
+                </form></form>
+            <div id="containerTable">
+                <table class="table table-hover table-default">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Titre</th>
+                        <th scope="col">Modifier</th>
+                        <th scope="col">Supprimer</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {% for blogPost in blogPostsList %}
+                            <tr>
+                                <th>{{ blogPost.id }}</th>
+                                <td>{{ blogPost.title }}</td>
+                                <td><a href="?route=adminBlogPosts&title={{ blogPost.title }}&autor={{ blogPost.userName }}&chapo={{ blogPost.chapo }}&content={{ blogPost.content }}&id={{ blogPost.id }}"><i class="fas fa-user-edit"></i></a></td>
+                                <td><a href="?route=adminBlogPosts&idDeletingBlogPost={{ blogPost.id }}&titleDeletingBlogPost={{ blogPost.title }}#containerTable"><i class="far fa-trash-alt"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteBlogPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h4>Etes-vous sûr de vouloir supprimer le blog post '{{ get.titleDeletingBlogPost }}' ?</h4>
+                        </div>
+                        <form action="../public/index.php?route=adminBlogPosts" method="post">
+                            <input type="hidden" name="idBlogPostDeleted" value="{{ get.idDeletingBlogPost }}"/>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary">Confirmer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% if get.idDeletingBlogPost %}
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(function(){
+                        $("#deleteBlogPostModal").modal('show');
+                    });
+                </script>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

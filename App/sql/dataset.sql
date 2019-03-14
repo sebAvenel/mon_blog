@@ -1,4 +1,4 @@
-INSERT INTO user
+INSERT INTO users
 	(name, password, email, role, keyActivate, isActivate)
 VALUES
 	('melron14', 'cdcyducvjn', 'sebastien.avenel@outlook.fr', 'admin', 'f71c8cb7bba3eb44adb7f3aefd6bc89c', 1),

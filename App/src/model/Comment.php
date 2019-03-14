@@ -10,11 +10,12 @@ class Comment
 {
     private $id;
     private $content;
-    private $created_at;
-    private $updated_at;
-    private $is_valid;
-    private $id_blog_post;
-    private $id_user;
+    private $createdAt;
+    private $updatedAt;
+    private $isValid;
+    private $idBlogPost;
+    private $idUser;
+    private $userName;
 
     /**
      * @return mixed
@@ -53,15 +54,15 @@ class Comment
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $created_at
+     * @param mixed $createdAt
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($createdAt)
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
     /**
@@ -69,31 +70,31 @@ class Comment
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
-     * @param mixed $updated_at
+     * @param mixed $updatedAt
      */
-    public function setUpdatedAt($updated_at)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
      * @return mixed
      */
-    public function getisValid()
+    public function getIsValid()
     {
-        return $this->is_valid;
+        return $this->isValid;
     }
 
     /**
-     * @param mixed $is_valid
+     * @param $isValid
      */
-    public function setIsValid($is_valid)
+    public function setIsValid($isValid)
     {
-        $this->is_valid = $is_valid;
+        $this->isValid = $isValid;
     }
 
     /**
@@ -101,15 +102,15 @@ class Comment
      */
     public function getIdBlogPost()
     {
-        return $this->id_blog_post;
+        return $this->idBlogPost;
     }
 
     /**
-     * @param mixed $id_blog_post
+     * @param mixed $idBlogPost
      */
-    public function setIdBlogPost($id_blog_post)
+    public function setIdBlogPost($idBlogPost)
     {
-        $this->id_blog_post = $id_blog_post;
+        $this->idBlogPost = $idBlogPost;
     }
 
     /**
@@ -117,14 +118,30 @@ class Comment
      */
     public function getIdUser()
     {
-        return $this->id_user;
+        return $this->idUser;
     }
 
     /**
-     * @param mixed $id_user
+     * @param mixed $idUser
      */
-    public function setIdUser($id_user)
+    public function setIdUser($idUser)
     {
-        $this->id_user = $id_user;
+        $this->idUser = $idUser;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
     }
 }

@@ -33,7 +33,7 @@ class UserController extends Controller
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function authUser($emailUser, $pwdUser, $rememberUser)
+    public function authUser($emailUser, $pwdUser, $rememberUser = null)
     {
         $dataUser = $this->userDAO->authUser($emailUser, $pwdUser);
         if ($dataUser && $dataUser['isActivateUser'] == 1){
@@ -90,7 +90,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
                     'successSendMailForgotPassword' => 'Un lien vous a été envoyé afin de mettre à jour votre mot de passe.'
                 ]);
             } else {
-                echo "erreur lors de l'envoi de l'email!";
+                $this->errorViewDisplay("erreur lors de l'envoi de l'email!");
             }
         } else {
             echo $this->Twig->render('user/forgotPassword.twig', [
@@ -227,5 +227,11 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
         } else {
             $this->errorViewDisplay('Ce lien semble périmé');
         }
+    }
+
+    public function changeRoleUser($roleUser, $idUser)
+    {
+        $this->userDAO->updateRoleUser($roleUser, $idUser);
+        header('Location: ../public/index.php?route=adminProfiles#containerTable');
     }
 }

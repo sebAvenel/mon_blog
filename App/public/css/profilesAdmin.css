@@ -4,6 +4,16 @@
     padding-top: 20px;
     padding-bottom: 40px;
 }
+table{
+    margin-top: 60px;
+    background-color: white;
+}
+i{
+    color: gray;
+}
+i:hover{
+    color: #18BC9C;
+}
 @media (min-width: 576px) {
 }
 @media (min-width: 768px) {

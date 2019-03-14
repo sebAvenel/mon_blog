@@ -17,14 +17,15 @@ class BlogPostDAO extends DAO
      */
     public function getBlogPosts()
     {
-        $sql = 'SELECT id, title, chapo, content, DATE_FORMAT(createdAt, "%d/%m/%Y") AS createdAt, DATE_FORMAT(updatedAt, "%d/%m/%Y") AS updatedAt, idUser FROM blog_post ORDER BY id DESC';
+        $sql = 'SELECT blog_post.id, blog_post.title, blog_post.chapo, blog_post.content, DATE_FORMAT(blog_post.createdAt, "%d/%m/%Y") AS createdAt, DATE_FORMAT(blog_post.updatedAt, "%d/%m/%Y") AS updatedAt, blog_post.idUser, users.id AS userId, users.name AS name
+                FROM blog_post
+                INNER JOIN users
+                  ON blog_post.idUser = users.id
+                ORDER BY id DESC';
         $result = $this->sql($sql);
         if ($result) {
             $blogPosts = [];
             foreach ($result as $row){
-                if (strlen($row['content']) >= 200){
-                    $row['content'] = substr($row['content'], 0, 200) . "...";
-                }
                 $blogPostId = $row['id'];
                 $blogPosts[$blogPostId] = $this->buildObjectBlogPost($row);
             }
@@ -42,7 +43,11 @@ class BlogPostDAO extends DAO
      */
     public function getBlogPost($idBlogPost)
     {
-        $sql = 'SELECT id, title, chapo, content, createdAt, updatedAt, idUser FROM blog_post WHERE  id = ?';
+        $sql = 'SELECT blog_post.id, blog_post.title, blog_post.chapo, blog_post.content, DATE_FORMAT(blog_post.createdAt, "%d/%m/%Y") AS createdAt, DATE_FORMAT(blog_post.updatedAt, "%d/%m/%Y") AS updatedAt, blog_post.idUser, users.id AS userId, users.name AS name
+                FROM blog_post
+                INNER JOIN users
+                  ON blog_post.idUser = users.id
+                WHERE  blog_post.id = ?';
         $result = $this->sql($sql, [$idBlogPost]);
         $row = $result->fetch();
         if ($row) {
@@ -50,6 +55,58 @@ class BlogPostDAO extends DAO
         } else {
             return null;
         }
+    }
+
+    /**
+     * Update a blog post
+     *
+     * @param $title
+     * @param $chapo
+     * @param $content
+     * @param $id
+     * @return bool|\PDOStatement
+     */
+    public function updateBlogPost($title, $chapo, $content, $id)
+    {
+        $sql = 'UPDATE blog_post SET title = :title, chapo = :chapo, content = :content, updatedAt = NOW() WHERE id = :id';
+        $arrayUpdateComment = [
+            'title' => $title,
+            'chapo' => $chapo,
+            'content' => $content,
+            'id' => $id
+        ];
+        return $this->sql($sql, $arrayUpdateComment);
+    }
+
+    /**
+     * Delete a blog post
+     *
+     * @param $title
+     * @param $chapo
+     * @param $content
+     */
+    public function addBlogPost($title, $chapo, $content)
+    {
+        $sql = 'INSERT INTO blog_post(title, chapo, content, createdAt, updatedAt, idUser)
+                VALUES(:title, :title, :content, NOW(), NOW(), :idUser)';
+        $arrayAddComment = [
+            'title' => $title,
+            'chapo' => $chapo,
+            'content' => $content,
+            'idUser' => (int) $_SESSION['infosUser']['idUser']
+        ];
+        $this->sql($sql, $arrayAddComment);
+    }
+
+    /**
+     * Delete a blog post
+     *
+     * @param $idBlogPost
+     */
+    public function deleteBlogPost($idBlogPost)
+    {
+        $sql = 'DELETE FROM blog_post WHERE id = ' . $idBlogPost;
+        $this->sql($sql);
     }
 
     /**
@@ -68,6 +125,8 @@ class BlogPostDAO extends DAO
         $article->setCreatedAt($row['createdAt']);
         $article->setUpdatedAt($row['updatedAt']);
         $article->setIdUser($row['idUser']);
+        $article->setUserId($row['userId']);
+        $article->setUserName($row['name']);
 
         return $article;
     }

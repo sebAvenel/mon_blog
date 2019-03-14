@@ -8,5 +8,35 @@
 {% block content %}
     <div id="blogPostsAdmin" class="col-xs-12 col-lg-9">
         <h1>Profils admin</h1>
+        <div id="containerTable">
+            <table class="table table-hover table-default">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Rôle</th>
+                    <th scope="col">Changer rôle</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in userList %}
+                    <tr>
+                        <th>{{ user.id }}</th>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>
+                            <a href="?route=adminProfiles&idUser={{ user.id }}&roleUser={{ user.role }}">
+                            {% if user.role == 'admin' %}
+                                <i class="fas fa-toggle-on"></i>
+                            {% else %}
+                                <i class="fas fa-toggle-off"></i>
+                            {% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

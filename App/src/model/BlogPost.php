@@ -15,6 +15,8 @@ class BlogPost
     private $created_at;
     private $updated_at;
     private $id_user;
+    private $userId;
+    private $userName;
 
     /**
      * @return mixed
@@ -126,5 +128,37 @@ class BlogPost
     public function setIdUser($id_user)
     {
         $this->id_user = $id_user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param mixed $userId
+     */
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param mixed $userName
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
     }
 }

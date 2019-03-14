@@ -127,6 +127,4 @@ class User
     {
         $this->isActivate = $isActivate;
     }
-
-
 }

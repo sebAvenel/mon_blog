@@ -29,6 +29,27 @@ class UserDAO extends DAO
     }
 
     /**
+     * Return a user list
+     *
+     * @return array|null
+     */
+    public function getUsers()
+    {
+        $sql = 'SELECT id, name, password, email, role, keyActivate, isActivate FROM users';
+        $result = $this->sql($sql);
+        if ($result) {
+            $users = [];
+            foreach ($result as $row){
+                $userId = $row['id'];
+                $users[$userId] = $this->buildObjectUser($row);
+            }
+            return $users;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Check for the presence of a user's email in the DB
      *
      * @param string $emailUser
@@ -149,6 +170,21 @@ class UserDAO extends DAO
             'email' => $emailUser
         ];
         $this->sql($sql, $arrayUpdatePassword);
+    }
+
+    public function updateRoleUser($roleUser, $idUser)
+    {
+        if ($roleUser == 'admin'){
+            $newRoleUser = 'user';
+        } else {
+            $newRoleUser = 'admin';
+        }
+        $sql = 'UPDATE users SET role = :role where id = :id';
+        $arrayUpdateRoleUser = [
+            'role' => $newRoleUser,
+            'id' => $idUser
+        ];
+        $this->sql($sql, $arrayUpdateRoleUser);
     }
 
     /**
