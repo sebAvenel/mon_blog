@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     private $userDAO;
     private $sessionArray;
+    private $serverHost;
 
     /**
      * UserController constructor.
@@ -21,6 +22,7 @@ class UserController extends Controller
         parent::__construct();
         $this->userDAO = new UserDAO();
         $this->sessionArray = array('errorAuthUser', 'errorsRegisterUser', 'inputsRegisterUser', 'successSendmailRegisterUser');
+        $this->serverHost = $_SERVER['HTTP_HOST'];
     }
 
     /**
@@ -70,7 +72,7 @@ class UserController extends Controller
     public function sendmailForgotPassword($emailUser)
     {
         if ($this->userDAO->checkMailUser($emailUser)){
-            $user = $this->userDAO->getUser($emailUser);
+            $user = $this->userDAO->getUserByEmail($emailUser);
             $activatingKey = $user->getKeyActivate();
             $to = $emailUser;
             $subject = 'Oublie mot de passe';
@@ -79,7 +81,7 @@ class UserController extends Controller
 Pour mettre à jour votre mot de passe, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
  
-http://localhost:8888/mon_blog/App/public/index.php?route=forgotPassword&emailUpdatePassword=$emailUser&keyActivateUpdatePassword=$activatingKey
+http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=forgotPassword&keyActivateUpdatePassword=$activatingKey
 
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.";
@@ -102,19 +104,23 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
     /**
      * Diplay the update forgot password page
      *
-     * @param $email
      * @param $keyActivate
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function updateForgotPasswordPage($email, $keyActivate)
+    public function updateForgotPasswordPage($keyActivate)
     {
-        $user = $this->userDAO->getUser($email);
-        if ($user->getKeyActivate() === $keyActivate){
-            echo $this->Twig->render('user/updatePassword.twig', [
-                'email' => $email
-            ]);
+        if ($this->userDAO->getUserByKeyActivate($keyActivate))
+        {
+            $user = $this->userDAO->getUserByKeyActivate($keyActivate);
+            if ($user->getKeyActivate() === $keyActivate){
+                echo $this->Twig->render('user/updatePassword.twig', [
+                    'email' => $user->getEmail()
+                ]);
+            } else {
+                $this->errorViewDisplay('Ce lien semble périmé');
+            }
         } else {
             $this->errorViewDisplay('Ce lien semble périmé');
         }
@@ -159,6 +165,9 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
      * @param $email
      * @param $password
      * @param $passwordConfirm
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendmailRegisterUser($name, $email, $password, $passwordConfirm)
     {
@@ -191,15 +200,15 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
             $keyActivateUser = $this->userDAO->getActivateKeyUser($email);
             $to = $email;
             $subject = 'Activation de votre compte SAvenel';
-            $message = 'Bienvenue sur VotreSite,
+            $message = "Bienvenue sur VotreSite,
  
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
  
-http://localhost:8888/mon_blog/App/public/index.php?route=registerUser&emailActivationUserAccount='.$email.'&keyActivationUserAccount='.$keyActivateUser.'
+http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=registerUser&keyActivationUserAccount=$keyActivateUser
 
 ---------------
-Ceci est un mail automatique, Merci de ne pas y répondre.';
+Ceci est un mail automatique, Merci de ne pas y répondre.";
             $headers = 'FROM: SAvenel_blog';
             $sent = mail($to, $subject, $message ,$headers);
             if ($sent){
@@ -212,23 +221,33 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
     }
 
     /**
-     * @param $email
      * @param $keyActivate
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function userActivationAccount($email, $keyActivate)
+    public function userActivationAccount($keyActivate)
     {
-        $user = $this->userDAO->getUser($email);
-        if ($user->getKeyActivate() === $keyActivate){
-            $this->userDAO->updateUserActivation($email);
-            echo $this->Twig->render('user/signIn.twig');
+        if ($this->userDAO->getUserByKeyActivate($keyActivate))
+        {
+            $user = $this->userDAO->getUserByKeyActivate($keyActivate);
+            if ($user->getKeyActivate() === $keyActivate){
+                $this->userDAO->updateUserActivation($keyActivate);
+                echo $this->Twig->render('user/signIn.twig');
+            } else {
+                $this->errorViewDisplay('Ce lien semble périmé');
+            }
         } else {
             $this->errorViewDisplay('Ce lien semble périmé');
         }
     }
 
+    /**
+     * Change the role of a user
+     *
+     * @param $roleUser
+     * @param $idUser
+     */
     public function changeRoleUser($roleUser, $idUser)
     {
         $this->userDAO->updateRoleUser($roleUser, $idUser);

@@ -11,15 +11,33 @@ use App\src\model\User;
 class UserDAO extends DAO
 {
     /**
-     * Return a user
+     * Return a user object
      *
-     * @param $emailUser
+     * @param $activationKey
      * @return User|null
      */
-    public function getUser($emailUser)
+    public function getUserByKeyActivate($activationKey)
     {
-        $sql = 'SELECT id, name, password, email, role, keyActivate, isActivate FROM users WHERE  email = ?';
-        $result = $this->sql($sql, [$emailUser]);
+        $sql = 'SELECT id, name, password, email, role, keyActivate, isActivate FROM users WHERE keyActivate = ?';
+        $result = $this->sql($sql, [$activationKey]);
+        $row = $result->fetch();
+        if ($row){
+            return $this->buildObjectUser($row);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Return a user object
+     *
+     * @param $userEmail
+     * @return User|null
+     */
+    public function getUserByEmail($userEmail)
+    {
+        $sql = 'SELECT id, name, password, email, role, keyActivate, isActivate FROM users WHERE email = ?';
+        $result = $this->sql($sql, [$userEmail]);
         $row = $result->fetch();
         if ($row){
             return $this->buildObjectUser($row);
@@ -159,19 +177,25 @@ class UserDAO extends DAO
     /**
      * Update the activation status of a user
      *
-     * @param $emailUser
+     * @param $activationKey
      */
-    public function updateUserActivation($emailUser)
+    public function updateUserActivation($activationKey)
     {
-        $sql = 'UPDATE users SET keyActivate = :keyActivate, isActivate = :isActivate where email = :email';
+        $sql = 'UPDATE users SET keyActivate = :keyActivate, isActivate = :isActivate where keyActivate = :activationKey';
         $arrayUpdatePassword = [
             'keyActivate' => md5(uniqid("blogSebAvenel")),
             'isActivate' => 1,
-            'email' => $emailUser
+            'activationKey' => $activationKey
         ];
         $this->sql($sql, $arrayUpdatePassword);
     }
 
+    /**
+     * Update the user role
+     *
+     * @param $roleUser
+     * @param $idUser
+     */
     public function updateRoleUser($roleUser, $idUser)
     {
         if ($roleUser == 'admin'){

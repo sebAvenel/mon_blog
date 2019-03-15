@@ -17,7 +17,7 @@ class User
     private $isActivate;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -25,7 +25,7 @@ class User
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -33,7 +33,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -41,7 +41,7 @@ class User
     }
 
     /**
-     * @param mixed $name
+     * @param string $name
      */
     public function setName($name)
     {
@@ -49,7 +49,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPassword()
     {
@@ -57,7 +57,7 @@ class User
     }
 
     /**
-     * @param mixed $password
+     * @param string $password
      */
     public function setPassword($password)
     {
@@ -65,7 +65,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -73,7 +73,7 @@ class User
     }
 
     /**
-     * @param mixed $email
+     * @param string $email
      */
     public function setEmail($email)
     {
@@ -81,7 +81,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRole()
     {
@@ -89,7 +89,7 @@ class User
     }
 
     /**
-     * @param mixed $role
+     * @param string $role
      */
     public function setRole($role)
     {
@@ -97,7 +97,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getKeyActivate()
     {
@@ -105,7 +105,7 @@ class User
     }
 
     /**
-     * @param mixed $keyActivate
+     * @param sting $keyActivate
      */
     public function setKeyActivate($keyActivate)
     {
@@ -113,7 +113,7 @@ class User
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getisActivate()
     {
@@ -121,7 +121,7 @@ class User
     }
 
     /**
-     * @param mixed $isActivate
+     * @param int $isActivate
      */
     public function setIsActivate($isActivate)
     {

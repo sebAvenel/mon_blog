@@ -19,7 +19,7 @@ class BlogPost
     private $userName;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -27,7 +27,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -35,7 +35,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle()
     {
@@ -43,7 +43,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $title
+     * @param string $title
      */
     public function setTitle($title)
     {
@@ -51,7 +51,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getChapo()
     {
@@ -59,7 +59,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $chapo
+     * @param string $chapo
      */
     public function setChapo($chapo)
     {
@@ -67,7 +67,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getContent()
     {
@@ -75,7 +75,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $content
+     * @param string $content
      */
     public function setContent($content)
     {
@@ -83,7 +83,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return date
      */
     public function getCreatedAt()
     {
@@ -91,7 +91,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $created_at
+     * @param date $created_at
      */
     public function setCreatedAt($created_at)
     {
@@ -99,7 +99,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return date
      */
     public function getUpdatedAt()
     {
@@ -107,7 +107,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $updated_at
+     * @param date $updated_at
      */
     public function setUpdatedAt($updated_at)
     {
@@ -115,7 +115,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getIdUser()
     {
@@ -123,7 +123,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $id_user
+     * @param int $id_user
      */
     public function setIdUser($id_user)
     {
@@ -131,7 +131,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getUserId()
     {
@@ -139,7 +139,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $userId
+     * @param int $userId
      */
     public function setUserId($userId)
     {
@@ -147,7 +147,7 @@ class BlogPost
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUserName()
     {
@@ -155,7 +155,7 @@ class BlogPost
     }
 
     /**
-     * @param mixed $userName
+     * @param string $userName
      */
     public function setUserName($userName)
     {

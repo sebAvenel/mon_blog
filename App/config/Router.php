@@ -82,8 +82,8 @@ class Router
             case 'forgotPassword':
                 if (isset($_GET['email']) && isset($_POST['inputUpdatePassword']) && isset($_POST['inputConfirmUpdatePassword'])) {
                     $this->userController->updatePassword($_GET['email'], $_POST['inputUpdatePassword'], $_POST['inputConfirmUpdatePassword']);
-                } elseif (isset($_GET['emailUpdatePassword']) && isset($_GET['keyActivateUpdatePassword'])) {
-                    $this->userController->updateForgotPasswordPage($_GET['emailUpdatePassword'], $_GET['keyActivateUpdatePassword']);
+                } elseif (isset($_GET['keyActivateUpdatePassword'])) {
+                    $this->userController->updateForgotPasswordPage($_GET['keyActivateUpdatePassword']);
                 } elseif (isset($_POST['inputEmailForgotPassword'])) {
                     $this->userController->sendmailForgotPassword($_POST['inputEmailForgotPassword']);
                 } else {
@@ -93,8 +93,8 @@ class Router
             case 'registerUser':
                 if (isset($_POST['inputRegisterUserName']) && isset($_POST['inputRegisterUserMail']) && isset($_POST['inputRegisterUserPassword']) && isset($_POST['inputRegisterUserPasswordConfirm'])) {
                     $this->userController->sendmailRegisterUser($_POST['inputRegisterUserName'], $_POST['inputRegisterUserMail'], $_POST['inputRegisterUserPassword'], $_POST['inputRegisterUserPasswordConfirm']);
-                } elseif (isset($_GET['emailActivationUserAccount']) && isset($_GET['keyActivationUserAccount'])) {
-                    $this->userController->userActivationAccount($_GET['emailActivationUserAccount'], $_GET['keyActivationUserAccount']);
+                } elseif (isset($_GET['keyActivationUserAccount'])) {
+                    $this->userController->userActivationAccount($_GET['keyActivationUserAccount']);
                 } else {
                     $this->homeController->registerPage();
                 }

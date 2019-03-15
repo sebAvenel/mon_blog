@@ -55,6 +55,14 @@ class Controller
         return $randomString;
     }
 
+    /**
+     * Display the error page
+     *
+     * @param $message
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function errorViewDisplay($message)
     {
         echo $this->Twig->render('error/error.twig', [

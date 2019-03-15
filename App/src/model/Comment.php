@@ -18,7 +18,7 @@ class Comment
     private $userName;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -26,7 +26,7 @@ class Comment
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -34,7 +34,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getContent()
     {
@@ -42,7 +42,7 @@ class Comment
     }
 
     /**
-     * @param mixed $content
+     * @param string $content
      */
     public function setContent($content)
     {
@@ -50,7 +50,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return date
      */
     public function getCreatedAt()
     {
@@ -58,7 +58,7 @@ class Comment
     }
 
     /**
-     * @param mixed $createdAt
+     * @param date $createdAt
      */
     public function setCreatedAt($createdAt)
     {
@@ -66,7 +66,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return date
      */
     public function getUpdatedAt()
     {
@@ -74,7 +74,7 @@ class Comment
     }
 
     /**
-     * @param mixed $updatedAt
+     * @param date $updatedAt
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -82,7 +82,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getIsValid()
     {
@@ -90,7 +90,7 @@ class Comment
     }
 
     /**
-     * @param $isValid
+     * @param int $isValid
      */
     public function setIsValid($isValid)
     {
@@ -98,7 +98,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getIdBlogPost()
     {
@@ -106,7 +106,7 @@ class Comment
     }
 
     /**
-     * @param mixed $idBlogPost
+     * @param int $idBlogPost
      */
     public function setIdBlogPost($idBlogPost)
     {
@@ -114,7 +114,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getIdUser()
     {
@@ -122,7 +122,7 @@ class Comment
     }
 
     /**
-     * @param mixed $idUser
+     * @param int $idUser
      */
     public function setIdUser($idUser)
     {
@@ -130,7 +130,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getUserName()
     {
@@ -138,7 +138,7 @@ class Comment
     }
 
     /**
-     * @param mixed $userName
+     * @param string $userName
      */
     public function setUserName($userName)
     {

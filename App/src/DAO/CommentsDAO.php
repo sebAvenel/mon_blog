@@ -120,6 +120,12 @@ class CommentsDAO extends DAO
         $this->sql($sql, $arrayUpdateComment);
     }
 
+    /**
+     * Build a comment object
+     *
+     * @param array $row
+     * @return Comment
+     */
     private function buildObjectComment(array $row)
     {
         $comment = new Comment();
