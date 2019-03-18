@@ -42,7 +42,7 @@ class CommentController
     }
 
     /**
-     * Delete a comment and redirects to the deleted comment page
+     * Delete comment by a user
      *
      * @param int $idComment
      * @param int $idBlogPost
@@ -51,6 +51,18 @@ class CommentController
     {
         $this->commentsDAO->deleteComment($idComment);
         header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
+    }
+
+    /**
+     * Delete comment by admin
+     *
+     * @param $idComment
+     * @param $idBlogPost
+     */
+    public function deleteCommentByAdmin($idComment, $idBlogPost)
+    {
+        $this->commentsDAO->deleteComment($idComment);
+        header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
     }
 
     /**
@@ -69,5 +81,17 @@ class CommentController
             $_SESSION['addCommentSuccess'] = "Votre commentaire a bien été pris en compte. Il sera publié ou supprimé après validation du modérateur";
         }
         header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
+    }
+
+    /**
+     * Valid comment by admin
+     *
+     * @param $idComment
+     * @param $idBlogPost
+     */
+    public function validComment($idComment, $idBlogPost)
+    {
+        $this->commentsDAO->validComment($idComment);
+        header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
     }
 }

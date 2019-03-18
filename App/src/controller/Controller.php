@@ -8,7 +8,7 @@ namespace App\src\controller;
  */
 class Controller
 {
-    protected $getTwig;
+    protected $Twig;
 
     /**
      * Controller constructor.
@@ -16,11 +16,12 @@ class Controller
     public function __construct()
     {
         $loader = new \Twig_Loader_Filesystem('../templates');
-        $this->getTwig = new \Twig_Environment($loader, [
+        $this->Twig = new \Twig_Environment($loader, [
             'cache' => false, // __DIR__ . 'tmp'
         ]);
-        $this->getTwig->addGlobal('session', $_SESSION);
-        $this->getTwig->addGlobal('cookie', $_COOKIE);
+        $this->Twig->addGlobal('session', $_SESSION);
+        $this->Twig->addGlobal('cookie', $_COOKIE);
+        $this->Twig->addGlobal('get', $_GET);
     }
 
     /**
@@ -52,5 +53,20 @@ class Controller
             $randomString .= $chars[rand(0, $lengthChars - 1)];
         }
         return $randomString;
+    }
+
+    /**
+     * Display the error page
+     *
+     * @param $message
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function errorViewDisplay($message)
+    {
+        echo $this->Twig->render('error/error.twig', [
+            'errorMessage' => $message
+        ]);
     }
 }

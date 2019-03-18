@@ -10,14 +10,15 @@ class Comment
 {
     private $id;
     private $content;
-    private $created_at;
-    private $updated_at;
-    private $is_valid;
-    private $id_blog_post;
-    private $id_user;
+    private $createdAt;
+    private $updatedAt;
+    private $isValid;
+    private $idBlogPost;
+    private $idUser;
+    private $userName;
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
@@ -25,7 +26,7 @@ class Comment
     }
 
     /**
-     * @param mixed $id
+     * @param int $id
      */
     public function setId($id)
     {
@@ -33,7 +34,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getContent()
     {
@@ -41,7 +42,7 @@ class Comment
     }
 
     /**
-     * @param mixed $content
+     * @param string $content
      */
     public function setContent($content)
     {
@@ -49,82 +50,98 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return date
      */
     public function getCreatedAt()
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * @param mixed $created_at
+     * @param date $createdAt
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt($createdAt)
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
     }
 
     /**
-     * @return mixed
+     * @return date
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
+        return $this->updatedAt;
     }
 
     /**
-     * @param mixed $updated_at
+     * @param date $updatedAt
      */
-    public function setUpdatedAt($updated_at)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->updated_at = $updated_at;
+        $this->updatedAt = $updatedAt;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getisValid()
+    public function getIsValid()
     {
-        return $this->is_valid;
+        return $this->isValid;
     }
 
     /**
-     * @param mixed $is_valid
+     * @param int $isValid
      */
-    public function setIsValid($is_valid)
+    public function setIsValid($isValid)
     {
-        $this->is_valid = $is_valid;
+        $this->isValid = $isValid;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getIdBlogPost()
     {
-        return $this->id_blog_post;
+        return $this->idBlogPost;
     }
 
     /**
-     * @param mixed $id_blog_post
+     * @param int $idBlogPost
      */
-    public function setIdBlogPost($id_blog_post)
+    public function setIdBlogPost($idBlogPost)
     {
-        $this->id_blog_post = $id_blog_post;
+        $this->idBlogPost = $idBlogPost;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getIdUser()
     {
-        return $this->id_user;
+        return $this->idUser;
     }
 
     /**
-     * @param mixed $id_user
+     * @param int $idUser
      */
-    public function setIdUser($id_user)
+    public function setIdUser($idUser)
     {
-        $this->id_user = $id_user;
+        $this->idUser = $idUser;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->userName;
+    }
+
+    /**
+     * @param string $userName
+     */
+    public function setUserName($userName)
+    {
+        $this->userName = $userName;
     }
 }

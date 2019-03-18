@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="../../vendor/twitter/bootstrap/dist/css/bootstrap.min.css">
+
+        <!-- Theme CSS -->
+        <link href="../public/css/layoutAdmin.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+        {% block head %}{% endblock %}
+    </head>
+
+    <body>
+        <div class="container-fluid" id="admin">
+            <div class="row">
+                <div id="navAdmin" class="col-xs-12 col-lg-3">
+                    <div id="logoAdmin">
+                        <img src="../public/img/sa.jpg">
+                        <h1>Admin</h1>
+                    </div>
+                    <div class="nav flex-column" aria-orientation="vertical">
+                        <a class="nav-link" href="../public/index.php?route=adminBlogPosts" id="blogPostAdminLink">Blog posts</a>
+                        <a class="nav-link" href="../public/index.php?route=adminComments" id="commentsAdminLink">Commentaires</a>
+                        <a class="nav-link" href="../public/index.php?route=adminProfiles" id="profilesAdminLink">Profils</a>
+                        <a class="nav-link" href="../public/index.php?route=home">Retour blog</a>
+                    </div>
+                </div>
+
+        {% block content %}{% endblock %}
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="../../vendor/twitter/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
+

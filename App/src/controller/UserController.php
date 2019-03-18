@@ -12,6 +12,7 @@ class UserController extends Controller
 {
     private $userDAO;
     private $sessionArray;
+    private $serverHost;
 
     /**
      * UserController constructor.
@@ -21,27 +22,33 @@ class UserController extends Controller
         parent::__construct();
         $this->userDAO = new UserDAO();
         $this->sessionArray = array('errorAuthUser', 'errorsRegisterUser', 'inputsRegisterUser', 'successSendmailRegisterUser');
+        $this->serverHost = $_SERVER['HTTP_HOST'];
     }
 
     /**
      * User Authentication
      *
-     * @param string $emailUser
-     * @param string $pwdUser
-     * @param bool $rememberUser
+     * @param $emailUser
+     * @param $pwdUser
+     * @param $rememberUser
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function authUser($emailUser, $pwdUser, $rememberUser)
+    public function authUser($emailUser, $pwdUser, $rememberUser = null)
     {
-        $this->sessionCleaner($this->sessionArray);
-        if ($rememberUser){
-            setcookie('email', $emailUser, time() + 365*24*3600, null, null, false, true);
-            setcookie('password', $pwdUser, time() + 365*24*3600, null, null, false, true);
-        }
-        $this->userDAO->authUser($emailUser, $pwdUser);
-        if (isset($_SESSION['infosUser'])){
+        $dataUser = $this->userDAO->authUser($emailUser, $pwdUser);
+        if ($dataUser && $dataUser['isActivateUser'] == 1){
+            if ($rememberUser){
+                session_cache_limiter('private');
+                session_cache_expire(1);
+            }
+            $_SESSION['infosUser'] = $dataUser;
             return header('Location: ../public/index.php');
-        } elseif (isset($_SESSION['errorAuthUser'])){
-            return header('Location: ../public/index.php?route=signIn');
+        } else {
+            echo $this->Twig->render('user/signIn.twig', [
+                'errorAuthUser' => 'Email ou mot de passe incorrect'
+            ]);
         }
     }
 
@@ -55,42 +62,112 @@ class UserController extends Controller
     }
 
     /**
-     * Send a new password
+     * Send a link to update password
      *
      * @param $emailUser
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function forgotPassword($emailUser)
+    public function sendmailForgotPassword($emailUser)
     {
         if ($this->userDAO->checkMailUser($emailUser)){
-            $randomPassword = $this->randomString();
-            $hashedRandomPassword = password_hash($randomPassword, PASSWORD_DEFAULT);
-            $this->userDAO->updatePasswordUser($hashedRandomPassword, $emailUser);
+            $user = $this->userDAO->getUserByEmail($emailUser);
+            $activatingKey = $user->getKeyActivate();
             $to = $emailUser;
-            $subject = 'Mot de passe oublié';
-            $message = "Madame, monsieur\n\n Vous nous avez fait part de l'oublie de votre mot de passe. Voici votre nouveau mot de passe: " . $randomPassword;
-            $headers = 'FROM: Service client SAvenel';
+            $subject = 'Oublie mot de passe';
+            $message = "Madame, monsieur\n\n Vous nous avez fait part de l'oublie de votre mot de passe.
+        
+Pour mettre à jour votre mot de passe, veuillez cliquer sur le lien ci dessous
+ou copier/coller dans votre navigateur internet.
+ 
+http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=forgotPassword&keyActivateUpdatePassword=$activatingKey
+
+---------------
+Ceci est un mail automatique, Merci de ne pas y répondre.";
+            $headers = 'FROM: Service_client_SAvenel_blog';
             $sent = mail($to, $subject, $message ,$headers);
             if ($sent){
-                $_SESSION['successSendMailForgotPassword'] = 'Votre email a bien été envoyé';
-
-                return header('Location: ../public/index.php?route=forgotPassword');
+                echo $this->Twig->render('user/forgotPassword.twig', [
+                    'successSendMailForgotPassword' => 'Un lien vous a été envoyé afin de mettre à jour votre mot de passe.'
+                ]);
             } else {
-                echo "erreur lors de l'envoi de l'email!";
+                $this->errorViewDisplay("erreur lors de l'envoi de l'email!");
             }
         } else {
-            $_SESSION['errorCheckEmailForgotPassword'] = 'Email inconnu';
-
-            return header('Location: ../public/index.php?route=forgotPassword');
+            echo $this->Twig->render('user/forgotPassword.twig', [
+                'successSendMailForgotPassword' => 'Un lien vous a été envoyé afin de mettre à jour votre mot de passe.'
+            ]);
         }
     }
 
     /**
-     * Send a user account activation email
+     * Diplay the update forgot password page
+     *
+     * @param $keyActivate
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function updateForgotPasswordPage($keyActivate)
+    {
+        if ($this->userDAO->getUserByKeyActivate($keyActivate))
+        {
+            $user = $this->userDAO->getUserByKeyActivate($keyActivate);
+            if ($user->getKeyActivate() === $keyActivate){
+                echo $this->Twig->render('user/updatePassword.twig', [
+                    'email' => $user->getEmail()
+                ]);
+            } else {
+                $this->errorViewDisplay('Ce lien semble périmé');
+            }
+        } else {
+            $this->errorViewDisplay('Ce lien semble périmé');
+        }
+    }
+
+    /**
+     * Update password's user
+     *
+     * @param string $email
+     * @param string $password
+     * @param string $confirmPassword
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function updatePassword($email, $password, $confirmPassword)
+    {
+        $error = '';
+        if (!preg_match("#^(?=.*[A-Z])(?=.*[a-z])(?=(.*[0-9]){2,}).{6,15}$#", $password)){
+            $error = 'Votre mot de passe doit comporter entre 6 et 15 caractères dont au moins 1 majuscule et 2 chiffres';
+        } elseif ($password !== $confirmPassword){
+            $error = 'Vos mots de passe doivent être identiques';
+        }
+        if ($error !== ''){
+            echo $this->Twig->render('user/updatePassword.twig', [
+                'errorUpdatePassword' => $error,
+                'inputs' => $_POST
+            ]);
+        } else {
+            $this->userDAO->updatePasswordUser($password, $email);
+            $this->userDAO->updateKeyActivateUser($email);
+            echo $this->Twig->render('user/updatePassword.twig', [
+                'successUpdatePassword' => 'Votre email a bien été mis à jour. Vous pouvez maintenant vous connecter'
+            ]);
+        }
+    }
+
+    /**
+     * Send an user account activation email
      *
      * @param $name
      * @param $email
      * @param $password
      * @param $passwordConfirm
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function sendmailRegisterUser($name, $email, $password, $passwordConfirm)
     {
@@ -119,39 +196,61 @@ class UserController extends Controller
             $_SESSION['inputsRegisterUser'] = $_POST;
             header('Location: ../public/index.php?route=registerUser');
         } else {
+            $this->userDAO->registerUser($name, $email, $password);
+            $keyActivateUser = $this->userDAO->getActivateKeyUser($email);
             $to = $email;
             $subject = 'Activation de votre compte SAvenel';
-            $message = 'Bienvenue sur VotreSite,
+            $message = "Bienvenue sur VotreSite,
  
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
  
-http://localhost/PHP_OCR/mon_blog/App/public/index.php?route=registerUser&nameActivationUserAccount='.$name.'&emailActivationUserAccount='.$email.'&passwordActivationUserAccount='.password_hash($password, PASSWORD_DEFAULT).'
+http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=registerUser&keyActivationUserAccount=$keyActivateUser
 
 ---------------
-Ceci est un mail automatique, Merci de ne pas y répondre.';
-            $headers = 'FROM: SAvenel blog';
-
+Ceci est un mail automatique, Merci de ne pas y répondre.";
+            $headers = 'FROM: SAvenel_blog';
             $sent = mail($to, $subject, $message ,$headers);
             if ($sent){
                 $_SESSION['successSendmailRegisterUser'] = 'Un email a été envoyé à '.$email.' afin d\'activer votre compte';
                 header('Location: ../public/index.php?route=registerUser');
             } else {
-                echo "erreur lors de l'envoi de l'email!";
+                $this->errorViewDisplay('Erreur lors de l\'envoi de l\'email');
             }
         }
     }
 
     /**
-     * Save a user in DB
-     *
-     * @param $name
-     * @param $email
-     * @param $password
+     * @param $keyActivate
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
-    public function registerUser($name, $email, $password)
+    public function userActivationAccount($keyActivate)
     {
-        $this->userDAO->registerUser($name, $email, $password);
-        header('Location: ../public/index.php?route=signIn');
+        if ($this->userDAO->getUserByKeyActivate($keyActivate))
+        {
+            $user = $this->userDAO->getUserByKeyActivate($keyActivate);
+            if ($user->getKeyActivate() === $keyActivate){
+                $this->userDAO->updateUserActivation($keyActivate);
+                echo $this->Twig->render('user/signIn.twig');
+            } else {
+                $this->errorViewDisplay('Ce lien semble périmé');
+            }
+        } else {
+            $this->errorViewDisplay('Ce lien semble périmé');
+        }
+    }
+
+    /**
+     * Change the role of a user
+     *
+     * @param $roleUser
+     * @param $idUser
+     */
+    public function changeRoleUser($roleUser, $idUser)
+    {
+        $this->userDAO->updateRoleUser($roleUser, $idUser);
+        header('Location: ../public/index.php?route=adminProfiles#containerTable');
     }
 }

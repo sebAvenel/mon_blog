@@ -1,11 +1,11 @@
-INSERT INTO user
-	(name, password, email, role)
+INSERT INTO users
+	(name, password, email, role, keyActivate, isActivate)
 VALUES
-	('melron14', 'cdcyducvjn', 'sebastien.avenel@outlook.fr', 'admin'),
-	('gro67', 'GYuhuhr65g', 'sebastien.azel@outlook.fr', 'user' ),
-	('Jambon78', 'htdBHU76nj', 'sebastien.leroy@gmail.com', 'user'),
-	('marka23', 'HJyut67FFG', 'jb.lepoitevin@hotmail.fr', 'user'),
-	('julius09', 'GThy6h8KI', 'ma.dan@gmail.com', 'user');
+	('melron14', 'cdcyducvjn', 'sebastien.avenel@outlook.fr', 'admin', 'f71c8cb7bba3eb44adb7f3aefd6bc89c', 1),
+	('gro67', 'GYuhuhr65g', 'sebastien.azel@outlook.fr', 'user', '381b53b707cd5b716d6cf23de70e7b43', 1),
+	('Jambon78', 'htdBHU76nj', 'sebastien.leroy@gmail.com', 'user', '0c157435771446f7f6de1b088f0b176e', 1),
+	('marka23', 'HJyut67FFG', 'jb.lepoitevin@hotmail.fr', 'user', '507b06616f94c0c6a1d29cc4419b7889', 1),
+	('julius09', 'GThy6h8KI', 'ma.dan@gmail.com', 'user', '1f5689246679276218d32c5917e80cd0', 1);
 	
 INSERT INTO blog_post
 	(title, chapo, content, createdAt, updatedAt, idUser)

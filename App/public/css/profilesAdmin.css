@@ -1,0 +1,27 @@
+#blogPostsAdmin{
+    background-color: #18BC9C;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+table{
+    margin-top: 60px;
+    background-color: white;
+}
+i{
+    color: gray;
+}
+i:hover{
+    color: #18BC9C;
+}
+@media (min-width: 576px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+    #blogPostsAdmin{
+        padding-top: 50px;
+    }
+}
+@media (min-width: 1200px) {
+}
