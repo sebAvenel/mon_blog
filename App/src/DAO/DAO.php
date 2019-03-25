@@ -39,10 +39,8 @@ abstract class DAO
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             return $this->connection;
-        }
-
-        catch(\Exception $errorConnection) {
-            die ('Erreur de connection :'.$errorConnection->getMessage());
+        } catch (\Exception $errorConnection) {
+            die('Erreur de connection :'.$errorConnection->getMessage());
         }
     }
 

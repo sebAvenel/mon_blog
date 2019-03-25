@@ -38,8 +38,8 @@ class UserController extends Controller
     public function authUser($emailUser, $pwdUser, $rememberUser = null)
     {
         $dataUser = $this->userDAO->authUser($emailUser, $pwdUser);
-        if ($dataUser && $dataUser['isActivateUser'] == 1){
-            if ($rememberUser){
+        if ($dataUser && $dataUser['isActivateUser'] == 1) {
+            if ($rememberUser) {
                 session_cache_limiter('private');
                 session_cache_expire(1);
             }
@@ -71,7 +71,15 @@ class UserController extends Controller
      */
     public function sendmailForgotPassword($emailUser)
     {
-        if ($this->userDAO->checkMailUser($emailUser)){
+        if (DataControl::emailControl($emailUser)) {
+            echo $this->Twig->render('user/forgotPassword.twig', [
+               'error' =>  DataControl::emailControl($emailUser)
+            ]);
+
+            return;
+        }
+
+        if ($this->userDAO->checkMailUser($emailUser)) {
             $user = $this->userDAO->getUserByEmail($emailUser);
             $activatingKey = $user->getKeyActivate();
             $to = $emailUser;
@@ -86,8 +94,8 @@ http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=forgotPassw
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.";
             $headers = 'FROM: Service_client_SAvenel_blog';
-            $sent = mail($to, $subject, $message ,$headers);
-            if ($sent){
+            $sent = mail($to, $subject, $message, $headers);
+            if ($sent) {
                 echo $this->Twig->render('user/forgotPassword.twig', [
                     'successSendMailForgotPassword' => 'Un lien vous a été envoyé afin de mettre à jour votre mot de passe.'
                 ]);
@@ -111,10 +119,9 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
      */
     public function updateForgotPasswordPage($keyActivate)
     {
-        if ($this->userDAO->getUserByKeyActivate($keyActivate))
-        {
+        if ($this->userDAO->getUserByKeyActivate($keyActivate)) {
             $user = $this->userDAO->getUserByKeyActivate($keyActivate);
-            if ($user->getKeyActivate() === $keyActivate){
+            if ($user->getKeyActivate() === $keyActivate) {
                 echo $this->Twig->render('user/updatePassword.twig', [
                     'email' => $user->getEmail()
                 ]);
@@ -131,20 +138,18 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
      *
      * @param string $email
      * @param string $password
-     * @param string $confirmPassword
+     * @param $passwordConfirm
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function updatePassword($email, $password, $confirmPassword)
+    public function updatePassword($email, $password, $passwordConfirm)
     {
         $error = '';
-        if (!preg_match("#^(?=.*[A-Z])(?=.*[a-z])(?=(.*[0-9]){2,}).{6,15}$#", $password)){
-            $error = 'Votre mot de passe doit comporter entre 6 et 15 caractères dont au moins 1 majuscule et 2 chiffres';
-        } elseif ($password !== $confirmPassword){
-            $error = 'Vos mots de passe doivent être identiques';
+        if (DataControl::passwordControl($password, $passwordConfirm)) {
+            $error = DataControl::passwordControl($password, $passwordConfirm);
         }
-        if ($error !== ''){
+        if ($error !== '') {
             echo $this->Twig->render('user/updatePassword.twig', [
                 'errorUpdatePassword' => $error,
                 'inputs' => $_POST
@@ -153,7 +158,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
             $this->userDAO->updatePasswordUser($password, $email);
             $this->userDAO->updateKeyActivateUser($email);
             echo $this->Twig->render('user/updatePassword.twig', [
-                'successUpdatePassword' => 'Votre email a bien été mis à jour. Vous pouvez maintenant vous connecter'
+                'successUpdatePassword' => 'Votre mot de passe a bien été mis à jour. Vous pouvez maintenant vous connecter'
             ]);
         }
     }
@@ -174,27 +179,29 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
         $errors = [];
         $this->sessionCleaner($this->sessionArray);
 
-        if (!array_key_exists('inputRegisterUserName', $_POST) || $name === '') {
-            $errors['name'] = "Vous n'avez pas renseigné votre nom";
-        }elseif (strlen($name) < 3 || strlen($name) > 25) {
-            $errors['name'] = "Votre nom doit contenir entre 3 et 25 caractères";
+        if (DataControl::stringControl($name, 'nom', 3, 25)) {
+            $errors['name'] = DataControl::stringControl($name, 'nom', 3, 25);
         }
+
+        /*
+        if (DataControl::emailControl($email, true)){
+            $errors['email'] = DataControl::emailControl($email, true);
+        }*/
         if (!array_key_exists('inputRegisterUserMail', $_POST) || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors['email'] = "Vous n'avez pas renseigné un email valide";
-        } elseif ($this->userDAO->checkMailUser($email)){
+        } elseif ($this->userDAO->checkMailUser($email)) {
             $errors['email'] = "Cet email est déjà pris";
         }
-        if (!array_key_exists('inputRegisterUserPassword', $_POST)) {
-            $errors['password'] = "Vous n'avez pas renseigné de mot de passe";
-        } elseif (!preg_match("#^(?=.*[A-Z])(?=.*[a-z])(?=(.*[0-9]){2,}).{6,15}$#", $password)){
-            $errors['password'] = "Votre mot de passe doit comporter entre 6 et 15 caractères dont au moins 1 majuscule et 2 chiffres";
-        } elseif ($password != $passwordConfirm){
-            $errors['password'] = "Votre mot de passe et votre mot de passe de confirmation doivent être identiques";
+
+        if (DataControl::passwordControl($password, $passwordConfirm)) {
+            $errors['password'] = DataControl::passwordControl($password, $passwordConfirm);
         }
+
         if (!empty($errors)) {
-            $_SESSION['errorsRegisterUser'] = $errors;
-            $_SESSION['inputsRegisterUser'] = $_POST;
-            header('Location: ../public/index.php?route=registerUser');
+            echo $this->Twig->render('user/register.twig', [
+                'errorsRegisterUser' => $errors,
+                'inputsRegisterUser' => $_POST
+            ]);
         } else {
             $this->userDAO->registerUser($name, $email, $password);
             $keyActivateUser = $this->userDAO->getActivateKeyUser($email);
@@ -210,10 +217,11 @@ http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=registerUse
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.";
             $headers = 'FROM: SAvenel_blog';
-            $sent = mail($to, $subject, $message ,$headers);
-            if ($sent){
-                $_SESSION['successSendmailRegisterUser'] = 'Un email a été envoyé à '.$email.' afin d\'activer votre compte';
-                header('Location: ../public/index.php?route=registerUser');
+            $sent = mail($to, $subject, $message, $headers);
+            if ($sent) {
+                echo $this->Twig->render('user/register.twig', [
+                    'successSendmailRegisterUser' => 'Un email a été envoyé à '.$email.' afin d\'activer votre compte'
+                ]);
             } else {
                 $this->errorViewDisplay('Erreur lors de l\'envoi de l\'email');
             }
@@ -221,6 +229,8 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
     }
 
     /**
+     *
+     *
      * @param $keyActivate
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
@@ -228,10 +238,9 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
      */
     public function userActivationAccount($keyActivate)
     {
-        if ($this->userDAO->getUserByKeyActivate($keyActivate))
-        {
+        if ($this->userDAO->getUserByKeyActivate($keyActivate)) {
             $user = $this->userDAO->getUserByKeyActivate($keyActivate);
-            if ($user->getKeyActivate() === $keyActivate){
+            if ($user->getKeyActivate() === $keyActivate) {
                 $this->userDAO->updateUserActivation($keyActivate);
                 echo $this->Twig->render('user/signIn.twig');
             } else {

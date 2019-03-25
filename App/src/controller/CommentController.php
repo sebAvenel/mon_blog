@@ -29,7 +29,7 @@ class CommentController
      */
     public function updateComment($idComment, $contentComment, $idBlogPost)
     {
-        if (strlen($contentComment) > 500 || strlen($contentComment) < 3){
+        if (strlen($contentComment) > 500 || strlen($contentComment) < 3) {
             $errors = [];
             $errors['idComment'] = $idComment;
             $errors['content'] = 'Modification refusée, votre commentaire doit comporter entre 3 et 500 caractères';
@@ -74,7 +74,7 @@ class CommentController
      */
     public function addComment($content, $idBlogPost, $idUser)
     {
-        if (strlen($content) > 500 || strlen($content) < 3){
+        if (strlen($content) > 500 || strlen($content) < 3) {
             $_SESSION['errorAddComment'] = 'Votre commentaire doit comporter entre 3 et 500 caractères';
         } else {
             $this->commentsDAO->addComment($content, $idBlogPost, $idUser);

@@ -40,11 +40,11 @@
                                 <div class="col-12">
                                     <div class="card card_comment">
                                         <div class="card-body">
-                                            <h5 class="card-title">Posté par {{ comment.name }}</h5>
+                                            <h5 class="card-title">Posté par {{ comment.userName }}</h5>
                                             <h6>dernière modification le {{ comment.updatedAt }}</h6>
                                             <p class="card-text">{{ comment.content }}</p>
                                         </div>
-                                        {% if session.infosUser and session.infosUser.idUser == comment.userId%}
+                                        {% if session.infosUser and session.infosUser.idUser == comment.idUser%}
                                             {% if session.errorUpdateComment and session.errorUpdateComment.idComment == comment.id %}
                                                 <div class="alert alert-danger" role="alert">
                                                     <p>{{ session.errorUpdateComment.content }}</p>

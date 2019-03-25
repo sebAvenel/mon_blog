@@ -25,11 +25,16 @@ class CommentsDAO extends DAO
                 WHERE comment.idBlogPost = ?
                 AND comment.isValid = 1';
         $result = $this->sql($sql, [$idBlogPost]);
-        $tab = [];
-        foreach ($result as $key => $value){
-            $tab[$key] = $value;
+        if ($result) {
+            $comments = [];
+            foreach ($result as $row) {
+                $commentId = $row['id'];
+                $comments[$commentId] = $this->buildObjectComment($row);
+            }
+            return $comments;
         }
-        return $tab;
+
+        return null;
     }
 
     /**
@@ -49,14 +54,14 @@ class CommentsDAO extends DAO
         $result = $this->sql($sql, [$idBlogPost]);
         if ($result) {
             $comments = [];
-            foreach ($result as $row){
+            foreach ($result as $row) {
                 $commentId = $row['id'];
                 $comments[$commentId] = $this->buildObjectComment($row);
             }
             return $comments;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**

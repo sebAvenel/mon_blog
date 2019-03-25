@@ -4,6 +4,7 @@
 }
 #registerForm {
     background: linear-gradient(to right, #0AA183, #72EDD5);
+    height: 100%;
 }
 .card-body {
     border-radius: 10px;

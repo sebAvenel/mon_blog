@@ -25,7 +25,7 @@ class BlogPostDAO extends DAO
         $result = $this->sql($sql);
         if ($result) {
             $blogPosts = [];
-            foreach ($result as $row){
+            foreach ($result as $row) {
                 $blogPostId = $row['id'];
                 $blogPosts[$blogPostId] = $this->buildObjectBlogPost($row);
             }

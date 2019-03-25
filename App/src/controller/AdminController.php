@@ -19,7 +19,7 @@ class AdminController extends Controller
     /**
      * AdminController constructor.
      */
-    public function  __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->blogPostsDAO = new BlogPostDAO();
