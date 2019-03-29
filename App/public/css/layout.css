@@ -60,7 +60,7 @@ a {
     color: #233140;
 }
 li a:hover {
-    color: white;
+    color: #18BC9C;
 }
 /* Footer */
 footer {
@@ -110,4 +110,9 @@ footer .footer-below {
 }
 #imgCv{
     width: 35%;
+}
+@media (max-width: 992px) {
+    #navbarSlash{
+        display: none;
+    }
 }

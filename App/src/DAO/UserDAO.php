@@ -8,8 +8,18 @@ use App\src\model\User;
  * Class UserDAO
  * @package App\src\DAO
  */
-class UserDAO extends DAO
+class UserDAO extends DAO implements DAOInterface
 {
+    public function getAll($first, $last)
+    {
+        // TODO: Implement getAll() method.
+    }
+
+    public function getOneById($id)
+    {
+        // TODO: Implement getOneById() method.
+    }
+
     /**
      * Return a user object
      *
@@ -65,6 +75,18 @@ class UserDAO extends DAO
         } else {
             return null;
         }
+    }
+
+    /**
+     * Delete a user
+     *
+     * @param $id
+     * @return bool|\PDOStatement
+     */
+    public function deleteById($id)
+    {
+        $sql = 'DELETE FROM users WHERE id = ' . $id;
+        return $this->sql($sql);
     }
 
     /**

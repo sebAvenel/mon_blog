@@ -48,17 +48,13 @@ class Router
             case 'home':
                 return $this->homeController->homePage();
             case 'homeContact':
-                return $this->homeController->sendmail($_POST['sendMailName'], $_POST['sendMailEmail'], $_POST['sendMailPhone'], $_POST['sendMailMessage']);
+                return $this->homeController->sendmail();
             case 'blogPostsList':
                 return $this->blogPostController->blogPostsList();
             case 'blogPostWithComments':
                 return $this->blogPostController->blogPostWithComments($_GET['idBlogPost']);
             case 'signIn':
                 if (isset($_POST['signInEmail']) && isset($_POST['signInPassword'])) {
-                    if (isset($_POST['signInCheckbox'])) {
-                        return  $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword'], $_POST['signInCheckbox']);
-                    }
-
                     return $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword']);
                 }
 
@@ -66,14 +62,14 @@ class Router
             case 'disconnection':
                 return $this->userController->disconnectUser();
             case 'updateComment':
-                return $this->commentController->updateComment($_GET['idComment'], $_POST['textareaModifComment'], $_GET['idBlogPost']);
+                return $this->commentController->updateComment($_GET['idComment'], $_GET['idBlogPost']);
             case 'deleteComment':
-                return $this->commentController->deleteComment($_GET['idComment'], $_GET['idBlogPost']);
+                return $this->commentController->deleteCommentByUser($_GET['idComment'], $_GET['idBlogPost']);
             case 'addComment':
-                return $this->commentController->addComment($_POST['textareaAddComment'], $_GET['idBlogPost'], $_GET['idUser']);
+                return $this->commentController->addComment($_GET['idBlogPost'], $_GET['idUser']);
             case 'forgotPassword':
                 if (isset($_GET['email']) && isset($_POST['inputUpdatePassword']) && isset($_POST['inputConfirmUpdatePassword'])) {
-                    return $this->userController->updatePassword($_GET['email'], $_POST['inputUpdatePassword'], $_POST['inputConfirmUpdatePassword']);
+                    return $this->userController->updatePassword($_GET['email']);
                 }
 
                 if (isset($_GET['keyActivateUpdatePassword'])) {
@@ -87,7 +83,7 @@ class Router
                 return $this->homeController->forgotPasswordPage();
             case 'registerUser':
                 if (isset($_POST['inputRegisterUserName']) && isset($_POST['inputRegisterUserMail']) && isset($_POST['inputRegisterUserPassword']) && isset($_POST['inputRegisterUserPasswordConfirm'])) {
-                    return $this->userController->sendmailRegisterUser($_POST['inputRegisterUserName'], $_POST['inputRegisterUserMail'], $_POST['inputRegisterUserPassword'], $_POST['inputRegisterUserPasswordConfirm']);
+                    return $this->userController->sendmailRegisterUser();
                 }
 
                 if (isset($_GET['keyActivationUserAccount'])) {
@@ -98,11 +94,11 @@ class Router
             case 'adminBlogPosts':
                 if (isset($_POST['inputAdminBlogPostTitle']) && isset($_POST['inputAdminBlogPostChapo']) && isset($_POST['inputAdminBlogPostContent'])) {
                     if (isset($_POST['id']) && isset($_GET['updateBlogPost'])) {
-                        return $this->blogPostController->updateBlogPost($_POST['inputAdminBlogPostTitle'], $_POST['inputAdminBlogPostChapo'], $_POST['inputAdminBlogPostContent'], $_POST['id']);
+                        return $this->blogPostController->updateBlogPost((int) $_POST['id']);
                     }
 
                     if (isset($_GET['addBlogPost'])) {
-                        return $this->blogPostController->addBlogPost($_POST['inputAdminBlogPostTitle'], $_POST['inputAdminBlogPostChapo'], $_POST['inputAdminBlogPostContent']);
+                        return $this->blogPostController->addBlogPost();
                     }
                 }
 
@@ -126,6 +122,10 @@ class Router
             case 'adminProfiles':
                 if (isset($_GET['idUser']) && isset($_GET['roleUser'])) {
                     return $this->userController->changeRoleUser($_GET['roleUser'], $_GET['idUser']);
+                }
+
+                if (isset($_POST['idDeleteUser'])) {
+                    return $this->userController->deleteUser($_POST['idDeleteUser']);
                 }
 
                 return $this->adminController->profilesAdminPage();

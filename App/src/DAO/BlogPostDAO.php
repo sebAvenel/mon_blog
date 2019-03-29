@@ -8,20 +8,23 @@ use App\src\model\BlogPost;
  * Class BlogPostDAO
  * @package App\src\DAO
  */
-class BlogPostDAO extends DAO
+class BlogPostDAO extends DAO implements DAOInterface
 {
     /**
      * Return a list of blog posts
      *
+     * @param $firstBlogPost
+     * @param $lastBlogPost
      * @return array
      */
-    public function getBlogPosts()
+    public function getAll($firstBlogPost, $lastBlogPost)
     {
-        $sql = 'SELECT blog_post.id, blog_post.title, blog_post.chapo, blog_post.content, DATE_FORMAT(blog_post.createdAt, "%d/%m/%Y") AS createdAt, DATE_FORMAT(blog_post.updatedAt, "%d/%m/%Y") AS updatedAt, blog_post.idUser, users.id AS userId, users.name AS name
+        $sql = "SELECT blog_post.id, blog_post.title, blog_post.chapo, blog_post.content, DATE_FORMAT(blog_post.createdAt, '%d/%m/%Y') AS createdAt, DATE_FORMAT(blog_post.updatedAt, '%d/%m/%Y') AS updatedAt, blog_post.idUser, users.id AS userId, users.name AS name
                 FROM blog_post
                 INNER JOIN users
                   ON blog_post.idUser = users.id
-                ORDER BY id DESC';
+                ORDER BY id DESC
+                LIMIT $firstBlogPost,$lastBlogPost";
         $result = $this->sql($sql);
         if ($result) {
             $blogPosts = [];
@@ -41,7 +44,7 @@ class BlogPostDAO extends DAO
      * @param int $idBlogPost
      * @return BlogPost
      */
-    public function getBlogPost($idBlogPost)
+    public function getOneById($idBlogPost)
     {
         $sql = 'SELECT blog_post.id, blog_post.title, blog_post.chapo, blog_post.content, DATE_FORMAT(blog_post.createdAt, "%d/%m/%Y") AS createdAt, DATE_FORMAT(blog_post.updatedAt, "%d/%m/%Y") AS updatedAt, blog_post.idUser, users.id AS userId, users.name AS name
                 FROM blog_post
@@ -103,10 +106,24 @@ class BlogPostDAO extends DAO
      *
      * @param $idBlogPost
      */
-    public function deleteBlogPost($idBlogPost)
+    public function deleteById($idBlogPost)
     {
         $sql = 'DELETE FROM blog_post WHERE id = ' . $idBlogPost;
         $this->sql($sql);
+    }
+
+    /**
+     * Return the number of posts
+     *
+     * @return int
+     */
+    public function count()
+    {
+        $sql = 'SELECT COUNT(*) AS total FROM blog_post';
+        $result = $this->sql($sql);
+        $total = $result->fetch();
+
+        return $total['total'];
     }
 
     /**

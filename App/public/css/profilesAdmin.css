@@ -1,3 +1,6 @@
+body{
+    background-color: #18BC9C;
+}
 #blogPostsAdmin{
     background-color: #18BC9C;
     text-align: center;
@@ -13,6 +16,16 @@ i{
 }
 i:hover{
     color: #18BC9C;
+}
+.modal-content{
+    background-color: lightgrey;
+}
+.modal form{
+    margin-top: 0px;
+}
+.modal-footer{
+    text-align: center;
+    display: inherit;
 }
 @media (min-width: 576px) {
 }

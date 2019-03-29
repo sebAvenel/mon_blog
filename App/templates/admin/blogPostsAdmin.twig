@@ -9,26 +9,35 @@
     <div id="blogPostsAdmin" class="col-xs-12 col-lg-9">
         <h1>Blog Posts admin</h1>
         <div class="container">
-            {% if get.title and get.chapo and get.content and get.id%}
+            {% if errors %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if (get.title and get.chapo and get.content and get.id) or inputsContent %}
                 <form action="../public/index.php?route=adminBlogPosts&updateBlogPost=1" method="post">
             {% else %}
                 <form action="../public/index.php?route=adminBlogPosts&addBlogPost=1" method="post">
             {% endif %}
                 <div class="form-group">
                     <label for="inputTitle">Titre</label>
-                    <input type="text" class="form-control" name="inputAdminBlogPostTitle" id="inputTile" value="{{ get.title }}">
+                    <input type="text" class="form-control" name="inputAdminBlogPostTitle" id="inputTile" value="{{ get.title }}{{ inputsContent.inputAdminBlogPostTitle }}">
                 </div>
                 <div class="form-group">
                     <label for="inputChapo">Chapô</label>
-                    <input type="text" class="form-control" name="inputAdminBlogPostChapo" id="inputChapo" value="{{ get.chapo }}">
+                    <input type="text" class="form-control" name="inputAdminBlogPostChapo" id="inputChapo" value="{{ get.chapo }}{{ inputsContent.inputAdminBlogPostChapo }}">
                 </div>
                 <div class="form-group">
                     <label for="input">Contenu</label>
-                    <textarea id="inputContent" class="form-control" name="inputAdminBlogPostContent" rows="8">{{ get.content }}</textarea>
+                    <textarea id="inputContent" class="form-control" name="inputAdminBlogPostContent" rows="8">{{ get.content }}{{ inputsContent.inputAdminBlogPostContent }}</textarea>
                 </div>
                     <input type="hidden" name="id" value="{{ get.id }}"/>
                 <div id="buttons">
-                    {% if get.title and get.chapo and get.content %}
+                    {% if (get.title and get.chapo and get.content) or inputsContent %}
                         <button type="submit" class="btn btn-primary">Modifier</button>
                         <input type=button onclick=window.location.href='../public/index.php?route=adminBlogPosts'; value="Annuler" class="btn btn-danger"/>
                     {% else %}

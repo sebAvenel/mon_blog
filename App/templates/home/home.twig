@@ -99,28 +99,28 @@
                     <form action="../public/index.php?route=homeContact#contact" method="post" name="sentMessage" id="contactForm" novalidate>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="inputname">Nom</label>
+                                <label for="sendMailName">Nom</label>
                                 <input type="text" class="form-control" name="sendMailName" placeholder="Nom" id="sendMailName" value={{ inputsSentMail.sendMailName }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="inputemail">Email</label>
+                                <label for="sendMailEmail">Email</label>
                                 <input type="email" class="form-control" name="sendMailEmail" placeholder="Email" id="sendMailEmail" value={{ inputsSentMail.sendMailEmail }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="inputphone">Téléphone</label>
+                                <label for="sendMailPhone">Téléphone</label>
                                 <input type="tel" class="form-control" name="sendMailPhone" placeholder="Téléphone" id="sendMailPhone" value={{ inputsSentMail.sendMailPhone }}>
                                 <p class="help-block text-danger"></p>
                             </div>
                         </div>
                         <div class="row control-group">
                             <div class="form-group col-xs-12 floating-label-form-group controls">
-                                <label for="inputmessage">Message</label>
+                                <label for="sendMailMessage">Message</label>
                                 <textarea rows="5" class="form-control" name="sendMailMessage" placeholder="Message" id="sendMailMessage">{{ inputsSentMail.sendMailMessage }}</textarea>
                                 <p class="help-block text-danger"></p>
                             </div>

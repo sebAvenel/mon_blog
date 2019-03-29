@@ -8,9 +8,9 @@ namespace App\src\DAO;
  */
 interface DAOInterface
 {
-    public function getAll();
+    public function getAll(int $first, int $last);
 
-    public function getOneById(array $array);
+    public function getOneById(int $id);
 
-    public function deleteById($id);
+    public function deleteById(int $id);
 }

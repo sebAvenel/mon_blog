@@ -2,6 +2,8 @@
 
 namespace App\src\controller;
 
+use App\src\service\DataControl;
+use App\src\service\Sanitize;
 use App\src\DAO\CommentsDAO;
 
 /**
@@ -24,21 +26,25 @@ class CommentController
      * Update a comment and redirect to the modified comment page
      *
      * @param int $idComment
-     * @param string $contentComment
      * @param int $idBlogPost
+     * @return void
      */
-    public function updateComment($idComment, $contentComment, $idBlogPost)
+    public function updateComment(int $idComment, int $idBlogPost)
     {
-        if (strlen($contentComment) > 500 || strlen($contentComment) < 3) {
+        $contentComment = Sanitize::onString('post', 'textareaModifComment');
+        if (DataControl::stringControl($contentComment, 'Commentaire', 3, 500)) {
             $errors = [];
             $errors['idComment'] = $idComment;
-            $errors['content'] = 'Modification refusée, votre commentaire doit comporter entre 3 et 500 caractères';
+            $errors['content'] = DataControl::stringControl($contentComment, 'Commentaire', 3, 500);
             $_SESSION['errorUpdateComment'] = $errors;
-        } else {
-            $_SESSION['successUpdateComment'] = 'La modification de votre commentaire est en attente de validation du modérateur, merci de votre compréhension';
-            $this->commentsDAO->updateComment($idComment, $contentComment);
+
+            return header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost . '#commentId' . $idComment);
         }
-        header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
+
+        $_SESSION['successUpdateComment'] = 'La modification de votre commentaire est en attente de validation du modérateur, merci de votre compréhension';
+        $this->commentsDAO->updateComment($idComment, $contentComment);
+
+        return header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
     }
 
     /**
@@ -47,10 +53,11 @@ class CommentController
      * @param int $idComment
      * @param int $idBlogPost
      */
-    public function deleteComment($idComment, $idBlogPost)
+    public function deleteCommentByUser(int $idComment, int $idBlogPost)
     {
-        $this->commentsDAO->deleteComment($idComment);
-        header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
+        $this->commentsDAO->deleteById($idComment);
+
+        return header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
     }
 
     /**
@@ -59,28 +66,32 @@ class CommentController
      * @param $idComment
      * @param $idBlogPost
      */
-    public function deleteCommentByAdmin($idComment, $idBlogPost)
+    public function deleteCommentByAdmin(int $idComment, int $idBlogPost)
     {
-        $this->commentsDAO->deleteComment($idComment);
-        header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
+        $this->commentsDAO->deleteById($idComment);
+
+        return header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
     }
 
     /**
      * Add a comment and redirects to the added comment page
      *
-     * @param string $content
      * @param int $idBlogPost
      * @param int $idUser
+     * @return void
      */
-    public function addComment($content, $idBlogPost, $idUser)
+    public function addComment(int $idBlogPost, int $idUser)
     {
-        if (strlen($content) > 500 || strlen($content) < 3) {
-            $_SESSION['errorAddComment'] = 'Votre commentaire doit comporter entre 3 et 500 caractères';
-        } else {
-            $this->commentsDAO->addComment($content, $idBlogPost, $idUser);
-            $_SESSION['addCommentSuccess'] = "Votre commentaire a bien été pris en compte. Il sera publié ou supprimé après validation du modérateur";
+        $content = Sanitize::onString('post', 'textareaAddComment');
+        if (DataControl::stringControl($content, 'commentaire', 3, 500)) {
+            $_SESSION['errorAddComment'] = DataControl::stringControl($content, 'commentaire', 3, 500);
+            return header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost . '#addCommentCard');
         }
-        header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
+
+        $this->commentsDAO->addComment($content, $idBlogPost, $idUser);
+        $_SESSION['addCommentSuccess'] = "Votre commentaire a bien été pris en compte. Il sera publié ou supprimé après validation du modérateur";
+
+        return header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
     }
 
     /**
@@ -89,9 +100,10 @@ class CommentController
      * @param $idComment
      * @param $idBlogPost
      */
-    public function validComment($idComment, $idBlogPost)
+    public function validComment(int $idComment, int $idBlogPost)
     {
         $this->commentsDAO->validComment($idComment);
-        header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
+
+        return header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
     }
 }

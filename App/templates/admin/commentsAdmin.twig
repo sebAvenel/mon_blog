@@ -35,12 +35,14 @@
                     <div class="card-header">
                         <h4>Titre : {{ uniqueBlogPost.title }}</h4>
                     </div>
+                    <!--suppress Annotator -->
                     <div class="card-body">
-                        <h5 class="card-title"><h5>Chapo : {{ uniqueBlogPost.chapo }}</h5></h5>
-                        <p class="card-text"><p>Contenu : {{ uniqueBlogPost.content }}</p></p>
+                        <h5 class="card-title">Chapo : {{ uniqueBlogPost.chapo }}</h5>
+                        <p class="card-text"><p>Contenu : {{ uniqueBlogPost.content }}</p>
                         <h4>Liste des commentaires en attente:</h4>
                         <div id="commentsList">
                             {% for comment in invalidComments %}
+                                <!--suppress Annotator -->
                                 <div>
                                     <p><h6>Dernière modification le : {{ comment.updatedAt }} Par {{ comment.UserName }}</h6></p>
                                     <p>{{ comment.content }}</p>
@@ -50,7 +52,6 @@
                                 </div>
                             {% endfor %}
                         </div>
-
                     </div>
                 </div>
             {% else %}
