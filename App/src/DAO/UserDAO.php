@@ -8,8 +8,18 @@ use App\src\model\User;
  * Class UserDAO
  * @package App\src\DAO
  */
-class UserDAO extends DAO
+class UserDAO extends DAO implements DAOInterface
 {
+    public function getAll($first, $last)
+    {
+        // TODO: Implement getAll() method.
+    }
+
+    public function getOneById($id)
+    {
+        // TODO: Implement getOneById() method.
+    }
+
     /**
      * Return a user object
      *
@@ -21,7 +31,7 @@ class UserDAO extends DAO
         $sql = 'SELECT id, name, password, email, role, keyActivate, isActivate FROM users WHERE keyActivate = ?';
         $result = $this->sql($sql, [$activationKey]);
         $row = $result->fetch();
-        if ($row){
+        if ($row) {
             return $this->buildObjectUser($row);
         } else {
             return null;
@@ -39,7 +49,7 @@ class UserDAO extends DAO
         $sql = 'SELECT id, name, password, email, role, keyActivate, isActivate FROM users WHERE email = ?';
         $result = $this->sql($sql, [$userEmail]);
         $row = $result->fetch();
-        if ($row){
+        if ($row) {
             return $this->buildObjectUser($row);
         } else {
             return null;
@@ -57,7 +67,7 @@ class UserDAO extends DAO
         $result = $this->sql($sql);
         if ($result) {
             $users = [];
-            foreach ($result as $row){
+            foreach ($result as $row) {
                 $userId = $row['id'];
                 $users[$userId] = $this->buildObjectUser($row);
             }
@@ -65,6 +75,18 @@ class UserDAO extends DAO
         } else {
             return null;
         }
+    }
+
+    /**
+     * Delete a user
+     *
+     * @param $id
+     * @return bool|\PDOStatement
+     */
+    public function deleteById($id)
+    {
+        $sql = 'DELETE FROM users WHERE id = ' . $id;
+        return $this->sql($sql);
     }
 
     /**
@@ -94,14 +116,13 @@ class UserDAO extends DAO
         $sql = 'SELECT id, name, email, password, role, keyActivate, isActivate FROM users WHERE email = ?';
         $result = $this->sql($sql, [$emailUser]);
         $response = $result->fetch();
-        if (password_verify($pwdUser, $response['password']))
-        {
+        if (password_verify($pwdUser, $response['password'])) {
             $infoUser = [];
-            foreach ($response as $key => $value){
+            foreach ($response as $key => $value) {
                 $infoUser[$key . 'User'] = $value;
             }
             return $infoUser;
-        }else{
+        } else {
             return null;
         }
     }
@@ -198,7 +219,7 @@ class UserDAO extends DAO
      */
     public function updateRoleUser($roleUser, $idUser)
     {
-        if ($roleUser == 'admin'){
+        if ($roleUser == 'admin') {
             $newRoleUser = 'user';
         } else {
             $newRoleUser = 'admin';

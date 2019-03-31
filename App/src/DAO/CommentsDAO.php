@@ -8,8 +8,18 @@ use App\src\model\Comment;
  * Class CommentsDAO
  * @package App\src\DAO
  */
-class CommentsDAO extends DAO
+class CommentsDAO extends DAO implements DAOInterface
 {
+    public function getAll($first, $last)
+    {
+        // TODO: Implement getAll() method.
+    }
+
+    public function getOneById($id)
+    {
+        // TODO: Implement getOneById() method.
+    }
+
     /**
      * Return a list of comments from blog post
      *
@@ -25,11 +35,16 @@ class CommentsDAO extends DAO
                 WHERE comment.idBlogPost = ?
                 AND comment.isValid = 1';
         $result = $this->sql($sql, [$idBlogPost]);
-        $tab = [];
-        foreach ($result as $key => $value){
-            $tab[$key] = $value;
+        if ($result) {
+            $comments = [];
+            foreach ($result as $row) {
+                $commentId = $row['id'];
+                $comments[$commentId] = $this->buildObjectComment($row);
+            }
+            return $comments;
         }
-        return $tab;
+
+        return null;
     }
 
     /**
@@ -49,14 +64,14 @@ class CommentsDAO extends DAO
         $result = $this->sql($sql, [$idBlogPost]);
         if ($result) {
             $comments = [];
-            foreach ($result as $row){
+            foreach ($result as $row) {
                 $commentId = $row['id'];
                 $comments[$commentId] = $this->buildObjectComment($row);
             }
             return $comments;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     /**
@@ -78,11 +93,11 @@ class CommentsDAO extends DAO
     /**
      * Delete a comment
      *
-     * @param int $idComment
+     * @param $id
      */
-    public function deleteComment($idComment)
+    public function deleteById($id)
     {
-        $sql = 'DELETE FROM comment WHERE id = ' . $idComment;
+        $sql = 'DELETE FROM comment WHERE id = ' . $id;
         $this->sql($sql);
     }
 

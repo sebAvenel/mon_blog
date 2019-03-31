@@ -15,3 +15,27 @@
     background-color: inherit;
     background-color: #18BC9C;
 }
+.pagination {
+    text-align: center;
+}
+#blogPostPerPage{
+    text-align: center;
+    margin-bottom: 30px;
+}
+#btnBlogPerPage{
+    background-color: #18BC9C;
+    color: white;
+}
+#selectBlogPerPage{
+    width: 70px;
+}
+#blogPostPerPageForm label, select, button{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.page-item.active .page-link{
+    background-color: #18BC9C;
+}
+.page-link{
+    color: black;
+}

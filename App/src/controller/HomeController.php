@@ -2,124 +2,132 @@
 
 namespace App\src\controller;
 
+use App\src\service\DataControl;
+use App\src\service\Sanitize;
+
 /**
  * Class HomeController
  * @package App\src\controller
  */
 class HomeController extends Controller
 {
-    private $sessionArray;
-
     /**
      * HomeController constructor.
      */
     public function __construct()
     {
         parent:: __construct();
-        $this->sessionArray = array('errorAuthUser', 'successSendMailForgotPassword', 'errorCheckEmailForgotPassword', 'errorAuthUser', 'errorsRegisterUser', 'inputsRegisterUser', 'successSendmailRegisterUser');
     }
 
     /**
      * Diplay the home page
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function homePage()
     {
-        $this->sessionCleaner($this->sessionArray);
-        echo $this->Twig->render('home/home.twig');
+        echo $this->twig->render('home/home.twig');
+
+        return;
     }
 
     /**
      * Display the sign in page
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function signInPage()
     {
-        $this->sessionCleaner($this->sessionArray);
-        echo $this->Twig->render('user/signIn.twig');
+        echo $this->twig->render('user/signIn.twig');
+
+        return;
     }
 
     /**
      * Display the forgot password page
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function forgotPasswordPage()
     {
-        $this->sessionCleaner($this->sessionArray);
-        echo $this->Twig->render('user/forgotPassword.twig');
+        echo $this->twig->render('user/forgotPassword.twig');
+
+        return;
     }
 
     /**
      * Display the user registration page
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function registerPage()
     {
-        $this->sessionCleaner($this->sessionArray);
-        echo $this->Twig->render('user/register.twig');
+        echo $this->twig->render('user/register.twig');
+
+        return;
     }
 
     /**
      * Send an email contact
      *
-     * @param string $name
-     * @param string $email
-     * @param int $phone
-     * @param string $message
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function sendmail($name, $email, $phone, $message)
+    public function sendmail()
     {
+        $name = Sanitize::onString('post', 'sendMailName');
+        $email = Sanitize::onString('post', 'sendMailEmail');
+        $phone = Sanitize::onString('post', 'sendMailPhone');
+        $message = Sanitize::onString('post', 'sendMailMessage');
         $errors = [];
 
-        if (!array_key_exists('sendMailName', $_POST) || $name === '') {
-            $errors['name'] = "Vous n'avez pas renseigné votre nom";
-        }elseif (strlen($name) < 3) {
-            $errors['name'] = "Votre nom doit contenir au moins 3 caractères";
+        if (DataControl::stringControl($name, 'nom', 3)) {
+            $errors['name'] = DataControl::stringControl($name, 'nom', 3);
         }
-        if (!array_key_exists('sendMailEmail', $_POST) || $email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = "Vous n'avez pas renseigné un email valide";
+
+        if (DataControl::emailControl($email)) {
+            $errors['email'] = DataControl::emailControl($email);
         }
-        if (!array_key_exists('sendMailPhone', $_POST) || $phone === '' || !preg_match("#^0[1-68]([-. ]?[0-9]{2}){4}$#", $phone)) {
-            $errors['phone'] = "Vous n'avez pas renseigné un numéro de téléphone valide";
+
+        if (DataControl::phoneControl($phone)) {
+            $errors['phone'] = DataControl::phoneControl($phone);
         }
-        if (!array_key_exists('sendMailMessage', $_POST) || $message === '') {
-            $errors['message'] = "Vous n'avez pas renseigné votre message";
-        } elseif (strlen($message) < 30) {
-            $errors['message'] = "Votre message doit contenir au moins 30 caractères";
+
+        if (DataControl::stringControl($message, 'message', 30)) {
+            $errors['message'] = DataControl::stringControl($message, 'message', 30);
         }
+
         if (!empty($errors)) {
-            echo $this->Twig->render('home/home.twig', [
+            echo $this->twig->render('home/home.twig', [
                 'errorSentMail' => $errors,
                 'inputsSentMail' => $_POST
             ]);
-        } else {
-            $to = 'sebastien.avenel@outlook.fr';
-            $subject = 'Contact: ' . $name;
-            $message2 = $message . "\n\n" . 'Téléphone: ' . $phone;
-            $headers = 'FROM: ' . $email;
-            $sent = mail($to, $subject, $message2 ,$headers);
-            if ($sent){
-                echo $this->Twig->render('home/home.twig', [
-                    'successSentMail' => 'Votre email a bien été envoyé'
-                ]);
-            } else {
-                echo "erreur lors de l'envoi de l'email!";
-            }
+
+            return;
         }
+
+        $to = 'sebastien.avenel@outlook.fr';
+        $subject = 'Contact: ' . $name;
+        $message2 = $message . "\n\n" . 'Téléphone: ' . $phone;
+        $headers = 'FROM: ' . $email;
+        $sent = mail($to, $subject, $message2, $headers);
+        if ($sent) {
+            echo $this->twig->render('home/home.twig', [
+                'successSentMail' => 'Votre email a bien été envoyé'
+            ]);
+
+            return;
+        }
+
+        return $this->errorViewDisplay('Erreur lors de l\'envoi de l\'email');
     }
 }

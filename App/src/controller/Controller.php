@@ -8,20 +8,21 @@ namespace App\src\controller;
  */
 class Controller
 {
-    protected $Twig;
+    protected $twig;
 
     /**
      * Controller constructor.
      */
     public function __construct()
     {
-        $loader = new \Twig_Loader_Filesystem('../templates');
-        $this->Twig = new \Twig_Environment($loader, [
+        $loader = new \Twig\Loader\FilesystemLoader('../templates');
+        $this->twig = new \Twig\Environment($loader, [
             'cache' => false, // __DIR__ . 'tmp'
         ]);
-        $this->Twig->addGlobal('session', $_SESSION);
-        $this->Twig->addGlobal('cookie', $_COOKIE);
-        $this->Twig->addGlobal('get', $_GET);
+        $this->twig->addGlobal('session', $_SESSION);
+        $this->twig->addGlobal('cookie', $_COOKIE);
+        $this->twig->addGlobal('get', $_GET);
+        $this->twig->addExtension(new \Twig_Extensions_Extension_Text());
     }
 
     /**
@@ -36,37 +37,24 @@ class Controller
                 unset($_SESSION[$item]);
             }
         }
-    }
 
-    /**
-     * Generate a random string
-     *
-     * @param int $length
-     * @return string
-     */
-    public function randomString($length = 10)
-    {
-        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ#$@&';
-        $lengthChars = strlen($chars);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++){
-            $randomString .= $chars[rand(0, $lengthChars - 1)];
-        }
-        return $randomString;
+        return;
     }
 
     /**
      * Display the error page
      *
      * @param $message
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function errorViewDisplay($message)
+    public function errorViewDisplay(string $message)
     {
-        echo $this->Twig->render('error/error.twig', [
+        echo $this->twig->render('error/error.twig', [
             'errorMessage' => $message
         ]);
+
+        return;
     }
 }

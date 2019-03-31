@@ -19,7 +19,7 @@ class AdminController extends Controller
     /**
      * AdminController constructor.
      */
-    public function  __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->blogPostsDAO = new BlogPostDAO();
@@ -30,45 +30,51 @@ class AdminController extends Controller
     /**
      * Display the blog posts administration page
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function blogPostsAdminPage()
     {
-        echo $this->Twig->render('admin/blogPostsAdmin.twig', [
-            'blogPostsList' => $this->blogPostsDAO->getBlogPosts()
+        echo $this->twig->render('admin/blogPostsAdmin.twig', [
+            'blogPostsList' => $this->blogPostsDAO->getAll(0, $this->blogPostsDAO->count())
         ]);
+
+        return;
     }
 
     /**
      * Display the comments administration page
      *
-     * @param null $idBlogPost
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @param int $idBlogPost
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function commentsAdminPage($idBlogPost = null)
+    public function commentsAdminPage(int $idBlogPost = null)
     {
-        echo $this->Twig->render('admin/commentsAdmin.twig', [
-            'blogPostsList' => $this->blogPostsDAO->getBlogPosts(),
-            'uniqueBlogPost' => $this->blogPostsDAO->getBlogPost($idBlogPost),
+        echo $this->twig->render('admin/commentsAdmin.twig', [
+            'blogPostsList' => $this->blogPostsDAO->getAll(0, $this->blogPostsDAO->count()),
+            'uniqueBlogPost' => $this->blogPostsDAO->getOneById($idBlogPost),
             'invalidComments' => $this->commentsDAO->getInvalidComments($idBlogPost)
         ]);
+
+        return;
     }
 
     /**
      * Display the profiles administration page
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function profilesAdminPage()
     {
-        echo $this->Twig->render('admin/profilesAdmin.twig', [
+        echo $this->twig->render('admin/profilesAdmin.twig', [
             'userList' => $this->userDAO->getUsers()
         ]);
+
+        return;
     }
 }

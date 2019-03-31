@@ -38,101 +38,99 @@ class Router
     /**
      * Routing
      */
-    public function run(){
-
+    public function run()
+    {
         $page = 'home';
-        if (isset($_GET['route']))
-        {
+        if (isset($_GET['route'])) {
             $page = $_GET['route'];
         }
-        switch ($page)
-        {
+        switch ($page) {
             case 'home':
-                $this->homeController->homePage();
-                break;
+                return $this->homeController->homePage();
             case 'homeContact':
-                $this->homeController->sendmail($_POST['sendMailName'], $_POST['sendMailEmail'], $_POST['sendMailPhone'], $_POST['sendMailMessage']);
-                break;
+                return $this->homeController->sendmail();
             case 'blogPostsList':
-                $this->blogPostController->blogPostsList();
-                break;
+                return $this->blogPostController->blogPostsList();
             case 'blogPostWithComments':
-                $this->blogPostController->blogPostWithComments($_GET['idBlogPost']);
-                break;
+                return $this->blogPostController->blogPostWithComments($_GET['idBlogPost']);
             case 'signIn':
-                if (isset($_POST['signInEmail']) && isset($_POST['signInPassword']) && isset($_POST['signInCheckbox'])){
-                    $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword'], $_POST['signInCheckbox']);
-                } elseif (isset($_POST['signInEmail']) && isset($_POST['signInPassword'])) {
-                    $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword']);
-                } else {
-                    $this->homeController->signInPage();
+                if (isset($_POST['signInEmail']) && isset($_POST['signInPassword'])) {
+                    return $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword']);
                 }
-                break;
+
+                return $this->homeController->signInPage();
             case 'disconnection':
-                $this->userController->disconnectUser();
-                break;
+                return $this->userController->disconnectUser();
             case 'updateComment':
-                $this->commentController->updateComment($_GET['idComment'], $_POST['textareaModifComment'], $_GET['idBlogPost']);
-                break;
+                return $this->commentController->updateComment($_GET['idComment'], $_GET['idBlogPost']);
             case 'deleteComment':
-                $this->commentController->deleteComment($_GET['idComment'], $_GET['idBlogPost']);
-                break;
+                return $this->commentController->deleteCommentByUser($_GET['idComment'], $_GET['idBlogPost']);
             case 'addComment':
-                $this->commentController->addComment($_POST['textareaAddComment'], $_GET['idBlogPost'], $_GET['idUser']);
-                break;
+                return $this->commentController->addComment($_GET['idBlogPost'], $_GET['idUser']);
             case 'forgotPassword':
                 if (isset($_GET['email']) && isset($_POST['inputUpdatePassword']) && isset($_POST['inputConfirmUpdatePassword'])) {
-                    $this->userController->updatePassword($_GET['email'], $_POST['inputUpdatePassword'], $_POST['inputConfirmUpdatePassword']);
-                } elseif (isset($_GET['keyActivateUpdatePassword'])) {
-                    $this->userController->updateForgotPasswordPage($_GET['keyActivateUpdatePassword']);
-                } elseif (isset($_POST['inputEmailForgotPassword'])) {
-                    $this->userController->sendmailForgotPassword($_POST['inputEmailForgotPassword']);
-                } else {
-                    $this->homeController->forgotPasswordPage();
+                    return $this->userController->updatePassword($_GET['email']);
                 }
-                break;
+
+                if (isset($_GET['keyActivateUpdatePassword'])) {
+                    return $this->userController->updateForgotPasswordPage($_GET['keyActivateUpdatePassword']);
+                }
+
+                if (isset($_POST['inputEmailForgotPassword'])) {
+                    return $this->userController->sendmailForgotPassword($_POST['inputEmailForgotPassword']);
+                }
+
+                return $this->homeController->forgotPasswordPage();
             case 'registerUser':
                 if (isset($_POST['inputRegisterUserName']) && isset($_POST['inputRegisterUserMail']) && isset($_POST['inputRegisterUserPassword']) && isset($_POST['inputRegisterUserPasswordConfirm'])) {
-                    $this->userController->sendmailRegisterUser($_POST['inputRegisterUserName'], $_POST['inputRegisterUserMail'], $_POST['inputRegisterUserPassword'], $_POST['inputRegisterUserPasswordConfirm']);
-                } elseif (isset($_GET['keyActivationUserAccount'])) {
-                    $this->userController->userActivationAccount($_GET['keyActivationUserAccount']);
-                } else {
-                    $this->homeController->registerPage();
+                    return $this->userController->sendmailRegisterUser();
                 }
-                break;
+
+                if (isset($_GET['keyActivationUserAccount'])) {
+                    return $this->userController->userActivationAccount($_GET['keyActivationUserAccount']);
+                }
+
+                return $this->homeController->registerPage();
             case 'adminBlogPosts':
-                if (isset($_POST['inputAdminBlogPostTitle']) && isset($_POST['inputAdminBlogPostChapo']) && isset($_POST['inputAdminBlogPostContent']) && isset($_POST['id']) && isset($_GET['updateBlogPost'])) {
-                    $this->blogPostController->updateBlogPost($_POST['inputAdminBlogPostTitle'], $_POST['inputAdminBlogPostChapo'], $_POST['inputAdminBlogPostContent'], $_POST['id']);
-                } elseif (isset($_POST['inputAdminBlogPostTitle']) && isset($_POST['inputAdminBlogPostChapo']) && isset($_POST['inputAdminBlogPostContent']) && isset($_GET['addBlogPost'])) {
-                    $this->blogPostController->addBlogPost($_POST['inputAdminBlogPostTitle'], $_POST['inputAdminBlogPostChapo'], $_POST['inputAdminBlogPostContent']);
-                } elseif (isset($_POST['idBlogPostDeleted'])){
-                    echo $_POST['idBlogPostDeleted'];
+                if (isset($_POST['inputAdminBlogPostTitle']) && isset($_POST['inputAdminBlogPostChapo']) && isset($_POST['inputAdminBlogPostContent'])) {
+                    if (isset($_POST['id']) && isset($_GET['updateBlogPost'])) {
+                        return $this->blogPostController->updateBlogPost((int) $_POST['id']);
+                    }
+
+                    if (isset($_GET['addBlogPost'])) {
+                        return $this->blogPostController->addBlogPost();
+                    }
+                }
+
+                if (isset($_POST['idBlogPostDeleted'])) {
                     $this->blogPostController->deleteBlogPost($_POST['idBlogPostDeleted']);
-                } else {
-                    $this->adminController->blogPostsAdminPage();
                 }
-                break;
+
+                return $this->adminController->blogPostsAdminPage();
             case 'adminComments':
-                if (isset($_GET['idBlogPostCommentsAdmin'])){
-                    $this->adminController->commentsAdminPage($_GET['idBlogPostCommentsAdmin']);
-                } elseif (isset($_GET['idValidComment']) && isset($_GET['idBlogPost'])){
-                    $this->commentController->validComment($_GET['idValidComment'], $_GET['idBlogPost']);
-                } elseif (isset($_GET['idDeleteComment']) && isset($_GET['idBlogPost'])){
-                    $this->commentController->deleteCommentByAdmin($_GET['idDeleteComment'], $_GET['idBlogPost']);
-                } else {
-                    $this->adminController->commentsAdminPage();
+                if (isset($_GET['idBlogPost'])) {
+                    if (isset($_GET['idValidComment'])) {
+                        return $this->commentController->validComment($_GET['idValidComment'], $_GET['idBlogPost']);
+                    }
+
+                    if (isset($_GET['idDeleteComment'])) {
+                        return $this->commentController->deleteCommentByAdmin($_GET['idDeleteComment'], $_GET['idBlogPost']);
+                    }
                 }
-                break;
+
+                return $this->adminController->commentsAdminPage($_GET['idBlogPostCommentsAdmin'] ?? null);
             case 'adminProfiles':
-                if (isset($_GET['idUser']) && isset($_GET['roleUser'])){
-                    $this->userController->changeRoleUser($_GET['roleUser'], $_GET['idUser']);
-                } else {
-                    $this->adminController->profilesAdminPage();
+                if (isset($_GET['idUser']) && isset($_GET['roleUser'])) {
+                    return $this->userController->changeRoleUser($_GET['roleUser'], $_GET['idUser']);
                 }
-                break;
+
+                if (isset($_POST['idDeleteUser'])) {
+                    return $this->userController->deleteUser($_POST['idDeleteUser']);
+                }
+
+                return $this->adminController->profilesAdminPage();
             default:
-                $this->controller->errorViewDisplay('Erreur 404, page introuvable');
-                break;
+                return $this->controller->errorViewDisplay('Erreur 404, page introuvable');
         }
     }
 }

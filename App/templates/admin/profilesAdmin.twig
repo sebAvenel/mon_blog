@@ -16,30 +16,58 @@
                     <th scope="col">Nom</th>
                     <th scope="col">Rôle</th>
                     <th scope="col">Changer rôle</th>
+                    <th scope="col">Spprimer</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for user in userList %}
-                    <tr>
-                        <th>{{ user.id }}</th>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>
-                            <a href="?route=adminProfiles&idUser={{ user.id }}&roleUser={{ user.role }}">
-                            {% if user.role == 'admin' %}
-                                <i class="fas fa-toggle-on"></i>
-                            {% else %}
-                                <i class="fas fa-toggle-off"></i>
-                            {% endif %}
-                            </a>
-                        </td>
-                    </tr>
+                    {% if user.id != 1 %}
+                        <tr>
+                            <th>{{ user.id }}</th>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>
+                                <a href="?route=adminProfiles&idUser={{ user.id }}&roleUser={{ user.role }}">
+                                {% if user.role == 'admin' %}
+                                    <i class="fas fa-toggle-on"></i>
+                                {% else %}
+                                    <i class="fas fa-toggle-off"></i>
+                                {% endif %}
+                                </a>
+                            </td>
+                            <td><a href="?route=adminProfiles&idDeletingUser={{ user.id }}&userName={{ user.name }}"><i class="far fa-trash-alt"></i></a></td>
+                        </tr>
+                    {% endif %}
                 {% endfor %}
                 </tbody>
             </table>
+            <!-- Modal -->
+            <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h4>Etes-vous sûr de vouloir supprimer l'utilisateur '{{ get.userName }}' ?</h4>
+                        </div>
+                        <form action="../public/index.php?route=adminProfiles" method="post">
+                            <input type="hidden" name="idDeleteUser" value="{{ get.idDeletingUser }}"/>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary">Confirmer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            {% if get.idDeletingUser %}
+                <script>
+                    $(document).ready(function(){
+                        $("#deleteUserModal").modal('show');
+                    });
+                </script>
+            {% endif %}
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $("#profilesAdminLink").css('color', '#18BC9C');
