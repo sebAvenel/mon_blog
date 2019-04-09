@@ -44,6 +44,52 @@ class Router
         if (isset($_GET['route'])) {
             $page = $_GET['route'];
         }
+
+        $routesList = ['home', 'homeContact', 'blogPostsList', 'blogPostWithComments', 'signIn', 'disconnection', 'updateComment',
+            'deleteComment', 'addComment', 'forgotPassword', 'registerUser', 'adminBlogPosts', 'adminComments', 'adminProfiles'];
+
+        $routesInformation = ['home' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'homePage'],
+            'homeContact' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'sendmail'],
+            'blogPostsList' => ['get' => [], 'post' => [], 'controller' => 'blogPost', 'method' => 'blogPostList'],
+            'blogPostWithComments' => ['get' => ['idBlogPost'], 'post' => [], 'controller' => 'home', 'method' => 'sendmail'],
+        ];
+
+        if (in_array($page, $routesList)) {
+            $route = $routesInformation[$page];
+            if (!empty($route['get'])) {
+                if (!$this->checkGet($route['get'])) {
+                    return $this->controller->errorViewDisplay('Une erreur s\'est produite');
+                }
+            }
+
+            if (!empty($route['post'])) {
+                if (!$this->checkPost($route['post'])) {
+                    return $this->controller->errorViewDisplay('Une erreur s\'est produite');
+                }
+            }
+
+            if ($this->getController($route['controller'])) {
+                $getController = $this->getController($route['controller']);
+            } else {
+                return $this->controller->errorViewDisplay('Une erreur s\'est produite');
+            }
+
+            if ($this->getMethod($getController, $route['method'])) {
+                $getMethod = $this->getMethod($getController, $route['method']);
+            } else {
+                return $this->controller->errorViewDisplay('Une erreur s\'est produite');
+            }
+
+            echo $getController . '<br>';
+            echo $getMethod;
+            return $this->$getController->$getMethod;
+
+        } else {
+            return $this->controller->errorViewDisplay('Erreur 404, page introuvable');
+        }
+    }
+
+        /*
         switch ($page) {
             case 'home':
                 return $this->homeController->homePage();
@@ -132,5 +178,74 @@ class Router
             default:
                 return $this->controller->errorViewDisplay('Erreur 404, page introuvable');
         }
+    }*/
+
+    /**
+     * Check if Controller exists
+     *
+     * @param $name
+     * @return bool|string
+     */
+    public function getController(string $name)
+    {
+        if (class_exists('App\src\controller\\' . ucfirst($name) . 'Controller')) {
+            return $name . 'Controller';
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if method exist in controller
+     *
+     * @param string $class
+     * @param string $method
+     * @return bool|string
+     */
+    public function getMethod(string $class, string $method)
+    {
+        if (method_exists('\App\src\controller\\' . $class, $method)){
+            return $method . '()';
+        }
+
+        return false;
+    }
+
+    /**
+     * Check $_GET array
+     *
+     * @param array $getList
+     * @return bool
+     */
+    public function checkGet(array $getList) :bool
+    {
+        foreach ($getList as $value){
+            if ($_GET[$value]){
+                continue;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check $_POST array
+     *
+     * @param array $getPost
+     * @return bool
+     */
+    public function checkPost(array $getPost) :bool
+    {
+        foreach ($getPost as $value){
+            if ($_POST[$value]){
+                continue;
+            }
+
+            return false;
+        }
+
+        return true;
     }
 }
