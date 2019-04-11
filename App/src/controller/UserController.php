@@ -28,15 +28,15 @@ class UserController extends Controller
     /**
      * User Authentication
      *
-     * @param $emailUser
-     * @param $pwdUser
      * @return void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function authUser(string $emailUser, string $pwdUser)
+    public function authUser()
     {
+        $emailUser = Sanitize::onString('post', 'signInEmail');
+        $pwdUser = Sanitize::onString('post', 'signInPassword');
         $dataUser = $this->userDAO->authUser($emailUser, $pwdUser);
         if ($dataUser && $dataUser['isActivateUser'] == 1) {
             $_SESSION['infosUser'] = $dataUser;
@@ -61,8 +61,12 @@ class UserController extends Controller
         return header('Location: ../public/index.php');
     }
 
-    public function deleteUser($id)
+    /**
+     * Delete a user
+     */
+    public function deleteUser()
     {
+        $id = Sanitize::onString('post', 'idDeleteUser');
         $this->userDAO->deleteById($id);
 
         return header('Location: ../public/index.php?route=adminProfiles');
@@ -71,13 +75,14 @@ class UserController extends Controller
     /**
      * Send a link to update password
      *
-     * @param $emailUser
+     * @return string|void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function sendmailForgotPassword(string $emailUser)
+    public function sendmailForgotPassword()
     {
+        $emailUser = Sanitize::onString('post', 'inputEmailForgotPassword');
         if (DataControl::emailControl($emailUser)) {
             echo $this->twig->render('user/forgotPassword.twig', [
                'error' =>  DataControl::emailControl($emailUser)
@@ -96,7 +101,7 @@ class UserController extends Controller
 Pour mettre à jour votre mot de passe, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
  
-http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=forgotPassword&keyActivateUpdatePassword=$activatingKey
+http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=updatePasswordPage&keyActivateUpdatePassword=$activatingKey
 
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.";
@@ -121,15 +126,16 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
     }
 
     /**
-     * Diplay the update forgot password page
+     * Diplay the update password page
      *
-     * @param $keyActivate
+     * @return string|void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function updateForgotPasswordPage(string $keyActivate)
+    public function updatePasswordPage()
     {
+        $keyActivate = Sanitize::onString('get', 'keyActivateUpdatePassword');
         if ($this->userDAO->getUserByKeyActivate($keyActivate)) {
             $user = $this->userDAO->getUserByKeyActivate($keyActivate);
             if ($user->getKeyActivate() === $keyActivate) {
@@ -140,22 +146,22 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
                 return;
             }
 
-            return $this->errorViewDisplay('Ce lien semble périmé');
+            echo $this->errorViewDisplay('Ce lien semble périmé');
         }
 
-        return $this->errorViewDisplay('Ce lien semble périmé');
+        echo $this->errorViewDisplay('Ce lien semble périmé');
     }
 
     /**
      * Update password's user
      *
-     * @param string $email
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function updatePassword(string $email)
+    public function updatePassword()
     {
+        $email = Sanitize::onString('get', 'email');
         $password = Sanitize::onString('post', 'inputUpdatePassword');
         $passwordConfirm = Sanitize::onString('post', 'inputConfirmUpdatePassword');
         $error = '';
@@ -227,7 +233,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
 
-http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=registerUser&keyActivationUserAccount=$keyActivateUser
+http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=confirmRegisterUser&keyActivationUserAccount=$keyActivateUser
 
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.";
@@ -241,19 +247,20 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
             return;
         }
 
-        return $this->errorViewDisplay('Erreur lors de l\'envoi de l\'email');
+        echo $this->errorViewDisplay('Erreur lors de l\'envoi de l\'email');
     }
 
     /**
      * Activate a user account
      *
-     * @param $keyActivate
+     * @return string|void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function userActivationAccount(string $keyActivate)
+    public function userActivationAccount()
     {
+        $keyActivate = Sanitize::onString('get', 'keyActivationUserAccount');
         if ($this->userDAO->getUserByKeyActivate($keyActivate)) {
             $user = $this->userDAO->getUserByKeyActivate($keyActivate);
             if ($user->getKeyActivate() === $keyActivate) {
@@ -263,20 +270,21 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
                 return;
             }
 
-            return $this->errorViewDisplay('Ce lien semble périmé');
+            echo $this->errorViewDisplay('Ce lien semble périmé');
         }
 
-        return $this->errorViewDisplay('Ce lien semble périmé');
+        echo $this->errorViewDisplay('Ce lien semble périmé');
     }
 
     /**
      * Change the role of a user
      *
-     * @param $roleUser
-     * @param $idUser
+     * @return void
      */
-    public function changeRoleUser(string $roleUser, int $idUser)
+    public function changeRoleUser()
     {
+        $roleUser = Sanitize::onString('get', 'roleUser');
+        $idUser = Sanitize::onInteger('get' , 'idUser');
         $this->userDAO->updateRoleUser($roleUser, $idUser);
 
         return header('Location: ../public/index.php?route=adminProfiles#containerTable');

@@ -9,6 +9,9 @@
     margin-bottom: 40px;
     padding-bottom: 40px;
 }
+.card-header{
+    background-color: #18BC9C;
+}
 .card_comment {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -73,6 +76,10 @@
     .card_addComment{
         width: 75%;
         margin-left: 30px;
+    }
+    h6{
+        display: inline;
+        margin-right: 20px;
     }
 }
 @media (min-width: 992px) {

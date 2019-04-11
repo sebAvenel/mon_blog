@@ -12,6 +12,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>{{ blogPost.title }}</h4>
+                        <h6>Edité par {{ blogPost.userName }}</h6><h6>Dernière mise à jour le {{ blogPost.updatedAt }}</h6>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ blogPost.chapo }}</h5>
@@ -87,7 +88,7 @@
                     <div class="container-fluid">
                         <div class="card card_addComment" id="addCommentCard">
                             <div class="card-header">
-                                ... Voulez-vous ajouter un commentaire?
+                                <h6>... Voulez-vous ajouter un commentaire?</h6>
                             </div>
                             <div class="card-body">
                                 <form action="../public/index.php?route=addComment&idBlogPost={{ blogPost.id }}&idUser={{ session.infosUser.idUser }}" method="post">

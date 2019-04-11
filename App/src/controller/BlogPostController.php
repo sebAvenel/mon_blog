@@ -41,6 +41,11 @@ class BlogPostController extends Controller
         } else {
             $blogPostPerPage = 3;
         }
+        if ($blogPostPerPage == 0){
+            echo $this->errorViewDisplay("Le nombre de blog par page ne peut être 0");
+
+            return false;
+        }
         $blogPostCount = $this->blogPostDAO->count();
         $numberOfPage = ceil($blogPostCount/$blogPostPerPage);
         if ($pageNumber > $numberOfPage) {
@@ -63,13 +68,13 @@ class BlogPostController extends Controller
     /**
      * Displays the view that contains a blog post with comments
      *
-     * @param int $idBlogPost
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function blogPostWithComments(int $idBlogPost)
+    public function blogPostWithComments()
     {
+        $idBlogPost = Sanitize::onString('get', 'idBlogPost');
         $this->sessionCleaner($this->sessionArray);
         echo $this->twig->render('blogPost/blogPostWithComments.twig', [
             'blogPost' => $this->blogPostDAO->getOneById($idBlogPost),
@@ -82,14 +87,14 @@ class BlogPostController extends Controller
     /**
      * Update a blog post
      *
-     * @param int $id
      * @return void
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function updateBlogPost(int $id)
+    public function updateBlogPost()
     {
+        $id = Sanitize::onString('post', 'id');
         $title = Sanitize::onString('post', 'inputAdminBlogPostTitle');
         $chapo = Sanitize::onString('post', 'inputAdminBlogPostChapo');
         $content = Sanitize::onString('post', 'inputAdminBlogPostContent');
@@ -111,7 +116,7 @@ class BlogPostController extends Controller
             echo $this->twig->render('admin/blogPostsAdmin.twig', [
                 'errors' => $errors,
                 'blogPostsList' => $this->blogPostDAO->getAll(0, $this->blogPostDAO->count()),
-                'inputsContent' => $_POST
+                'inputsContentUpdate' => $_POST
             ]);
 
             return;
@@ -152,7 +157,8 @@ class BlogPostController extends Controller
         if (!empty($errors)) {
             echo $this->twig->render('admin/blogPostsAdmin.twig', [
                 'errors' => $errors,
-                'blogPostsList' => $this->blogPostDAO->getAll(0, $this->blogPostDAO->count())
+                'blogPostsList' => $this->blogPostDAO->getAll(0, $this->blogPostDAO->count()),
+                'inputsContentAdd' => $_POST
             ]);
 
             return;
@@ -166,10 +172,11 @@ class BlogPostController extends Controller
     /**
      * Delete a blog post
      *
-     * @param $idBlogPost
+     * @return void
      */
-    public function deleteBlogPost(int $idBlogPost)
+    public function deleteBlogPost()
     {
+        $idBlogPost = Sanitize::onInteger('post', 'idBlogPostDeleted');
         $this->blogPostDAO->deleteById($idBlogPost);
 
         return header('Location: ../public/index.php?route=adminBlogPosts');

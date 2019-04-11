@@ -5,6 +5,7 @@ namespace App\src\controller;
 use App\src\DAO\BlogPostDAO;
 use App\src\DAO\CommentsDAO;
 use App\src\DAO\UserDAO;
+use App\src\service\Sanitize;
 
 /**
  * Class AdminController
@@ -46,13 +47,13 @@ class AdminController extends Controller
     /**
      * Display the comments administration page
      *
-     * @param int $idBlogPost
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function commentsAdminPage(int $idBlogPost = null)
+    public function commentsAdminPage()
     {
+        $idBlogPost = Sanitize::onInteger('get', 'idBlogPostCommentsAdmin') ?? null;
         echo $this->twig->render('admin/commentsAdmin.twig', [
             'blogPostsList' => $this->blogPostsDAO->getAll(0, $this->blogPostsDAO->count()),
             'uniqueBlogPost' => $this->blogPostsDAO->getOneById($idBlogPost),

@@ -10,12 +10,12 @@ use App\src\model\Comment;
  */
 class CommentsDAO extends DAO implements DAOInterface
 {
-    public function getAll($first, $last)
+    public function getAll(int $first, int $last)
     {
         // TODO: Implement getAll() method.
     }
 
-    public function getOneById($id)
+    public function getOneById(int $id)
     {
         // TODO: Implement getOneById() method.
     }

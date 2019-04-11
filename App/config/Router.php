@@ -22,6 +22,40 @@ class Router
     private $commentController;
     private $adminController;
 
+    const ROUTE_LIST = ['home', 'homeContact', 'blogPostsList', 'blogPostWithComments', 'signIn', 'signInUser', 'disconnection', 'updateComment',
+        'deleteComment', 'addComment', 'forgotPassword', 'updatePassword', 'updatePasswordPage', 'sendmailForgotPassword', 'registerUser', 'sendmailRegisterUser',
+        'confirmRegisterUser', 'adminBlogPosts', 'updateBlogPosts', 'addBlogPosts', 'deleteBlogPosts', 'adminComments', 'validComments', 'deleteCommentsByAdmin',
+        'adminProfiles', 'deleteProfiles', 'changeRoleProfiles'];
+
+    const ROUTE_INFORMATION = ['home' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'homePage'],
+        'homeContact' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'sendmail'],
+        'blogPostsList' => ['get' => [], 'post' => [], 'controller' => 'blogPost', 'method' => 'blogPostsList'],
+        'blogPostWithComments' => ['get' => ['idBlogPost'], 'post' => [], 'controller' => 'blogPost', 'method' => 'blogPostWithComments'],
+        'signIn' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'signInPage'],
+        'signInUser' => ['get' => [], 'post' => ['signInEmail', 'signInPassword'], 'controller' => 'user', 'method' => 'authUser'],
+        'disconnection' => ['get' => [], 'post' => [], 'controller' => 'user', 'method' => 'disconnectUser'],
+        'updateComment' => ['get' => ['idComment', 'idBlogPost'], 'post' => [], 'controller' => 'comment', 'method' => 'updateComment'],
+        'deleteComment' => ['get' => ['idComment', 'idBlogPost'], 'post' => [], 'controller' => 'comment', 'method' => 'deleteCommentByUser'],
+        'addComment' => ['get' => ['idBlogPost', 'idUser'], 'post' => [], 'controller' => 'comment', 'method' => 'addComment'],
+        'forgotPassword' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'forgotPasswordPage'],
+        'updatePassword' => ['get' => ['email'], 'post' => ['inputUpdatePassword', 'inputConfirmUpdatePassword'], 'controller' => 'user', 'method' => 'updatePassword'],
+        'updatePasswordPage' => ['get' => ['keyActivateUpdatePassword'], 'post' => [], 'controller' => 'user', 'method' => 'updatePasswordPage'],
+        'sendmailForgotPassword' => ['get' => [], 'post' => ['inputEmailForgotPassword'], 'controller' => 'user', 'method' => 'sendmailForgotPassword'],
+        'registerUser' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'registerPage'],
+        'sendmailRegisterUser' => ['get' => [], 'post' => ['inputRegisterUserName', 'inputRegisterUserMail', 'inputRegisterUserPassword', 'inputRegisterUserPasswordConfirm'], 'controller' => 'user', 'method' => 'sendmailRegisterUser'],
+        'confirmRegisterUser' => ['get' => ['keyActivationUserAccount'], 'post' => [], 'controller' => 'user', 'method' => 'userActivationAccount'],
+        'adminBlogPosts' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'blogPostsAdminPage'],
+        'updateBlogPosts' => ['get' => ['updateBlogPost'], 'post' => ['inputAdminBlogPostTitle', 'inputAdminBlogPostChapo', 'inputAdminBlogPostContent', 'id'], 'controller' => 'blogPost', 'method' => 'updateBlogPost'],
+        'addBlogPosts' => ['get' => ['addBlogPost'], 'post' => ['inputAdminBlogPostTitle', 'inputAdminBlogPostChapo', 'inputAdminBlogPostContent'], 'controller' => 'blogPost', 'method' => 'addBlogPost'],
+        'deleteBlogPosts' => ['get' => [], 'post' => ['idBlogPostDeleted'], 'controller' => 'blogPost', 'method' => 'deleteBlogPost'],
+        'adminComments' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'commentsAdminPage'],
+        'validComments' => ['get' => ['idBlogPost', 'idValidComment'], 'post' => [], 'controller' => 'comment', 'method' => 'validComment'],
+        'deleteCommentsByAdmin' => ['get' => ['idBlogPost', 'idDeleteComment'], 'post' => [], 'controller' => 'comment', 'method' => 'deleteCommentByAdmin'],
+        'adminProfiles' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'profilesAdminPage'],
+        'deleteProfiles' => ['get' => [], 'post' => ['idDeleteUser'], 'controller' => 'user', 'method' => 'deleteUser'],
+        'changeRoleProfiles' => ['get' => ['idUser', 'roleUser'], 'post' => [], 'controller' => 'user', 'method' => 'changeRoleUser']
+    ];
+
     /**
      * Router constructor.
      */
@@ -45,140 +79,26 @@ class Router
             $page = $_GET['route'];
         }
 
-        $routesList = ['home', 'homeContact', 'blogPostsList', 'blogPostWithComments', 'signIn', 'disconnection', 'updateComment',
-            'deleteComment', 'addComment', 'forgotPassword', 'registerUser', 'adminBlogPosts', 'adminComments', 'adminProfiles'];
+        $route = self::ROUTE_INFORMATION[$page] ?? [];
+        if (!in_array($page, self::ROUTE_LIST)
+            || (!empty($route['get']) && !$this->checkGet($route['get']))
+            || (!empty($route['post']) && !$this->checkPost($route['post']))
+            || !$this->getMethod($this->getController($route['controller']), $route['method'])
+        ) {
+            try {
+                echo $this->controller->errorViewDisplay('Une erreur s\'est produite lors du routing');
 
-        $routesInformation = ['home' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'homePage'],
-            'homeContact' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'sendmail'],
-            'blogPostsList' => ['get' => [], 'post' => [], 'controller' => 'blogPost', 'method' => 'blogPostList'],
-            'blogPostWithComments' => ['get' => ['idBlogPost'], 'post' => [], 'controller' => 'home', 'method' => 'sendmail'],
-        ];
-
-        if (in_array($page, $routesList)) {
-            $route = $routesInformation[$page];
-            if (!empty($route['get'])) {
-                if (!$this->checkGet($route['get'])) {
-                    return $this->controller->errorViewDisplay('Une erreur s\'est produite');
-                }
+                return false;
+            } catch (\Exception $e) {
+                return false;
             }
-
-            if (!empty($route['post'])) {
-                if (!$this->checkPost($route['post'])) {
-                    return $this->controller->errorViewDisplay('Une erreur s\'est produite');
-                }
-            }
-
-            if ($this->getController($route['controller'])) {
-                $getController = $this->getController($route['controller']);
-            } else {
-                return $this->controller->errorViewDisplay('Une erreur s\'est produite');
-            }
-
-            if ($this->getMethod($getController, $route['method'])) {
-                $getMethod = $this->getMethod($getController, $route['method']);
-            } else {
-                return $this->controller->errorViewDisplay('Une erreur s\'est produite');
-            }
-
-            echo $getController . '<br>';
-            echo $getMethod;
-            return $this->$getController->$getMethod;
-
-        } else {
-            return $this->controller->errorViewDisplay('Erreur 404, page introuvable');
         }
+
+        $controller = $this->getController($route['controller']);
+        $method = $this->getMethod($controller, $route['method']);
+
+        return $this->$controller->$method();
     }
-
-        /*
-        switch ($page) {
-            case 'home':
-                return $this->homeController->homePage();
-            case 'homeContact':
-                return $this->homeController->sendmail();
-            case 'blogPostsList':
-                return $this->blogPostController->blogPostsList();
-            case 'blogPostWithComments':
-                return $this->blogPostController->blogPostWithComments($_GET['idBlogPost']);
-            case 'signIn':
-                if (isset($_POST['signInEmail']) && isset($_POST['signInPassword'])) {
-                    return $this->userController->authUser($_POST['signInEmail'], $_POST['signInPassword']);
-                }
-
-                return $this->homeController->signInPage();
-            case 'disconnection':
-                return $this->userController->disconnectUser();
-            case 'updateComment':
-                return $this->commentController->updateComment($_GET['idComment'], $_GET['idBlogPost']);
-            case 'deleteComment':
-                return $this->commentController->deleteCommentByUser($_GET['idComment'], $_GET['idBlogPost']);
-            case 'addComment':
-                return $this->commentController->addComment($_GET['idBlogPost'], $_GET['idUser']);
-            case 'forgotPassword':
-                if (isset($_GET['email']) && isset($_POST['inputUpdatePassword']) && isset($_POST['inputConfirmUpdatePassword'])) {
-                    return $this->userController->updatePassword($_GET['email']);
-                }
-
-                if (isset($_GET['keyActivateUpdatePassword'])) {
-                    return $this->userController->updateForgotPasswordPage($_GET['keyActivateUpdatePassword']);
-                }
-
-                if (isset($_POST['inputEmailForgotPassword'])) {
-                    return $this->userController->sendmailForgotPassword($_POST['inputEmailForgotPassword']);
-                }
-
-                return $this->homeController->forgotPasswordPage();
-            case 'registerUser':
-                if (isset($_POST['inputRegisterUserName']) && isset($_POST['inputRegisterUserMail']) && isset($_POST['inputRegisterUserPassword']) && isset($_POST['inputRegisterUserPasswordConfirm'])) {
-                    return $this->userController->sendmailRegisterUser();
-                }
-
-                if (isset($_GET['keyActivationUserAccount'])) {
-                    return $this->userController->userActivationAccount($_GET['keyActivationUserAccount']);
-                }
-
-                return $this->homeController->registerPage();
-            case 'adminBlogPosts':
-                if (isset($_POST['inputAdminBlogPostTitle']) && isset($_POST['inputAdminBlogPostChapo']) && isset($_POST['inputAdminBlogPostContent'])) {
-                    if (isset($_POST['id']) && isset($_GET['updateBlogPost'])) {
-                        return $this->blogPostController->updateBlogPost((int) $_POST['id']);
-                    }
-
-                    if (isset($_GET['addBlogPost'])) {
-                        return $this->blogPostController->addBlogPost();
-                    }
-                }
-
-                if (isset($_POST['idBlogPostDeleted'])) {
-                    $this->blogPostController->deleteBlogPost($_POST['idBlogPostDeleted']);
-                }
-
-                return $this->adminController->blogPostsAdminPage();
-            case 'adminComments':
-                if (isset($_GET['idBlogPost'])) {
-                    if (isset($_GET['idValidComment'])) {
-                        return $this->commentController->validComment($_GET['idValidComment'], $_GET['idBlogPost']);
-                    }
-
-                    if (isset($_GET['idDeleteComment'])) {
-                        return $this->commentController->deleteCommentByAdmin($_GET['idDeleteComment'], $_GET['idBlogPost']);
-                    }
-                }
-
-                return $this->adminController->commentsAdminPage($_GET['idBlogPostCommentsAdmin'] ?? null);
-            case 'adminProfiles':
-                if (isset($_GET['idUser']) && isset($_GET['roleUser'])) {
-                    return $this->userController->changeRoleUser($_GET['roleUser'], $_GET['idUser']);
-                }
-
-                if (isset($_POST['idDeleteUser'])) {
-                    return $this->userController->deleteUser($_POST['idDeleteUser']);
-                }
-
-                return $this->adminController->profilesAdminPage();
-            default:
-                return $this->controller->errorViewDisplay('Erreur 404, page introuvable');
-        }
-    }*/
 
     /**
      * Check if Controller exists
@@ -186,7 +106,7 @@ class Router
      * @param $name
      * @return bool|string
      */
-    public function getController(string $name)
+    private function getController(string $name)
     {
         if (class_exists('App\src\controller\\' . ucfirst($name) . 'Controller')) {
             return $name . 'Controller';
@@ -202,10 +122,10 @@ class Router
      * @param string $method
      * @return bool|string
      */
-    public function getMethod(string $class, string $method)
+    private function getMethod(string $class, string $method)
     {
-        if (method_exists('\App\src\controller\\' . $class, $method)){
-            return $method . '()';
+        if (method_exists('\App\src\controller\\' . $class, $method)) {
+            return $method;
         }
 
         return false;
@@ -217,10 +137,10 @@ class Router
      * @param array $getList
      * @return bool
      */
-    public function checkGet(array $getList) :bool
+    private function checkGet(array $getList): bool
     {
-        foreach ($getList as $value){
-            if ($_GET[$value]){
+        foreach ($getList as $value) {
+            if (isset($_GET[$value])){
                 continue;
             }
 
@@ -236,10 +156,10 @@ class Router
      * @param array $getPost
      * @return bool
      */
-    public function checkPost(array $getPost) :bool
+    private function checkPost(array $getPost): bool
     {
-        foreach ($getPost as $value){
-            if ($_POST[$value]){
+        foreach ($getPost as $value) {
+            if (isset($_POST[$value])){
                 continue;
             }
 

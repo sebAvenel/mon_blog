@@ -18,26 +18,26 @@
                     </ul>
                 </div>
             {% endif %}
-            {% if (get.title and get.chapo and get.content and get.id) or inputsContent %}
-                <form action="../public/index.php?route=adminBlogPosts&updateBlogPost=1" method="post">
+            {% if (get.title and get.chapo and get.content and get.id) or inputsContentUpdate %}
+                <form action="../public/index.php?route=updateBlogPosts&updateBlogPost=1" method="post">
             {% else %}
-                <form action="../public/index.php?route=adminBlogPosts&addBlogPost=1" method="post">
+                <form action="../public/index.php?route=addBlogPosts&addBlogPost=1" method="post">
             {% endif %}
                 <div class="form-group">
                     <label for="inputTitle">Titre</label>
-                    <input type="text" class="form-control" name="inputAdminBlogPostTitle" id="inputTile" value="{{ get.title }}{{ inputsContent.inputAdminBlogPostTitle }}">
+                    <input type="text" class="form-control" name="inputAdminBlogPostTitle" id="inputTile" value="{{ get.title }}{{ inputsContentUpdate.inputAdminBlogPostTitle }}{{ inputsContentAdd.inputAdminBlogPostTitle }}">
                 </div>
                 <div class="form-group">
                     <label for="inputChapo">Chapô</label>
-                    <input type="text" class="form-control" name="inputAdminBlogPostChapo" id="inputChapo" value="{{ get.chapo }}{{ inputsContent.inputAdminBlogPostChapo }}">
+                    <input type="text" class="form-control" name="inputAdminBlogPostChapo" id="inputChapo" value="{{ get.chapo }}{{ inputsContentUpdate.inputAdminBlogPostChapo }}{{ inputsContentAdd.inputAdminBlogPostChapo }}">
                 </div>
                 <div class="form-group">
                     <label for="input">Contenu</label>
-                    <textarea id="inputContent" class="form-control" name="inputAdminBlogPostContent" rows="8">{{ get.content }}{{ inputsContent.inputAdminBlogPostContent }}</textarea>
+                    <textarea id="inputContent" class="form-control" name="inputAdminBlogPostContent" rows="8">{{ get.content }}{{ inputsContentUpdate.inputAdminBlogPostContent }}{{ inputsContentAdd.inputAdminBlogPostContent }}</textarea>
                 </div>
-                    <input type="hidden" name="id" value="{{ get.id }}"/>
+                    <input type="hidden" name="id" value="{{ get.id }}{{ inputsContentUpdate.id }}"/>
                 <div id="buttons">
-                    {% if (get.title and get.chapo and get.content) or inputsContent %}
+                    {% if (get.title and get.chapo and get.content) or inputsContentUpdate %}
                         <button type="submit" class="btn btn-primary">Modifier</button>
                         <input type=button onclick=window.location.href='../public/index.php?route=adminBlogPosts'; value="Annuler" class="btn btn-danger"/>
                     {% else %}
@@ -74,7 +74,7 @@
                         <div class="modal-body">
                             <h4>Etes-vous sûr de vouloir supprimer le blog post '{{ get.titleDeletingBlogPost }}' ?</h4>
                         </div>
-                        <form action="../public/index.php?route=adminBlogPosts" method="post">
+                        <form action="../public/index.php?route=deleteBlogPosts" method="post">
                             <input type="hidden" name="idBlogPostDeleted" value="{{ get.idDeletingBlogPost }}"/>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
