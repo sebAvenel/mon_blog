@@ -46,8 +46,8 @@
                                 <div>
                                     <p><h6>Dernière modification le : {{ comment.updatedAt }} Par {{ comment.UserName }}</h6></p>
                                     <p>{{ comment.content }}</p>
-                                    <input type=button onclick=window.location.href='../public/index.php?route=adminComments&idValidComment={{ comment.id }}&idBlogPost={{ uniqueBlogPost.id }}'; value="Valider" class="btn btn-success"/>
-                                    <input type=button onclick=window.location.href='../public/index.php?route=adminComments&idDeleteComment={{ comment.id }}&idBlogPost={{ uniqueBlogPost.id }}'; value="Supprimer" class="btn btn-danger"/>
+                                    <input type=button onclick=window.location.href='../public/index.php?route=validComments&idValidComment={{ comment.id }}&idBlogPost={{ uniqueBlogPost.id }}'; value="Valider" class="btn btn-success"/>
+                                    <input type=button onclick=window.location.href='../public/index.php?route=deleteCommentsByAdmin&idDeleteComment={{ comment.id }}&idBlogPost={{ uniqueBlogPost.id }}'; value="Supprimer" class="btn btn-danger"/>
                                     <hr>
                                 </div>
                             {% endfor %}

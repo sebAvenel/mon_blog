@@ -8,6 +8,7 @@ namespace App\src\controller;
  */
 class Controller
 {
+    /** @var \Twig\Environment */
     protected $twig;
 
     /**
@@ -37,24 +38,24 @@ class Controller
                 unset($_SESSION[$item]);
             }
         }
-
-        return;
     }
 
     /**
      * Display the error page
      *
      * @param $message
+     *
+     *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
+     *
+     * @return string
      */
-    public function errorViewDisplay(string $message)
+    public function errorViewDisplay(string $message): string
     {
-        echo $this->twig->render('error/error.twig', [
+        return $this->twig->render('error/error.twig', [
             'errorMessage' => $message
         ]);
-
-        return;
     }
 }

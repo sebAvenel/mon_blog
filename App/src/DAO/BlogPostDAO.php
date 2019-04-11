@@ -13,18 +13,18 @@ class BlogPostDAO extends DAO implements DAOInterface
     /**
      * Return a list of blog posts
      *
-     * @param $firstBlogPost
-     * @param $lastBlogPost
+     * @param $first
+     * @param $last
      * @return array
      */
-    public function getAll($firstBlogPost, $lastBlogPost)
+    public function getAll(int $first, int $last)
     {
         $sql = "SELECT blog_post.id, blog_post.title, blog_post.chapo, blog_post.content, DATE_FORMAT(blog_post.createdAt, '%d/%m/%Y') AS createdAt, DATE_FORMAT(blog_post.updatedAt, '%d/%m/%Y') AS updatedAt, blog_post.idUser, users.id AS userId, users.name AS name
                 FROM blog_post
                 INNER JOIN users
                   ON blog_post.idUser = users.id
                 ORDER BY id DESC
-                LIMIT $firstBlogPost,$lastBlogPost";
+                LIMIT $first,$last";
         $result = $this->sql($sql);
         if ($result) {
             $blogPosts = [];
@@ -41,17 +41,17 @@ class BlogPostDAO extends DAO implements DAOInterface
     /**
      * Return a blog post
      *
-     * @param int $idBlogPost
+     * @param int $id
      * @return BlogPost
      */
-    public function getOneById($idBlogPost)
+    public function getOneById(int $id)
     {
         $sql = 'SELECT blog_post.id, blog_post.title, blog_post.chapo, blog_post.content, DATE_FORMAT(blog_post.createdAt, "%d/%m/%Y") AS createdAt, DATE_FORMAT(blog_post.updatedAt, "%d/%m/%Y") AS updatedAt, blog_post.idUser, users.id AS userId, users.name AS name
                 FROM blog_post
                 INNER JOIN users
                   ON blog_post.idUser = users.id
                 WHERE  blog_post.id = ?';
-        $result = $this->sql($sql, [$idBlogPost]);
+        $result = $this->sql($sql, [$id]);
         $row = $result->fetch();
         if ($row) {
             return $this->buildObjectBlogPost($row);
@@ -104,11 +104,11 @@ class BlogPostDAO extends DAO implements DAOInterface
     /**
      * Delete a blog post
      *
-     * @param $idBlogPost
+     * @param int $id
      */
-    public function deleteById($idBlogPost)
+    public function deleteById(int $id)
     {
-        $sql = 'DELETE FROM blog_post WHERE id = ' . $idBlogPost;
+        $sql = 'DELETE FROM blog_post WHERE id = ' . $id;
         $this->sql($sql);
     }
 

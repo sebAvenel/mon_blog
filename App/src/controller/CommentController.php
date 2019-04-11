@@ -25,12 +25,12 @@ class CommentController
     /**
      * Update a comment and redirect to the modified comment page
      *
-     * @param int $idComment
-     * @param int $idBlogPost
      * @return void
      */
-    public function updateComment(int $idComment, int $idBlogPost)
+    public function updateComment()
     {
+        $idComment = Sanitize::onInteger('get', 'idComment');
+        $idBlogPost = Sanitize::onInteger('get', 'idBlogPost');
         $contentComment = Sanitize::onString('post', 'textareaModifComment');
         if (DataControl::stringControl($contentComment, 'Commentaire', 3, 500)) {
             $errors = [];
@@ -50,11 +50,12 @@ class CommentController
     /**
      * Delete comment by a user
      *
-     * @param int $idComment
-     * @param int $idBlogPost
+     * @return void
      */
-    public function deleteCommentByUser(int $idComment, int $idBlogPost)
+    public function deleteCommentByUser()
     {
+        $idComment = Sanitize::onInteger('get', 'idComment');
+        $idBlogPost = Sanitize::onInteger('get', 'idBlogPost');
         $this->commentsDAO->deleteById($idComment);
 
         return header('Location: ../public/index.php?route=blogPostWithComments&idBlogPost=' . $idBlogPost);
@@ -63,11 +64,12 @@ class CommentController
     /**
      * Delete comment by admin
      *
-     * @param $idComment
-     * @param $idBlogPost
+     * @return void
      */
-    public function deleteCommentByAdmin(int $idComment, int $idBlogPost)
+    public function deleteCommentByAdmin()
     {
+        $idComment = Sanitize::onInteger('get' , 'idDeleteComment');
+        $idBlogPost = Sanitize::onInteger('get', 'idBlogPost');
         $this->commentsDAO->deleteById($idComment);
 
         return header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
@@ -76,12 +78,12 @@ class CommentController
     /**
      * Add a comment and redirects to the added comment page
      *
-     * @param int $idBlogPost
-     * @param int $idUser
      * @return void
      */
-    public function addComment(int $idBlogPost, int $idUser)
+    public function addComment()
     {
+        $idBlogPost = Sanitize::onInteger('get', 'idBlogPost');
+        $idUser = Sanitize::onInteger('get', 'idUser');
         $content = Sanitize::onString('post', 'textareaAddComment');
         if (DataControl::stringControl($content, 'commentaire', 3, 500)) {
             $_SESSION['errorAddComment'] = DataControl::stringControl($content, 'commentaire', 3, 500);
@@ -97,11 +99,12 @@ class CommentController
     /**
      * Valid comment by admin
      *
-     * @param $idComment
-     * @param $idBlogPost
+     * @return void
      */
-    public function validComment(int $idComment, int $idBlogPost)
+    public function validComment()
     {
+        $idComment = Sanitize::onInteger('get', 'idValidComment');
+        $idBlogPost = Sanitize::onInteger('get', 'idBlogPost');
         $this->commentsDAO->validComment($idComment);
 
         return header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
