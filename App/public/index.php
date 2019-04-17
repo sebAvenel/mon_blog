@@ -1,7 +1,7 @@
 <?php
 
 require '../../vendor/autoload.php';
-require '../config/dev.php';
+require '../config/dev.php-dist';
 
 session_start();
 
