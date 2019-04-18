@@ -3,14 +3,14 @@ Projet numéro 5 de ma formation PHP/Symfony chez Openclassrooms qui consiste à
 
 ## Description du projet
 
-Voici les principales fonctionnalités disponibles suivant les différents status utilisateur:
+Voici les principales fonctionnalités disponibles suivant les différents statuts utilisateur:
 
   * Le visiteur:
       * Visiter la page d'accueil et ouvrir les différents liens disponibles (compte GitHub, compte Linkedin, CV).
       * Envoyer un message au créateur du blog.
       * Parcourir la liste des blogs et parcourir la liste de ses commentaires.
   * L'utilisateur:
-      * **Prérequis:** s'être enregistrer via le formulaire d'inscription.
+      * **Prérequis:** s'être enregistré via le formulaire d'inscription.
       * Accès aux mêmes fonctionnaités que le visiteur.
       * Ajout de commentaires.
       * Modification/Suppression de ses commentaires.
@@ -27,6 +27,8 @@ Voici les principales fonctionnalités disponibles suivant les différents statu
 
 Un thème de base a été choisi pour réaliser ce projet, il s'agit du thème Bootstrap [Freelancer](https://startbootstrap.com/themes/freelancer/).
 
+Une version en ligne est disponible. Pour y accéder, cliquez [ici](http://savenelblog.ovh/).
+
 ## Contrôle du code
 
 La qualité du code a été validé par [Codacy](https://www.codacy.com/). Vous pouvez accéder au rapport de contrôle en cliquant sur le badge ci-dessous.
@@ -36,7 +38,6 @@ La qualité du code a été validé par [Codacy](https://www.codacy.com/). Vous 
 ## Prérequis
 
 Php ainsi que Composer doivent être installés sur votre ordinateur afin de pouvoir correctement lancé le blog.
-Pour une installation sur serveur distant, assurez-vous auprès de votre hébergeur que Composer soit installé sur celui-ci.
 
 ## Installation
 
