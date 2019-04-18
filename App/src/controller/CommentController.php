@@ -72,7 +72,7 @@ class CommentController
         $idBlogPost = Sanitize::onInteger('get', 'idBlogPost');
         $this->commentsDAO->deleteById($idComment);
 
-        return header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
+        return header('Location: ../public/index.php?route=adminCommentsCheck&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
     }
 
     /**
@@ -107,6 +107,6 @@ class CommentController
         $idBlogPost = Sanitize::onInteger('get', 'idBlogPost');
         $this->commentsDAO->validComment($idComment);
 
-        return header('Location: ../public/index.php?route=adminComments&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
+        return header('Location: ../public/index.php?route=adminCommentsCheck&idBlogPostCommentsAdmin=' . $idBlogPost . '#listOfInvalidComments');
     }
 }

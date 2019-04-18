@@ -56,20 +56,20 @@
                                                 <p id="collapseItems">
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <a data-toggle="collapse" href="#" data-target="#multiCollapseExample1" aria-expanded="false" aria-controls="multiCollapseExample1">Modifier commentaire</a>
+                                                            <a data-toggle="collapse" href="#" data-target="#CollapseModif{{ comment.id }}" aria-expanded="false" aria-controls="CollapseModif{{ comment.id }}">Modifier commentaire</a>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <a data-toggle="collapse" href="#" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Supprimer commentaire</a>
+                                                            <a data-toggle="collapse" href="#" data-target="#Collapsedelete{{ comment.id }}" aria-expanded="false" aria-controls="Collapsedelete{{ comment.id }}">Supprimer commentaire</a>
                                                         </div>
                                                     </div>
                                                 </p>
-                                                <div class="collapse multi-collapse" id="multiCollapseExample1">
+                                                <div class="collapse multi-collapse" id="CollapseModif{{ comment.id }}">
                                                     <form action="../public/index.php?route=updateComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}" method="post">
                                                         <textarea name="textareaModifComment" rows="5" class="form-control">{{ comment.content }}</textarea>
                                                         <button type="submit" class="btn btn-success">Modifier</button>
                                                     </form>
                                                 </div>
-                                                <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                                <div class="collapse multi-collapse" id="Collapsedelete{{ comment.id }}">
                                                     <div class="alert alert-danger" role="alert">
                                                         <form action="../public/index.php?route=deleteComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}" method="post">
                                                             <p>Voulez-vous vraiement supprimer ce commentaire ?</p>

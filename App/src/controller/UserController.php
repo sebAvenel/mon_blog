@@ -101,7 +101,7 @@ class UserController extends Controller
 Pour mettre à jour votre mot de passe, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
  
-http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=updatePasswordPage&keyActivateUpdatePassword=$activatingKey
+http://$this->serverHost/mon_blog/App/public/index.php?route=updatePasswordPage&keyActivateUpdatePassword=$activatingKey
 
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.";
@@ -233,7 +233,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
 Pour activer votre compte, veuillez cliquer sur le lien ci dessous
 ou copier/coller dans votre navigateur internet.
 
-http://$this->serverHost/PHP_OCR/mon_blog/App/public/index.php?route=confirmRegisterUser&keyActivationUserAccount=$keyActivateUser
+http://$this->serverHost/mon_blog/App/public/index.php?route=confirmRegisterUser&keyActivationUserAccount=$keyActivateUser
 
 ---------------
 Ceci est un mail automatique, Merci de ne pas y répondre.";

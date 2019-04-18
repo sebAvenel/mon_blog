@@ -53,7 +53,23 @@ class AdminController extends Controller
      */
     public function commentsAdminPage()
     {
-        $idBlogPost = Sanitize::onInteger('get', 'idBlogPostCommentsAdmin') ?? null;
+        echo $this->twig->render('admin/commentsAdmin.twig', [
+            'blogPostsList' => $this->blogPostsDAO->getAll(0, $this->blogPostsDAO->count()),
+        ]);
+
+        return;
+    }
+
+    /**
+     * Display the comments administration page
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function commentsAdminCheck()
+    {
+        $idBlogPost = Sanitize::onInteger('get', 'idBlogPostCommentsAdmin' ?? null);
         echo $this->twig->render('admin/commentsAdmin.twig', [
             'blogPostsList' => $this->blogPostsDAO->getAll(0, $this->blogPostsDAO->count()),
             'uniqueBlogPost' => $this->blogPostsDAO->getOneById($idBlogPost),
@@ -62,6 +78,8 @@ class AdminController extends Controller
 
         return;
     }
+
+
 
     /**
      * Display the profiles administration page

@@ -24,7 +24,7 @@ class Router
 
     const ROUTE_LIST = ['home', 'homeContact', 'blogPostsList', 'blogPostWithComments', 'signIn', 'signInUser', 'disconnection', 'updateComment',
         'deleteComment', 'addComment', 'forgotPassword', 'updatePassword', 'updatePasswordPage', 'sendmailForgotPassword', 'registerUser', 'sendmailRegisterUser',
-        'confirmRegisterUser', 'adminBlogPosts', 'updateBlogPosts', 'addBlogPosts', 'deleteBlogPosts', 'adminComments', 'validComments', 'deleteCommentsByAdmin',
+        'confirmRegisterUser', 'adminBlogPosts', 'updateBlogPosts', 'addBlogPosts', 'deleteBlogPosts', 'adminComments', 'adminCommentsCheck', 'validComments', 'deleteCommentsByAdmin',
         'adminProfiles', 'deleteProfiles', 'changeRoleProfiles'];
 
     const ROUTE_INFORMATION = ['home' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'homePage'],
@@ -49,6 +49,7 @@ class Router
         'addBlogPosts' => ['get' => ['addBlogPost'], 'post' => ['inputAdminBlogPostTitle', 'inputAdminBlogPostChapo', 'inputAdminBlogPostContent'], 'controller' => 'blogPost', 'method' => 'addBlogPost'],
         'deleteBlogPosts' => ['get' => [], 'post' => ['idBlogPostDeleted'], 'controller' => 'blogPost', 'method' => 'deleteBlogPost'],
         'adminComments' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'commentsAdminPage'],
+        'adminCommentsCheck' => ['get' => ['idBlogPostCommentsAdmin'], 'post' => [], 'controller' => 'admin', 'method' => 'commentsAdminCheck'],
         'validComments' => ['get' => ['idBlogPost', 'idValidComment'], 'post' => [], 'controller' => 'comment', 'method' => 'validComment'],
         'deleteCommentsByAdmin' => ['get' => ['idBlogPost', 'idDeleteComment'], 'post' => [], 'controller' => 'comment', 'method' => 'deleteCommentByAdmin'],
         'adminProfiles' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'profilesAdminPage'],
