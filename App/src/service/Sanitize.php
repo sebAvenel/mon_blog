@@ -13,7 +13,7 @@ class Sanitize
      */
     public static function onString(string $type, string $input): ?string
     {
-        return filter_input(constant('INPUT_' . strtoupper($type)), $input, FILTER_SANITIZE_STRING);
+        return filter_input(constant('INPUT_' . strtoupper($type)), $input, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     }
 
     /**

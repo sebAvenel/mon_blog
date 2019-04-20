@@ -91,7 +91,7 @@ class BlogPostDAO extends DAO implements DAOInterface
     public function addBlogPost($title, $chapo, $content)
     {
         $sql = 'INSERT INTO blog_post(title, chapo, content, createdAt, updatedAt, idUser)
-                VALUES(:title, :title, :content, NOW(), NOW(), :idUser)';
+                VALUES(:title, :chapo, :content, NOW(), NOW(), :idUser)';
         $arrayAddComment = [
             'title' => $title,
             'chapo' => $chapo,

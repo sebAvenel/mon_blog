@@ -94,37 +94,41 @@ class BlogPostController extends Controller
      */
     public function updateBlogPost()
     {
-        $id = Sanitize::onString('post', 'id');
-        $title = Sanitize::onString('post', 'inputAdminBlogPostTitle');
-        $chapo = Sanitize::onString('post', 'inputAdminBlogPostChapo');
-        $content = Sanitize::onString('post', 'inputAdminBlogPostContent');
-        $errors = [];
+        if ($_GET['token'] == $_SESSION['token']){
+            $id = Sanitize::onString('post', 'id');
+            $title = Sanitize::onString('post', 'inputAdminBlogPostTitle');
+            $chapo = Sanitize::onString('post', 'inputAdminBlogPostChapo');
+            $content = Sanitize::onString('post', 'inputAdminBlogPostContent');
+            $errors = [];
 
-        if (DataControl::stringControl($title, 'titre', 10, 75)) {
-            $errors['title'] = DataControl::stringControl($title, 'titre', 10, 75);
+            if (DataControl::stringControl($title, 'titre', 10, 75)) {
+                $errors['title'] = DataControl::stringControl($title, 'titre', 10, 75);
+            }
+
+            if (DataControl::stringControl($chapo, 'châpo', 10, 200)) {
+                $errors['chapo'] = DataControl::stringControl($chapo, 'châpo', 10, 200);
+            }
+
+            if (DataControl::stringControl($content, 'contenu', 100, 5000)) {
+                $errors['content'] = DataControl::stringControl($content, 'contenu', 100, 5000);
+            }
+
+            if (!empty($errors)) {
+                echo $this->twig->render('admin/blogPostsAdmin.twig', [
+                    'errors' => $errors,
+                    'blogPostsList' => $this->blogPostDAO->getAll(0, $this->blogPostDAO->count()),
+                    'inputsContentUpdate' => $_POST
+                ]);
+
+                return;
+            }
+
+            $this->blogPostDAO->updateBlogPost($title, $chapo, $content, $id);
+
+            return header('Location: ../public/index.php?route=adminBlogPosts');
         }
 
-        if (DataControl::stringControl($chapo, 'châpo', 10, 200)) {
-            $errors['chapo'] = DataControl::stringControl($chapo, 'châpo', 10, 200);
-        }
-
-        if (DataControl::stringControl($content, 'contenu', 100, 5000)) {
-            $errors['content'] = DataControl::stringControl($content, 'contenu', 100, 5000);
-        }
-
-        if (!empty($errors)) {
-            echo $this->twig->render('admin/blogPostsAdmin.twig', [
-                'errors' => $errors,
-                'blogPostsList' => $this->blogPostDAO->getAll(0, $this->blogPostDAO->count()),
-                'inputsContentUpdate' => $_POST
-            ]);
-
-            return;
-        }
-
-        $this->blogPostDAO->updateBlogPost($title, $chapo, $content, $id);
-
-        return header('Location: ../public/index.php?route=adminBlogPosts');
+        echo $this->errorViewDisplay('Une erreur est survenue');
     }
 
     /**
@@ -137,48 +141,59 @@ class BlogPostController extends Controller
      */
     public function addBlogPost()
     {
-        $title = Sanitize::onString('post', 'inputAdminBlogPostTitle');
-        $chapo = Sanitize::onString('post', 'inputAdminBlogPostChapo');
-        $content = Sanitize::onString('post', 'inputAdminBlogPostContent');
-        $errors = [];
+        if ($_GET['token'] == $_SESSION['token']){
+            $title = Sanitize::onString('post', 'inputAdminBlogPostTitle');
+            $chapo = Sanitize::onString('post', 'inputAdminBlogPostChapo');
+            $content = Sanitize::onString('post', 'inputAdminBlogPostContent');
+            $errors = [];
 
-        if (DataControl::stringControl($title, 'titre', 10, 75)) {
-            $errors['title'] = DataControl::stringControl($title, 'titre', 10, 75);
+            if (DataControl::stringControl($title, 'titre', 10, 75)) {
+                $errors['title'] = DataControl::stringControl($title, 'titre', 10, 75);
+            }
+
+            if (DataControl::stringControl($chapo, 'châpo', 10, 200)) {
+                $errors['chapo'] = DataControl::stringControl($chapo, 'châpo', 10, 200);
+            }
+
+            if (DataControl::stringControl($content, 'contenu', 100, 5000)) {
+                $errors['content'] = DataControl::stringControl($content, 'contenu', 100, 5000);
+            }
+
+            if (!empty($errors)) {
+                echo $this->twig->render('admin/blogPostsAdmin.twig', [
+                    'errors' => $errors,
+                    'blogPostsList' => $this->blogPostDAO->getAll(0, $this->blogPostDAO->count()),
+                    'inputsContentAdd' => $_POST
+                ]);
+
+                return;
+            }
+
+            $this->blogPostDAO->addBlogPost($title, $chapo, $content);
+
+            return header('Location: ../public/index.php?route=adminBlogPosts');
         }
 
-        if (DataControl::stringControl($chapo, 'châpo', 10, 200)) {
-            $errors['chapo'] = DataControl::stringControl($chapo, 'châpo', 10, 200);
-        }
-
-        if (DataControl::stringControl($content, 'contenu', 100, 5000)) {
-            $errors['content'] = DataControl::stringControl($content, 'contenu', 100, 5000);
-        }
-
-        if (!empty($errors)) {
-            echo $this->twig->render('admin/blogPostsAdmin.twig', [
-                'errors' => $errors,
-                'blogPostsList' => $this->blogPostDAO->getAll(0, $this->blogPostDAO->count()),
-                'inputsContentAdd' => $_POST
-            ]);
-
-            return;
-        }
-
-        $this->blogPostDAO->addBlogPost($title, $chapo, $content);
-
-        return header('Location: ../public/index.php?route=adminBlogPosts');
+        echo $this->errorViewDisplay('Une erreur est survenue');
     }
 
     /**
      * Delete a blog post
      *
      * @return void
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function deleteBlogPost()
     {
-        $idBlogPost = Sanitize::onInteger('post', 'idBlogPostDeleted');
-        $this->blogPostDAO->deleteById($idBlogPost);
+        if ($_GET['token'] == $_SESSION['token']){
+            $idBlogPost = Sanitize::onInteger('post', 'idBlogPostDeleted');
+            $this->blogPostDAO->deleteById($idBlogPost);
 
-        return header('Location: ../public/index.php?route=adminBlogPosts');
+            return header('Location: ../public/index.php?route=adminBlogPosts');
+        }
+
+        echo $this->errorViewDisplay('Une erreur est survenue');
     }
 }
