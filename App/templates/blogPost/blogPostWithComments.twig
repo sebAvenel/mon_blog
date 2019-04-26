@@ -64,14 +64,14 @@
                                                     </div>
                                                 </p>
                                                 <div class="collapse multi-collapse" id="CollapseModif{{ comment.id }}">
-                                                    <form action="../public/index.php?route=updateComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}" method="post">
+                                                    <form action="../public/index.php?route=updateComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}&token={{ session.token }}" method="post">
                                                         <textarea name="textareaModifComment" rows="5" class="form-control">{{ comment.content }}</textarea>
                                                         <button type="submit" class="btn btn-success">Modifier</button>
                                                     </form>
                                                 </div>
                                                 <div class="collapse multi-collapse" id="Collapsedelete{{ comment.id }}">
                                                     <div class="alert alert-danger" role="alert">
-                                                        <form action="../public/index.php?route=deleteComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}" method="post">
+                                                        <form action="../public/index.php?route=deleteComment&idComment={{ comment.id }}&idBlogPost={{ comment.idBlogPost }}&token={{ session.token }}" method="post">
                                                             <p>Voulez-vous vraiement supprimer ce commentaire ?</p>
                                                             <button type="submit" class="btn btn-danger">Supprimer</button>
                                                         </form>
@@ -91,7 +91,7 @@
                                 <h6>... Voulez-vous ajouter un commentaire?</h6>
                             </div>
                             <div class="card-body">
-                                <form action="../public/index.php?route=addComment&idBlogPost={{ blogPost.id }}&idUser={{ session.infosUser.idUser }}" method="post">
+                                <form action="../public/index.php?route=addComment&idBlogPost={{ blogPost.id }}&idUser={{ session.infosUser.idUser }}&token={{ session.token }}" method="post">
                                     <div class="form-group">
                                         <label for="comment">Rédigez votre commentaire:</label>
                                         {% if session.errorAddComment %}

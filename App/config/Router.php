@@ -34,9 +34,9 @@ class Router
         'signIn' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'signInPage'],
         'signInUser' => ['get' => [], 'post' => ['signInEmail', 'signInPassword'], 'controller' => 'user', 'method' => 'authUser'],
         'disconnection' => ['get' => [], 'post' => [], 'controller' => 'user', 'method' => 'disconnectUser'],
-        'updateComment' => ['get' => ['idComment', 'idBlogPost'], 'post' => [], 'controller' => 'comment', 'method' => 'updateComment'],
-        'deleteComment' => ['get' => ['idComment', 'idBlogPost'], 'post' => [], 'controller' => 'comment', 'method' => 'deleteCommentByUser'],
-        'addComment' => ['get' => ['idBlogPost', 'idUser'], 'post' => [], 'controller' => 'comment', 'method' => 'addComment'],
+        'updateComment' => ['get' => ['idComment', 'idBlogPost', 'token'], 'post' => [], 'controller' => 'comment', 'method' => 'updateComment'],
+        'deleteComment' => ['get' => ['idComment', 'idBlogPost', 'token'], 'post' => [], 'controller' => 'comment', 'method' => 'deleteCommentByUser'],
+        'addComment' => ['get' => ['idBlogPost', 'idUser', 'token'], 'post' => [], 'controller' => 'comment', 'method' => 'addComment'],
         'forgotPassword' => ['get' => [], 'post' => [], 'controller' => 'home', 'method' => 'forgotPasswordPage'],
         'updatePassword' => ['get' => ['email'], 'post' => ['inputUpdatePassword', 'inputConfirmUpdatePassword'], 'controller' => 'user', 'method' => 'updatePassword'],
         'updatePasswordPage' => ['get' => ['keyActivateUpdatePassword'], 'post' => [], 'controller' => 'user', 'method' => 'updatePasswordPage'],
@@ -45,16 +45,16 @@ class Router
         'sendmailRegisterUser' => ['get' => [], 'post' => ['inputRegisterUserName', 'inputRegisterUserMail', 'inputRegisterUserPassword', 'inputRegisterUserPasswordConfirm'], 'controller' => 'user', 'method' => 'sendmailRegisterUser'],
         'confirmRegisterUser' => ['get' => ['keyActivationUserAccount'], 'post' => [], 'controller' => 'user', 'method' => 'userActivationAccount'],
         'adminBlogPosts' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'blogPostsAdminPage'],
-        'updateBlogPosts' => ['get' => ['updateBlogPost'], 'post' => ['inputAdminBlogPostTitle', 'inputAdminBlogPostChapo', 'inputAdminBlogPostContent', 'id'], 'controller' => 'blogPost', 'method' => 'updateBlogPost'],
-        'addBlogPosts' => ['get' => ['addBlogPost'], 'post' => ['inputAdminBlogPostTitle', 'inputAdminBlogPostChapo', 'inputAdminBlogPostContent'], 'controller' => 'blogPost', 'method' => 'addBlogPost'],
-        'deleteBlogPosts' => ['get' => [], 'post' => ['idBlogPostDeleted'], 'controller' => 'blogPost', 'method' => 'deleteBlogPost'],
+        'updateBlogPosts' => ['get' => ['updateBlogPost', 'token'], 'post' => ['inputAdminBlogPostTitle', 'inputAdminBlogPostChapo', 'inputAdminBlogPostContent', 'id'], 'controller' => 'blogPost', 'method' => 'updateBlogPost'],
+        'addBlogPosts' => ['get' => ['addBlogPost', 'token'], 'post' => ['inputAdminBlogPostTitle', 'inputAdminBlogPostChapo', 'inputAdminBlogPostContent'], 'controller' => 'blogPost', 'method' => 'addBlogPost'],
+        'deleteBlogPosts' => ['get' => ['token'], 'post' => ['idBlogPostDeleted'], 'controller' => 'blogPost', 'method' => 'deleteBlogPost'],
         'adminComments' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'commentsAdminPage'],
         'adminCommentsCheck' => ['get' => ['idBlogPostCommentsAdmin'], 'post' => [], 'controller' => 'admin', 'method' => 'commentsAdminCheck'],
-        'validComments' => ['get' => ['idBlogPost', 'idValidComment'], 'post' => [], 'controller' => 'comment', 'method' => 'validComment'],
-        'deleteCommentsByAdmin' => ['get' => ['idBlogPost', 'idDeleteComment'], 'post' => [], 'controller' => 'comment', 'method' => 'deleteCommentByAdmin'],
+        'validComments' => ['get' => ['idBlogPost', 'idValidComment', 'token'], 'post' => [], 'controller' => 'comment', 'method' => 'validComment'],
+        'deleteCommentsByAdmin' => ['get' => ['idBlogPost', 'idDeleteComment', 'token'], 'post' => [], 'controller' => 'comment', 'method' => 'deleteCommentByAdmin'],
         'adminProfiles' => ['get' => [], 'post' => [], 'controller' => 'admin', 'method' => 'profilesAdminPage'],
-        'deleteProfiles' => ['get' => [], 'post' => ['idDeleteUser'], 'controller' => 'user', 'method' => 'deleteUser'],
-        'changeRoleProfiles' => ['get' => ['idUser', 'roleUser'], 'post' => [], 'controller' => 'user', 'method' => 'changeRoleUser']
+        'deleteProfiles' => ['get' => ['token'], 'post' => ['idDeleteUser'], 'controller' => 'user', 'method' => 'deleteUser'],
+        'changeRoleProfiles' => ['get' => ['idUser', 'roleUser', 'token'], 'post' => [], 'controller' => 'user', 'method' => 'changeRoleUser']
     ];
 
     /**

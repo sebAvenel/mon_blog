@@ -19,9 +19,9 @@
                 </div>
             {% endif %}
             {% if (get.title and get.chapo and get.content and get.id) or inputsContentUpdate %}
-                <form action="../public/index.php?route=updateBlogPosts&updateBlogPost=1" method="post">
+                <form action="../public/index.php?route=updateBlogPosts&updateBlogPost=1&token={{ session.token }}" method="post">
             {% else %}
-                <form action="../public/index.php?route=addBlogPosts&addBlogPost=1" method="post">
+                <form action="../public/index.php?route=addBlogPosts&addBlogPost=1$token={{ session.token }}" method="post">
             {% endif %}
                 <div class="form-group">
                     <label for="inputTitle">Titre</label>
@@ -74,7 +74,7 @@
                         <div class="modal-body">
                             <h4>Etes-vous sûr de vouloir supprimer le blog post '{{ get.titleDeletingBlogPost }}' ?</h4>
                         </div>
-                        <form action="../public/index.php?route=deleteBlogPosts" method="post">
+                        <form action="../public/index.php?route=deleteBlogPosts&token={{ session.token }}" method="post">
                             <input type="hidden" name="idBlogPostDeleted" value="{{ get.idDeletingBlogPost }}"/>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>

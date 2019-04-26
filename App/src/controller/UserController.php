@@ -40,6 +40,7 @@ class UserController extends Controller
         $dataUser = $this->userDAO->authUser($emailUser, $pwdUser);
         if ($dataUser && $dataUser['isActivateUser'] == 1) {
             $_SESSION['infosUser'] = $dataUser;
+            $_SESSION['token'] = bin2hex(random_bytes(16));
 
             return header('Location: ../public/index.php');
         }
@@ -66,10 +67,14 @@ class UserController extends Controller
      */
     public function deleteUser()
     {
-        $id = Sanitize::onString('post', 'idDeleteUser');
-        $this->userDAO->deleteById($id);
+        if ($_GET['token'] == $_SESSION['token']){
+            $id = Sanitize::onString('post', 'idDeleteUser');
+            $this->userDAO->deleteById($id);
 
-        return header('Location: ../public/index.php?route=adminProfiles');
+            return header('Location: ../public/index.php?route=adminProfiles');
+        }
+
+        echo $this->errorViewDisplay('Une erreur est survenue');
     }
 
     /**
@@ -115,7 +120,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
                 return;
             }
 
-            return $this->errorViewDisplay("erreur lors de l'envoi de l'email!");
+            echo $this->errorViewDisplay("erreur lors de l'envoi de l'email!");
         }
 
         echo $this->twig->render('user/forgotPassword.twig', [
@@ -280,13 +285,20 @@ Ceci est un mail automatique, Merci de ne pas y répondre.";
      * Change the role of a user
      *
      * @return void
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function changeRoleUser()
     {
-        $roleUser = Sanitize::onString('get', 'roleUser');
-        $idUser = Sanitize::onInteger('get' , 'idUser');
-        $this->userDAO->updateRoleUser($roleUser, $idUser);
+        if ($_GET['token'] == $_SESSION['token']){
+            $roleUser = Sanitize::onString('get', 'roleUser');
+            $idUser = Sanitize::onInteger('get' , 'idUser');
+            $this->userDAO->updateRoleUser($roleUser, $idUser);
 
-        return header('Location: ../public/index.php?route=adminProfiles#containerTable');
+            return header('Location: ../public/index.php?route=adminProfiles#containerTable');
+        }
+
+        echo $this->errorViewDisplay('Une erreur est survenue');
     }
 }
