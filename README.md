@@ -29,6 +29,14 @@ Un thème de base a été choisi pour réaliser ce projet, il s'agit du thème B
 
 Une version en ligne est disponible. Pour y accéder, cliquez [ici](http://savenelblog.ovh/).
 
+Vous pouvez directement vous identifier en tant qu'utilisateur ou administrateur:
+  * Utilisateur:
+      * Identifiant: testuser@user.com
+      * Mot de passe: Testuser01
+  * Administrateur:
+      * Identifiant: testadmin@admin.com
+      * Mot de passe: Testadmin01
+
 ## Contrôle du code
 
 La qualité du code a été validé par [Code climate](https://codeclimate.com/). Vous pouvez accéder au rapport de contrôle en cliquant sur le badge ci-dessous.
